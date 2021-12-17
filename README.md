@@ -1,6 +1,7 @@
 #### Setup commands
 ```shell
 sudo apt install -y git python3-pip;
+export PATH=$PATH:~/.local/bin;
 pip install git+https://github.com/quintenroets/sysetup;
 sysetup;
 ```
