@@ -1,10 +1,7 @@
 #### Setup commands
 ```shell
-folder=$HOME/Documents/Scripts/sysetup; 
-sudo apt install -y git;
-git clone https://github.com/quintenroets/setup $folder; 
-cd $folder;
-pip install -e .; 
+sudo apt install -y python3-pip;
+pip install https://github.com/quintenroets/sysetup;
 sysetup;
 ```
 
