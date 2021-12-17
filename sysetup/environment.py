@@ -9,7 +9,7 @@ from .filemanager import FileManager
 
 
 def setup():
-    if "pw" not in os.environ or True:
+    if "pw" not in os.environ:
         setup_environment()
 
     # add local libs to path
@@ -40,16 +40,6 @@ def setup_environment():
 
     content = "\n".join([f'export {key}="{value}"' for key, value in env_variables.items()])
     profile_file = FileManager.save(content, home, ".bash_profile")
-    bash_rc = FileManager.load(home, ".bashrc")
-
-    if ".bash_profile" not in bash_rc:
-        bash_rc += f"""
-if [ -f ~/.bash_profile ]; then
-    . ~/.bash_profile
-fi
-"""
-
-    FileManager.save(bash_rc, home, ".bashrc")
     Cli.run(f"source '{profile_file}'")
 
 

@@ -7,7 +7,7 @@ from . import environment, installer, git, desktopfiles, files, constants
 
 
 def setup():
-    #environment.setup()
+    environment.setup()
     files.setup()
     desktopfiles.setup()
     installer.install()
