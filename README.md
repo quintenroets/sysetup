@@ -1,7 +1,7 @@
 #### Setup commands
 ```shell
 sudo apt install -y python3-pip;
-pip install https://github.com/quintenroets/sysetup;
+pip install git+https://github.com/quintenroets/sysetup;
 sysetup;
 ```
 
