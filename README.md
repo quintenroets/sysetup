@@ -3,7 +3,9 @@
 sudo apt install -y git python3-pip;
 export PATH=$PATH:~/.local/bin;
 pip install git+https://github.com/quintenroets/sysetup;
-sysetup;
+sysetup; 
+source ~/.bash_profile; 
+sysetup
 ```
 
 ## Plasma version 5.22 required
