@@ -13,7 +13,7 @@ def setup():
     if "pw" not in os.environ:
         print("NOT AVAILABLE")
         configure.start()
-        Cli.run("sysetup")
+        Cli.run("source ~/.bash_profile; sysetup")
     else:
         print("GELUKT")
     return
