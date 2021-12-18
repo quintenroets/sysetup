@@ -8,6 +8,8 @@ def setup():
     Cli.run(f"drive pull {path_name}" for path_name in ["pull", "browser", "docs"])
     move_files(FileManager.root / "root")
     move_files(FileManager.root / "home", Path.home())
+    #Cli.run("bluetoothctl trust $(bluetoothctl list | grep Keyboard)", wait=False) # blocks if not found
+    # seems to work without this command for now
 
 
 def move_files(src_root, dst_root=Path("/")):
