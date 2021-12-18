@@ -60,7 +60,7 @@ def install_vnc():
     version = "VNC-Server-6.7.4-Linux-x64-ANY.tar.gz"
 
     # download and extract vnc server
-    Cli.run(
+    Cli.get(
         f"wget https://www.realvnc.com/download/file/vnc.files/{version}",
         f"tar -xvzf {version}"
     )

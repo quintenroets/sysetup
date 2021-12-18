@@ -3,20 +3,22 @@ import os
 from libs.cli import Cli
 from libs.gui import Gui
 
-from backup import configure
+from backup.backup import Backup
 
 from . import installer, git, desktopfiles, files
 
 
 def setup():
     if "pw" not in os.environ:
-        configure.start() # download core config files
+        # download and apply core config files
+        Backup.download(Path.home(), "Config", filters=["+ /.*"])
         Cli.run("source ~/.bash_profile; sysetup")
+
     else:
         # core config files are available
+        files.setup() # files needed to know what to install
         installer.install()
         git.setup()
-        files.setup()
         #desktopfiles.setup()
 
         if Gui.ask_yn("Ready for reboot?"):
