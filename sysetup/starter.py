@@ -5,7 +5,7 @@ from libs.gui import Gui
 
 from backup.backup import Backup
 
-from . import installer, git, desktopfiles, files
+from . import installer, git, files
 
 
 def setup():
