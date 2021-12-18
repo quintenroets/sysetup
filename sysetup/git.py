@@ -1,4 +1,3 @@
-import getpass
 from github import Github
 import os
 
@@ -9,16 +8,16 @@ def setup():
     g = Github(
         os.environ["gittoken"]
         )
+    user = g.get_user()
+    username = user.login
     config = {
-        "user.name": getpass.getuser().capitalize(),
+        "user.name": username,
         "user.email": os.environ["email"],
         "pull.rebase": "false"
     }
     Cli.run(f"git config --global {k} '{v}'" for k, v in config.items())
 
     skip_repos = ["old", "archive"]
-    user = g.get_user()
-    username = user.login
     
     repos = [
         repo
