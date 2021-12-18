@@ -15,11 +15,9 @@ def setup():
         Cli.run("source ~/.bash_profile; sysetup")
 
     else:
-        # core config files are available
         files.setup() # files needed to know what to install
         installer.install()
         git.setup()
-        #desktopfiles.setup()
 
         if Gui.ask_yn("Ready for reboot?"):
             Cli.run("sudo reboot now")
