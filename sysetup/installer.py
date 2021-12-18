@@ -70,9 +70,9 @@ def install_vnc():
     os.chdir(vnc_folder)
     Cli.run(
         f"sudo ./vncinstall",
-        "systemctl enable vncserver-virtuald.service",
-        "systemctl start vncserver-virtuald.service",
-        '/etc/vnc/vncelevate "Enable VNC Server Service Mode" /etc/vnc/vncservice start vncserver-x11-serviced',
+        "sudo systemctl enable vncserver-virtuald.service",
+        "sudo systemctl start vncserver-virtuald.service",
+        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode" /etc/vnc/vncservice start vncserver-x11-serviced',
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
     )
