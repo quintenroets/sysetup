@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 
 from libs.cli import Cli
-from libs.gui import Gui
 
 from backup.backup import Backup
 
@@ -21,9 +20,7 @@ def setup_in_env():
     files.setup() # files needed to know what to install
     installer.install()
     git.setup()
-
-    if Gui.ask_yn("Ready for reboot?"):
-        Cli.run("sudo reboot now")
+    Cli.run("sudo reboot now")
 
 if __name__ == "__main__":
     setup()
