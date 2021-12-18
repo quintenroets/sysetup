@@ -29,7 +29,7 @@ sysetup;
 
 ## Manual steps
 1) Set display size (1920 x 1080)
-2) Execute setup command
+2) Execute setup command: password will need to be given once again for gpg decryption
 3) Change wallpaper
 4) Appearance
       * Select Win10 cursors
