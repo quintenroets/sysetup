@@ -5,6 +5,7 @@ from libs.cli import Cli
 from .filemanager import FileManager
 
 def setup():
+    Cli.run(f"drive pull {path_name}" for path_name in ["config", "docs", "browser"])
     move_files(FileManager.root / "root")
     move_files(FileManager.root / "home", Path.home())
     #Cli.run("bluetoothctl trust $(bluetoothctl list | grep Keyboard)", wait=False) # blocks if not found

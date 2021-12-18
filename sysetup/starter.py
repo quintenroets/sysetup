@@ -9,15 +9,14 @@ from . import installer, git, files
 
 
 def setup():
-    Cli.run(f"drive pull {path_name}" for path_name in ["config", "docs", "browser"])
-    
     if "pw" in os.environ:
-        setup_root()
+        setup_in_env()
     else:
-        # load new environ
+        # download and load core config
+        Backup.download(Path.home(), "Config", filters=["+ /.*"])
         Cli.run("source ~/.bash_profile", "sysetup")
     
-def setup_root():
+def setup_in_env():
     files.setup() # files needed to know what to install
     installer.install()
     git.setup()
