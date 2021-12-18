@@ -10,12 +10,6 @@ from .filemanager import FileManager
 
 
 def setup():
-    # download core config files
-    Backup.download(folders.home, "Config", filters=["+ *"])
-
-    # apply new config files
-    Cli.run(f"source ~/.bash_profile")
-
     return
     if "pw" not in os.environ:
         setup_environment()

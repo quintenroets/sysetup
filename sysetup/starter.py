@@ -7,8 +7,6 @@ from . import environment, installer, git, desktopfiles, files
 
 
 def setup():
-    Cli.run(f"source ~/.bash_profile")
-    print(os.environ["email"])
     return
     environment.setup()
     installer.install()
