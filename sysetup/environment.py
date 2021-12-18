@@ -4,22 +4,21 @@ import os
 
 from libs.cli import Cli
 from libs.parser import Parser
+from libs import folders
 
 from .filemanager import FileManager
 
 
 def setup():
+    # download core config files
+    Backup.download(folders.home, "Config", filters=["+ *"])
+
+    # apply new config files
+    Cli.run(f"source ~/.bash_profile")
+
+    return
     if "pw" not in os.environ:
         setup_environment()
-
-    # add local libs to path
-    env_file = "/etc/environment"
-    env = FileManager.load(env_file, add_ext=False)
-    paths = Parser.between(env, 'PATH="', '"')
-    local_path = f':{os.path.expanduser("~")}/.local/bin'
-    if local_path not in paths:
-        env = f'PATH="{paths + local_path}"'
-        FileManager.save(env, env_file, add_ext=False)
 
 
 def setup_environment():

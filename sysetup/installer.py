@@ -46,7 +46,7 @@ def install(vpn=False):
             "echo 'deb https://repo.windscribe.com/ubuntu bionic main' | sudo tee /etc/apt/sources.list.d/windscribe-repo.list",
             "install windscribe-cli"
         )
-        # login: jackjackxonxxxx
+        # login: $email2
 
     if not Cli.get("/etc/vnc/vncelevate -v", check=False):
         install_vnc()

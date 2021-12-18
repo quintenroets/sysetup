@@ -1,4 +1,5 @@
 import shutil
+from pathlib import Path
 
 from libs.cli import Cli
 from libs.gui import Gui
@@ -7,30 +8,24 @@ from libs import folders
 from .filemanager import FileManager
 
 def setup():
-    Cli.run("drive pull", "drive pull browser", "drive pull config")
+    #Cli.run(f"drive pull {path_name}" for path_name in ["pull", "browser", "docs"])
+    move_files(FileManager.root / "root")
+    move_files(FileManager.root / "home", Path.home())
 
-    # apply new config files
-    Cli.run(f"source ~/bash_profile")
 
-    sleep_command = f"""#!/bin/bash
-case "$1" in
-    post)
-        sh {folders.scripts / "system" / "system" / "aftersleep"}
-    ;;
-esac"""
-    sleep_path = "/usr/lib/systemd/system-sleep/custom"
-    FileManager.save(sleep_command, sleep_path)
+def move_files(src_root, dst_root=Path("/")):
+    for src in src_root.rglob("*"):
+        if src.is_file():
+            dst = dst_root / src.relative_to(src_root)
+            command = (
+                f'sudo unzip -o "{src}" -d "{dst.parent}"'
+                if src.suffix == ".zip"
+                else f'sudo mkdir -p "{dst.parent}"; sudo cp -f "{src}" "{dst}"'
+            )
+            Cli.get(command)
 
-    assets = FileManager.root
-
+    return
     Cli.run(
-        f"sudo chmod +x {sleep_path}",
-
-        f"unzip -o {assets}/plasma/Win11.zip -d $HOME/.local/share/icons",
-        f"sudo unzip -o {assets}/plasma/sugar-candy.zip -d /usr/share/sddm/themes",
-        "sudo mkdir -p /etc/sddm.conf",
-        f"sudo cp -f {assets}/plasma/kde_settings.conf /etc/sddm.conf/kde_settings.conf",
-
         "bluetoothctl trust 70:99:1C:8A:2A:FE"
     )
 

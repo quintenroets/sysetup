@@ -5,8 +5,6 @@ import os
 from libs.cli import Cli
 from libs import folders
 
-from . import constants
-
 def setup():
     g = Github(
         os.environ["gittoken"]
@@ -18,11 +16,7 @@ def setup():
     }
     Cli.run(f"git config --global {k} '{v}'" for k, v in config.items())
 
-    current_remote = Cli.get(f"cd {constants.ROOT_PATH}", "git config remote.origin.url")
-    new_remote = add_password(current_remote)
-    current_remote = Cli.run(f"cd {constants.ROOT_PATH}", f"git config remote.origin.url {new_remote}")
-
-    skip_repos = ["old", "archive", "sysetup"]
+    skip_repos = ["old", "archive"]
     user = g.get_user()
     username = user.login
     
