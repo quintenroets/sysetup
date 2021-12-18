@@ -25,8 +25,10 @@ def move_files(src_root, dst_root=Path("/")):
                     f"mkdir -p '{dst.parent}'",
                     f"cp -f '{src}' '{dst}'"
                     ]
-                
-            root = dst.parent.stat().st_uid == 0
+            
+            while not dst.exists():
+                dst = dst.parent
+            root = dst.stat().st_uid == 0
             if root:
                 commands = [f"sudo {c}" for c in commands]
             Cli.get(commands)
