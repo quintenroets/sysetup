@@ -5,27 +5,22 @@ from libs.gui import Gui
 
 from backup import configure
 
-from . import environment, installer, git, desktopfiles, files
+from . import installer, git, desktopfiles, files
 
 
 def setup():
-
     if "pw" not in os.environ:
-        print("NOT AVAILABLE")
-        configure.start()
+        configure.start() # download core config files
         Cli.run("source ~/.bash_profile; sysetup")
     else:
-        print("GELUKT")
-    return
-    environment.setup()
-    return
-    installer.install()
-    desktopfiles.setup()
-    git.setup()
-    files.setup()
+        # core config files are available
+        installer.install()
+        git.setup()
+        files.setup()
+        #desktopfiles.setup()
 
-    if Gui.ask_yn("Ready for reboot?"):
-        Cli.run("sudo reboot now")
+        if Gui.ask_yn("Ready for reboot?"):
+            Cli.run("sudo reboot now")
 
 if __name__ == "__main__":
     setup()

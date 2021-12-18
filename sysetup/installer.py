@@ -36,6 +36,7 @@ def install(vpn=False):
         "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
         "sudo apt purge -y firefox" if package_manager == "apt" else "sudo pacman -R --noconfirm firefox",
         "sudo tlp start",
+        "bluetoothctl trust 70:99:1C:8A:2A:FE"
     )
 
     Cli.run("sudo auto-cpufreq --install", check=False) # Fails on VM

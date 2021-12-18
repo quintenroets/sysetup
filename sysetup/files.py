@@ -1,14 +1,11 @@
-import shutil
 from pathlib import Path
 
 from libs.cli import Cli
-from libs.gui import Gui
-from libs import folders
 
 from .filemanager import FileManager
 
 def setup():
-    #Cli.run(f"drive pull {path_name}" for path_name in ["pull", "browser", "docs"])
+    Cli.run(f"drive pull {path_name}" for path_name in ["pull", "browser", "docs"])
     move_files(FileManager.root / "root")
     move_files(FileManager.root / "home", Path.home())
 
@@ -23,11 +20,6 @@ def move_files(src_root, dst_root=Path("/")):
                 else f'sudo mkdir -p "{dst.parent}"; sudo cp -f "{src}" "{dst}"'
             )
             Cli.get(command)
-
-    return
-    Cli.run(
-        "bluetoothctl trust 70:99:1C:8A:2A:FE"
-    )
 
 if __name__ == "__main__":
     setup()

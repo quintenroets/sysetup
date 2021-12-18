@@ -14,7 +14,7 @@ def setup():
         "/usr/share/applications/org.kde.kate.desktop": (
             "Exec=kate -b %U", 
             "Exec=kate -b -s Default %U"
-            ),     
+            ),
         
         "/var/lib/snapd/desktop/applications/chromium_chromium.desktop": (
             "Icon=/snap/chromium/1691/chromium.png",
