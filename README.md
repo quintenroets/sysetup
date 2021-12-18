@@ -42,5 +42,4 @@ sysetup;
       * Load all extensions
       * PDF viewer: set page zoom to page fit
 6) Pycharm professional: login with $email/$pw
-7) Set icon for .ipynb files to ipynb.png
-8) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
+7) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
