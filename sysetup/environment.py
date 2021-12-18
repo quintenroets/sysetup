@@ -6,13 +6,13 @@ from libs.cli import Cli
 from libs.parser import Parser
 from libs import folders
 
+from backup import configure
+
 from .filemanager import FileManager
 
 
 def setup():
     return
-    if "pw" not in os.environ:
-        setup_environment()
 
 
 def setup_environment():
