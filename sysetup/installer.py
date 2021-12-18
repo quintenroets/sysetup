@@ -34,11 +34,16 @@ def install(vpn=False):
 
     Cli.run(
         "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
-        "sudo apt purge -y firefox" if package_manager == "apt" else "sudo pacman -R --noconfirm firefox",
         "sudo tlp start",
     )
 
-    Cli.run("sudo auto-cpufreq --install", check=False) # Fails on VM
+    delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
+    Cli.run(
+        (
+            "sudo auto-cpufreq --install", # Fails on VM
+            f"sudo {delete} firefox", # fails if firefox not installed
+        ),
+        check=False)
 
     if vpn:
         Cli.run(
