@@ -11,6 +11,7 @@ from . import environment, installer, git, desktopfiles, files
 def setup():
 
     if "pw" not in os.environ:
+        print("NOT AVAILABLE")
         configure.start()
         Cli.run("sysetup")
     else:
