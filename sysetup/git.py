@@ -28,7 +28,7 @@ def setup():
         ]
 
     repo_commands = {
-        "jumpapp": ["make", "sudo make install"]
+        "jumpapp": ["make", "sudo make install", "cd ..", "rm -rf jumpapp"]
         }
     
     for repo in repos:
