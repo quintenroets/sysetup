@@ -2,7 +2,7 @@ from github import Github
 import os
 
 from libs.cli import Cli
-from libs import folders
+from libs.path import Path
 
 def setup():
     g = Github(
@@ -10,13 +10,6 @@ def setup():
         )
     user = g.get_user()
     username = user.login
-    config = {
-        "user.name": username,
-        "user.email": os.environ["email"],
-        "pull.rebase": "false"
-    }
-    Cli.run(f"git config --global {k} '{v}'" for k, v in config.items())
-
     skip_repos = ["old", "archive"]
     
     repos = [
@@ -33,7 +26,7 @@ def setup():
     
     for repo in repos:
         name = repo.name.lower()
-        path = folders.scripts / name
+        path = Path.scripts / name
         if not path.exists():
             url = add_password(repo.clone_url)
             Cli.run(f"git clone {url} {path}")
