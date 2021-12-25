@@ -3,7 +3,7 @@ from libs.cli import Cli
 from .path import Path
 
 def setup():
-    Cli.run(f"drive pull {path_name}" for path_name in ["config", "docs", "browser"])
+    Cli.run(f"drive pull {path_name}" for path_name in ["", "browser"])
     move_files(Path.root / "root")
     move_files(Path.root / "home", Path.home)
     #Cli.run("bluetoothctl trust $(bluetoothctl list | grep Keyboard)", wait=False) # blocks if not found
