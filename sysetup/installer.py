@@ -3,7 +3,7 @@ import shutil
 
 from libs.cli import Cli
 
-from .filemanager import FileManager
+from .path import Path
 
 def install(vpn=False):
     package_manager = Cli.get_package_manager()
@@ -29,7 +29,7 @@ def install(vpn=False):
     }
 
     for name, command in installations.items():
-        packages = FileManager.load("packages", name)
+        packages = Path.packages.load(name)
         Cli.install(packages, command)
 
     Cli.run(
