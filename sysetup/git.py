@@ -38,8 +38,6 @@ def setup():
             
             if list(path.glob("setup.py")):
                 commands.append("pip3 install -e .")
-            elif list(path.glob("requirements.txt")):
-                commands.append("pip3 install -r requirements.txt")
 
             Cli.run(commands)
             

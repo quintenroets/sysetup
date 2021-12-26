@@ -55,6 +55,9 @@ def install(vpn=False):
 
     if not Cli.get("/etc/vnc/vncelevate -v", check=False):
         install_vnc()
+        
+def install_jumpapp():
+    Cli.run("git clone https://github.com/mkropat/jumpapp", "cd jumpapp", "make", "sudo make install", "cd ..", "rm -rf jumpapp")
 
 def install_vnc():
     version = "VNC-Server-6.7.4-Linux-x64-ANY.tar.gz"
