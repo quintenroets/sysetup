@@ -5,7 +5,7 @@ from libs.cli import Cli
 
 from .path import Path
 
-def install(vpn=False):
+def install():
     package_manager = Cli.get_package_manager()
     update_package_manager(package_manager)
 
@@ -17,24 +17,12 @@ def install(vpn=False):
         "snap install"
         )
     
-    Cli.run(
-        "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
-        "sudo tlp start",
-    )
-
-    delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
-    Cli.run(
-        (
-            "sudo auto-cpufreq --install", # Fails on VM
-            f"sudo {delete} firefox", # fails if firefox not installed
-        ),
-        check=False)
-        
     install_jumpapp()
-    if vpn:
-        install_vpn()
+    # install_vpn()
     if not Cli.get("/etc/vnc/vncelevate -v", check=False):
         install_vnc()
+    
+    after_install(package_manager)
         
 def update_package_manager(package_manager):
     if package_manager == "apt":
@@ -53,6 +41,19 @@ def update_package_manager(package_manager):
         raise Exception("No package manager found")
     
 
+def after_install(package_manager):
+    Cli.run(
+        "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
+        "sudo tlp start",
+    )
+
+    delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
+    commands = (
+        "sudo auto-cpufreq --install", # Fails on VM
+        f"sudo {delete} firefox", # fails if firefox not installed
+        )
+    Cli.run(commands, check=False)
+
 
 def install_jumpapp():
     Cli.run("git clone https://github.com/mkropat/jumpapp", "cd jumpapp", "make", "sudo make install", "cd ..", "rm -rf jumpapp")
@@ -68,7 +69,7 @@ def install_vnc():
     )
     os.remove(version)
 
-    vnc_folder = [folder for folder in os.listdir(".") if "VNC" in folder][0]
+    vnc_folder = Path("").glob("*VNC*")
     os.chdir(vnc_folder)
     Cli.run(
         f"sudo ./vncinstall",
