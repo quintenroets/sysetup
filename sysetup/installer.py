@@ -5,10 +5,18 @@ from libs.cli import Cli
 
 from .path import Path
 
-def install():
+def setup():
     package_manager = Cli.get_package_manager()
     update_package_manager(package_manager)
+    install_jumpapp()
+    # install_vpn()
+    if not Cli.get("/etc/vnc/vncelevate -v", check=False):
+        install_vnc()
+    
+    after_install(package_manager)
 
+
+def install():
     Cli.install(
         Path.packages.load("packages")
         )
@@ -16,13 +24,6 @@ def install():
         Path.packages.load("snap"),
         "snap install"
         )
-    
-    install_jumpapp()
-    # install_vpn()
-    if not Cli.get("/etc/vnc/vncelevate -v", check=False):
-        install_vnc()
-    
-    after_install(package_manager)
         
 def update_package_manager(package_manager):
     if package_manager == "apt":

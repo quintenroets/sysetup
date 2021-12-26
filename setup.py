@@ -21,7 +21,7 @@ setup(
     install_requires=read("requirements.txt"),
     entry_points={
         "console_scripts": [
-            "sysetup = sysetup.starter:setup"
+            f"{NAME} = {NAME}.main:main"
         ]
     },
 )
