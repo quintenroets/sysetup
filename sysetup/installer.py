@@ -7,7 +7,36 @@ from .path import Path
 
 def install(vpn=False):
     package_manager = Cli.get_package_manager()
+    update_package_manager(package_manager)
 
+    Cli.install(
+        Path.packages.load("packages")
+        )
+    Cli.install(
+        Path.packages.load("snap"),
+        "snap install"
+        )
+    
+    Cli.run(
+        "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
+        "sudo tlp start",
+    )
+
+    delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
+    Cli.run(
+        (
+            "sudo auto-cpufreq --install", # Fails on VM
+            f"sudo {delete} firefox", # fails if firefox not installed
+        ),
+        check=False)
+        
+    install_jumpapp()
+    if vpn:
+        install_vpn()
+    if not Cli.get("/etc/vnc/vncelevate -v", check=False):
+        install_vnc()
+        
+def update_package_manager(package_manager):
     if package_manager == "apt":
         Cli.run(
             "sudo apt update",
@@ -22,42 +51,12 @@ def install(vpn=False):
         Cli.run("sudo pacman -Syy")
     else:
         raise Exception("No package manager found")
+    
 
-    installations = {
-        "apt": None,
-        "snap": "snap install"
-    }
 
-    for name, command in installations.items():
-        packages = Path.packages.load(name)
-        Cli.install(packages, command)
-
-    Cli.run(
-        "sudo apt autoremove -y" if package_manager == "apt" else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
-        "sudo tlp start",
-    )
-
-    delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
-    Cli.run(
-        (
-            "sudo auto-cpufreq --install", # Fails on VM
-            f"sudo {delete} firefox", # fails if firefox not installed
-        ),
-        check=False)
-
-    if vpn:
-        Cli.run(
-            "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
-            "echo 'deb https://repo.windscribe.com/ubuntu bionic main' | sudo tee /etc/apt/sources.list.d/windscribe-repo.list",
-            "install windscribe-cli"
-        )
-        # login: $email2
-
-    if not Cli.get("/etc/vnc/vncelevate -v", check=False):
-        install_vnc()
-        
 def install_jumpapp():
     Cli.run("git clone https://github.com/mkropat/jumpapp", "cd jumpapp", "make", "sudo make install", "cd ..", "rm -rf jumpapp")
+
 
 def install_vnc():
     version = "VNC-Server-6.7.4-Linux-x64-ANY.tar.gz"
@@ -89,6 +88,14 @@ def install_vnc():
         f"sudo dpkg -i {version}"
     )
     os.remove(version)
+    
+def install_vpn():
+    Cli.run(
+        "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
+        "echo 'deb https://repo.windscribe.com/ubuntu bionic main' | sudo tee /etc/apt/sources.list.d/windscribe-repo.list",
+        "install windscribe-cli"
+    )
+    # login: $email2
 
 
 if __name__ == "__main__":
