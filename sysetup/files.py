@@ -2,10 +2,12 @@ from libs.cli import Cli
 
 from .path import Path
 
-def setup():
+
+def setup():    
     Cli.run(f"drive pull {path_name}" for path_name in ["", "browser"])
     move_files(Path.root / "root")
     move_files(Path.root / "home", Path.home)
+    move_crontab()
     #Cli.run("bluetoothctl trust $(bluetoothctl list | grep Keyboard)", wait=False) # blocks if not found
     # seems to work without this command for now
 
@@ -30,6 +32,12 @@ def move_files(src_root, dst_root=Path("/")):
             if root:
                 commands = [f"sudo {c}" for c in commands]
             Cli.get(commands)
+
+
+def move_crontab():
+    src = Path.root / "crontab" / "crontab"
+    Cli.run(f"cat {src} | crontab -")
+
 
 if __name__ == "__main__":
     setup()

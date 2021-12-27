@@ -21,7 +21,8 @@ setup(
     install_requires=read("requirements.txt"),
     entry_points={
         "console_scripts": [
-            f"{NAME} = {NAME}.main:main"
+            f"{NAME} = {NAME}.main:main",
+            f"exportcrontab = {NAME}.files:move_crontab",
         ]
     },
 )
