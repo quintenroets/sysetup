@@ -1,3 +1,4 @@
 libs @ git+https://@github.com/quintenroets/libs
 backup @ git+https://@github.com/quintenroets/backup
 PyGithub
+tqdm
