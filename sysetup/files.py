@@ -1,12 +1,12 @@
 from libs.cli import Cli
 
-from .path import Path
+from .path import Path, assets
 
 
 def setup():    
     Cli.run(f"drive pull {path_name}" for path_name in ["", "browser"])
-    move_files(Path.root / "root")
-    move_files(Path.root / "home", Path.HOME)
+    move_files(assets / "root")
+    move_files(assets / "home", Path.HOME)
     move_crontab()
     # trust_keyboard()
     # seems to work without this command for now

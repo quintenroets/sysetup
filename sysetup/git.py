@@ -2,7 +2,7 @@ from github import Github
 import os
 
 from libs.cli import Cli
-from libs.path import Path
+from .path import Path
 
 def setup():
     g = Github(
