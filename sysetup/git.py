@@ -13,28 +13,15 @@ def setup():
     for repo in user.get_repos():
         collabs = repo.get_collaborators()
         if collabs.totalCount == 1 and collabs[0].login == user.login and not repo.archived:
-            setup_repo(repo)
-            
-            """
-            url = add_password(repo.clone_url)
-            try:
-                Cli.get(f"pip install git+{url}")
-            except:
-                pass # can fail if not python project
-            else:
-                print(f"Installed {repo.name}")"""
-    for path in Path.scripts.iterdir():
-        if (path / "setup.py").exists():
-            Cli.run(f"pip3 install -e --force-reinstall --no-deps {path}")
-
-
-def setup_repo(repo):
-    path = Path.scripts / repo.name.lower()
-    if not path.exists():
-        url = add_password(repo.clone_url)
-        Cli.run(f"git clone {url} {path}")
-        if (path / "setup.py").exists():
-            Cli.run(f"pip3 install -e {path}")
+            name = repo.name.lower()
+            if not list(Path.scripts.rglob(f"{name}/.git")):
+                url = add_password(repo.clone_url)
+                Cli.run(f"git clone {url} {Path.scripts / name}")
+                if (path / "setup.py").exists():
+                    Cli.run(f"pip3 install -e {path}")
+    
+    for setup in Path.scripts.rglob("setup.py"):
+        Cli.run(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
 
 
 def add_password(url):
