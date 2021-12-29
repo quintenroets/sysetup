@@ -6,7 +6,7 @@ from .path import Path
 def setup():    
     Cli.run(f"drive pull {path_name}" for path_name in ["", "browser"])
     move_files(Path.root / "root")
-    move_files(Path.root / "home", Path.home)
+    move_files(Path.root / "home", Path.HOME)
     move_crontab()
     # trust_keyboard()
     # seems to work without this command for now

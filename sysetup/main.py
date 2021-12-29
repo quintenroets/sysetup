@@ -13,7 +13,7 @@ def setup():
         setup_in_env()
     else:
         # download and load core config
-        Backup.download(Path.home, "Home", filters=["+ /.config/.*"])
+        Backup.download(Path.HOME, "Home", filters=["+ /.config/.*"])
         Cli.run("source ~/.bash_profile", "sysetup")
 
 
