@@ -11,11 +11,13 @@ def setup():
         os.environ["gittoken"]
         )
     user = g.get_user()
-    repos = user.get_repos()
-    progress = tqdm("Checking repos")
+    repos = list(user.get_repos())
+    progress = tqdm(repos, desc="Cloning repos")
     Threads(check_repo, repos, user=user, progress=progress).join()
-    for setup in tqdm(Path.scripts.rglob("setup.py"), "Installing repos locally"):
-        Cli.run(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
+    
+    local_repos = list(Path.scripts.rglob("setup.py"))
+    for setup in tqdm(local_repos, "Reinstalling editable repos"):
+        Cli.get(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
         
 
 def check_repo(repo, user, progress): 
