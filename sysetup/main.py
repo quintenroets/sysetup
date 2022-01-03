@@ -1,7 +1,6 @@
 import argparse
 
 from libs.cli import Cli
-from libs.path import Path
 
 from backup.backup import Backup
 

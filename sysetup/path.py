@@ -1,4 +1,6 @@
-from libs.path import Path
+from spathlib import Path
 
 assets = Path.assets / Path(__file__).parent.name
-Path.packages = assets / "packages"
+
+class Path(Path):
+    packages = assets / "packages"
