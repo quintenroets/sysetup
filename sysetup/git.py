@@ -26,7 +26,8 @@ def check_repo(repo, user, progress):
         name = repo.name.lower()
         if not list(Path.scripts.rglob(f"{name}/.git")):
             url = add_password(repo.clone_url)
-            Cli.get(f"git clone {url} {Path.scripts / name}")
+            path = Path.scripts / name
+            Cli.get(f"git clone {url} {path}")
             if (path / "setup.py").exists():
                 Cli.get(f"pip3 install -e {path}")
     progress.update()
