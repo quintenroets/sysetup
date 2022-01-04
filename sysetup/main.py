@@ -15,7 +15,7 @@ def setup():
     else:
         # download and load core config
         Backup().download("- /.config/browser/*", "+ /.config/scripts/backup/exports/.*", "- /.config/scripts/backup/exports/*", "/.**", quiet=False)
-        BackupManager.extract_archives()
+        BackupManager.after_pull()
         Cli.run("source ~/.bash_profile", "sysetup")
 
 
