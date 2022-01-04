@@ -1,6 +1,6 @@
-from pathlib import Path
+from plib import Path as BasePath
 
-assets = Path.assets / Path(__file__).parent.name
+assets = BasePath.assets / BasePath(__file__).parent.name
 
 class Path(Path):
     packages = assets / "packages"
