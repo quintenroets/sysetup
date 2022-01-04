@@ -13,13 +13,13 @@ def setup():
         setup_in_env()
     else:
         # download and load core config
-        Backup().download("/.*")
+        Backup().download("/.**", "- /.config/browser/*")
         Cli.run("source ~/.bash_profile", "sysetup")
 
 
 def setup_in_env():
-    files.setup()  # files needed to know what to install
-    installer.install()
+    files.setup()
+    installer.setup()
     git.setup()
     Cli.run("sudo reboot now")
 

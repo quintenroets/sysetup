@@ -8,6 +8,7 @@ from .path import Path
 def setup():
     package_manager = Cli.get_package_manager()
     update_package_manager(package_manager)
+    install()
     install_jumpapp()
     # install_vpn()
     if not Cli.get("/etc/vnc/vncelevate -v", check=False):
@@ -24,7 +25,8 @@ def install():
         Path.packages.load("snap"),
         "snap install"
         )
-        
+
+
 def update_package_manager(package_manager):
     if package_manager == "apt":
         Cli.run(
@@ -101,4 +103,4 @@ def install_vpn():
 
 
 if __name__ == "__main__":
-    install()
+    setup()

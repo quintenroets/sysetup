@@ -1,10 +1,11 @@
+from backup.backup import Backup
+
 from libs.cli import Cli
 
 from .path import Path, assets
 
 
-def setup():    
-    Cli.run("yes | drive pull .", "drive pull browser")
+def setup():
     move_files(assets / "root")
     move_files(assets / "home", Path.HOME)
     move_crontab()
@@ -28,7 +29,7 @@ def move_files(src_root, dst_root=Path("/")):
 
 
 def move_crontab():
-    src = Path.root / "crontab" / "crontab"
+    src = Path.assets / "crontab" / "crontab"
     Cli.run(f"cat {src} | crontab -")
     
 
