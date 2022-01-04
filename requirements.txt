@@ -1,5 +1,5 @@
-libs @ git+https://@github.com/quintenroets/libs
+libs @ git+https://github.com/quintenroets/libs
 superpathlib @ git+https://github.com/quintenroets/superpathlib
-backup @ git+https://@github.com/quintenroets/backup
+backup @ git+https://github.com/quintenroets/backup
 PyGithub
 tqdm
