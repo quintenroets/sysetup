@@ -4,7 +4,7 @@ from .path import Path, assets
 
 
 def setup():    
-    Cli.run(f"drive pull {path_name}" for path_name in ["", "browser"])
+    Cli.run("yes | drive pull .", "drive pull browser")
     move_files(assets / "root")
     move_files(assets / "home", Path.HOME)
     move_crontab()
