@@ -4,6 +4,7 @@ import os
 from libs.cli import Cli
 
 from backup.backup import Backup
+from backup.backupmanager import BackupManager
 
 from . import installer, git, files
 
@@ -14,6 +15,7 @@ def setup():
     else:
         # download and load core config
         Backup().download("- /.config/browser/*", "+ /.config/scripts/backup/exports/.*", "- /.config/scripts/backup/exports/*", "/.**", quiet=False)
+        BackupManager.extract_archives()
         Cli.run("source ~/.bash_profile", "sysetup")
 
 
