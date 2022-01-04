@@ -2,12 +2,12 @@ from backup.backup import Backup
 
 from libs.cli import Cli
 
-from .path import Path, assets
+from .path import Path
 
 
 def setup():
-    move_files(assets / "root")
-    move_files(assets / "home", Path.HOME)
+    move_files(Path.assets / "root")
+    move_files(Path.assets / "home", Path.HOME)
     move_crontab()
     # trust_keyboard()
     # seems to work without this command for now
