@@ -72,7 +72,7 @@ def install_vnc():
     )
     os.remove(version)
 
-    vnc_folder = Path("").glob("*VNC*")
+    vnc_folder = next(iter(Path("").glob("*VNC*")))
     os.chdir(vnc_folder)
     Cli.run(
         f"sudo ./vncinstall",
