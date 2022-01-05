@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # tutorial: https://medium.com/@anarmammadli/how-to-install-cuda-11-4-on-ubuntu-18-04-or-20-04-63f3dee2099
 
 # setup driver

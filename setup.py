@@ -19,6 +19,10 @@ setup(
     version='1.0',
     packages=find_packages(),
     install_requires=read("requirements.txt"),
+    scripts=[
+        'bin/Qaskpass',
+        'bin/gpu_setup',
+        ],
     entry_points={
         "console_scripts": [
             f"{NAME} = {NAME}.main:main",
