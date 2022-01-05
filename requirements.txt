@@ -3,3 +3,4 @@ superpathlib @ git+https://github.com/quintenroets/superpathlib
 backup @ git+https://github.com/quintenroets/backup
 PyGithub
 tqdm
+python-dotenv

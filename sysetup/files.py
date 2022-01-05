@@ -1,4 +1,5 @@
 from backup.backup import Backup
+from backup.backupmanager import BackupManager
 
 from libs.cli import Cli
 
@@ -6,6 +7,9 @@ from .path import Path
 
 
 def setup():
+    Backup().download("- /.config/browser/*", "+ /.config/scripts/backup/exports/.*", "- /.config/scripts/backup/exports/*", "/.**", quiet=False)
+    BackupManager.after_pull()
+    
     move_files(Path.assets / "root")
     move_files(Path.assets / "home", Path.HOME)
     move_crontab()
