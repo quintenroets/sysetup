@@ -18,6 +18,8 @@ def setup():
     local_repos = list(Path.scripts.rglob("setup.py"))
     for setup in tqdm(local_repos, "Reinstalling editable repos"):
         Cli.get(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
+    if Path.scripts.exists():
+        (Path.scripts / "assets").symlink_to(Path.script_assets)
         
 
 def check_repo(repo, user, progress): 
