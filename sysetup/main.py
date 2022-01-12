@@ -1,6 +1,5 @@
 import argparse
-
-from libs.cli import Cli
+import cli
 
 from . import env, installer, git, files
 
@@ -10,7 +9,7 @@ def setup():
     files.setup()
     installer.setup()
     git.setup()
-    Cli.run("sudo reboot now")
+    cli.run("reboot now", root=True)
 
 
 def main():

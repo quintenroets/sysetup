@@ -1,7 +1,7 @@
+import cli
+
 from backup.backup import Backup
 from backup.backupmanager import BackupManager
-
-from libs.cli import Cli
 
 from .path import Path
 
@@ -27,19 +27,17 @@ def move_files(src_root, dst_root=Path("/")):
                 else [f"mkdir -p '{dst.parent}'", f"cp -f '{src}' '{dst}'"]
                 )
             
-            if dst.is_root():
-                commands = [f"sudo {c}" for c in commands]
-            Cli.get(commands)
+            cli.get(commands, root=dst.is_root)
 
 
 def move_crontab():
     src = Path.assets / "crontab" / "crontab"
-    Cli.run(f"cat {src} | crontab -")
+    cli.run(f"cat {src} | crontab -")
     
 
 def trust_keyboard():
-    keyboard = Cli.get("bluetoothctl list | grep Keyboard")
-    Cli.run(f'bluetoothctl trust "{keyboard}"', wait=False) # blocks if not found
+    keyboard = cli.get("bluetoothctl list | grep Keyboard")
+    cli.run(f'bluetoothctl trust "{keyboard}"', wait=False) # blocks if not found
 
 
 if __name__ == "__main__":

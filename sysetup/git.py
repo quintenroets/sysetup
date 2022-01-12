@@ -1,10 +1,12 @@
-from github import Github
+import cli
 import os
+
+from github import Github
 from tqdm import tqdm
 
-from libs.cli import Cli
 from libs.threading import Threads
 from .path import Path
+
 
 def setup():
     g = Github(
@@ -17,7 +19,7 @@ def setup():
     
     local_repos = list(Path.scripts.rglob("setup.py"))
     for setup in tqdm(local_repos, "Reinstalling editable repos"):
-        Cli.get(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
+        cli.get(f"pip3 install --force-reinstall --no-deps -e {setup.parent}")
     if Path.scripts.exists():
         (Path.scripts / "assets").symlink_to(Path.script_assets)
         
@@ -29,9 +31,9 @@ def check_repo(repo, user, progress):
         if not list(Path.scripts.rglob(f"{name}/.git")):
             url = add_password(repo.clone_url)
             path = Path.scripts / name
-            Cli.get(f"git clone {url} {path}")
+            cli.get(f"git clone {url} {path}")
             if (path / "setup.py").exists():
-                Cli.get(f"pip3 install -e {path}")
+                cli.get(f"pip3 install -e {path}")
     progress.update()
 
 
