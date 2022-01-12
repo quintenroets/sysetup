@@ -27,7 +27,7 @@ def move_files(src_root, dst_root=Path("/")):
                 else [f"mkdir -p '{dst.parent}'", f"cp -f '{src}' '{dst}'"]
                 )
             
-            cli.get(commands, root=dst.is_root)
+            cli.get(*commands, root=dst.is_root)
 
 
 def move_crontab():

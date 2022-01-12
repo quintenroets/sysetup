@@ -49,11 +49,12 @@ def after_install(package_manager):
     )
 
     delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
-    commands = (
+    
+    cli.run(
         "auto-cpufreq --install", # Fails on VM
         f"{delete} firefox", # fails if firefox not installed
-        )
-    cli.run(commands, check=False, root=True)
+        check=False, root=True
+    )
 
 
 def install_jumpapp():
