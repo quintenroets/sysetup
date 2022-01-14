@@ -32,7 +32,7 @@ def move_files(src_root, dst_root=Path("/")):
 
 def move_crontab():
     src = Path.assets / "crontab" / "crontab"
-    cli.run(f"cat {src} | crontab -")
+    cli.run("crontab -", input=src.text)
     
 
 def trust_keyboard():
