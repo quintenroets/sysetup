@@ -27,17 +27,17 @@ def move_files(src_root, dst_root=Path("/")):
                 else [f"mkdir -p '{dst.parent}'", f"cp -f '{src}' '{dst}'"]
                 )
             
-            cli.get(*commands, root=dst.is_root)
+            cli.run_commands(*commands, root=dst.is_root, capture_output=True)
 
 
 def move_crontab():
-    src = Path.assets / "crontab" / "crontab"
-    cli.run("crontab -", input=src.text)
+    src = Path.assets / 'crontab' / 'crontab'
+    cli.run('crontab -', input=src.text)
     
 
 def trust_keyboard():
-    keyboard = cli.get("bluetoothctl list | grep Keyboard")
-    cli.run(f'bluetoothctl trust "{keyboard}"', wait=False) # blocks if not found
+    keyboard = cli.get('bluetoothctl list | grep Keyboard', shell=True)
+    cli.run('bluetoothctl trust', keyboard, wait=False) # blocks if not found
 
 
 if __name__ == "__main__":

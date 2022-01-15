@@ -9,7 +9,7 @@ def setup():
     files.setup()
     installer.setup()
     git.setup()
-    cli.run("reboot now", root=True)
+    cli.run('reboot now', root=True)
 
 
 def main():
