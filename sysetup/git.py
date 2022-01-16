@@ -38,7 +38,7 @@ def check_repo(repo, user, progress):
 
 
 def add_password(url):
-    return url.replace('https://', f'https://{os.environ["gittoken"]}@')
+    return url.replace('https://', f'https://{os.environ['gittoken']}@')
 
 if __name__ == '__main__':
     setup()
