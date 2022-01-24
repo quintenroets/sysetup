@@ -1,5 +1,4 @@
 import cli
-
 from backup.backup import Backup
 from backup.backupmanager import BackupManager
 
