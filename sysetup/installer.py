@@ -105,11 +105,13 @@ def install_vpn():
 
 
 def install_notebook_extensions():
-    cli.run("pip3 install jupyterlab")
     folder = Path(cli.get("jupyter --data-dir")) / "vim_binding"
-    folder.parent.mkdir(parents=True, exist_ok=True)
-    folder.rmtree(missing_ok=True)
-    cli.run(f"git clone https://github.com/lambdalisue/jupyter-vim-binding {folder}")
+    if not folder.exists():
+        cli.run("pip3 install jupyterlab")
+        folder.parent.mkdir(parents=True, exist_ok=True)
+        cli.run(
+            f"git clone https://github.com/lambdalisue/jupyter-vim-binding {folder}"
+        )
 
 
 if __name__ == "__main__":
