@@ -10,7 +10,7 @@ def setup():
     install_jumpapp()
     install_notebook_extensions()
     # install_vpn()
-    if not cli.get("/etc/vnc/vncelevate -v", check=False):
+    if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
         install_vnc()
 
     after_install(package_manager)
