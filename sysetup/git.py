@@ -18,8 +18,10 @@ def setup():
     ).start().join()
 
     local_repos = list(Path.scripts.rglob("setup.py"))
-    for setup in cli.progress(local_repos, description="Reinstalling editable repos"):
-        cli.run("pip3 install --force-reinstall --no-deps -e", setup.parent)
+    for setup_file in cli.progress(
+        local_repos, description="Reinstalling editable repos"
+    ):
+        cli.run("pip3 install --force-reinstall --no-deps -e", setup_files.parent)
     if Path.scripts.exists():
         (Path.scripts / "assets").symlink_to(Path.script_assets)
 
