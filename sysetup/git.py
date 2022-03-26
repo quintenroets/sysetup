@@ -1,8 +1,8 @@
 import os
 
+import cli
 from github import Github
 
-import cli
 from libs.threading import Threads
 
 from .path import Path
@@ -33,7 +33,7 @@ def check_repo(repo, user, progress):
             path = Path.scripts / name
             cli.get("git clone", url, path)
             if (path / "setup.py").exists():
-                cli.get("pip3 install -e --force-reinstall", path)
+                cli.get("pip3 install --force-reinstall -e", path)
 
     next(progress)
 
