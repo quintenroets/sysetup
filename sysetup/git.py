@@ -1,7 +1,6 @@
 import os
 
 from github import Github
-from tqdm import tqdm
 
 import cli
 from libs.threading import Threads
