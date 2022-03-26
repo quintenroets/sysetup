@@ -23,13 +23,12 @@ def install():
 
 def update_package_manager(package_manager):
     if package_manager == "apt":
-        cli.run_commands(
+        cli.sh(
             "sudo apt update",
             # agree eula
             "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections",
             "sudo systemctl enable --now snapd.socket",
             # snap currently doesnt work on arm
-            shell=True,
         )
         if not Path("/snap").exists():
             cli.run("ln -s /var/lib/snapd/snap /snap", root=True)
@@ -40,16 +39,14 @@ def update_package_manager(package_manager):
 
 
 def after_install(package_manager):
-    cli.run_commands(
+    after_install_command = (
         "sudo apt autoremove -y"
         if package_manager == "apt"
-        else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel",
-        "sudo tlp start",
-        shell=True,
+        else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel"
     )
+    cli.sh(after_install_command, "sudo tlp start")
 
     delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
-
     cli.run_commands(
         "auto-cpufreq --install",  # Fails on VM
         f"{delete} firefox",  # fails if firefox not installed
@@ -59,7 +56,7 @@ def after_install(package_manager):
 
 
 def install_jumpapp():
-    cli.run_commands(
+    cli.sh(
         "git clone https://github.com/mkropat/jumpapp",
         "cd jumpapp",
         "make",
@@ -102,11 +99,10 @@ def install_vnc():
 
 
 def install_vpn():
-    cli.run_commands(
+    cli.sh(
         "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
         'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/windscribe-repo.list',
         "install windscribe-cli",
-        shell=True,
     )
     # login: $email2
 
