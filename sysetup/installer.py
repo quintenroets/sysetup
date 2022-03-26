@@ -7,7 +7,8 @@ def setup():
     package_manager = "apt" if "apt" in cli.get_install_command() else "pacman"
     update_package_manager(package_manager)
     install()
-    install_jumpapp()
+    if not cli.get("which jumpapp", check=False):
+        install_jumpapp()
     install_notebook_extensions()
     # install_vpn()
     if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
