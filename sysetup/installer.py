@@ -56,6 +56,7 @@ def after_install(package_manager):
 
 
 def install_jumpapp():
+    cli.install("pandoc")
     cli.sh(
         "git clone https://github.com/mkropat/jumpapp",
         "cd jumpapp",
