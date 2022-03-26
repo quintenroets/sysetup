@@ -104,6 +104,7 @@ def install_vpn():
 
 
 def install_notebook_extensions():
+    cli.run("pip3 install jupyterlab")
     folder = Path(cli.get("jupyter --data-dir")) / "vim_binding"
     folder.parent.mkdir(parents=True, exist_ok=True)
     folder.unlink(missing_ok=True)
