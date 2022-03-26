@@ -71,7 +71,7 @@ def install_vnc():
         f"tar -xvzf {version}",
         capture_output=True,
     )
-    version.unlink()
+    Path(version).unlink()
 
     vnc_folder = next(iter(Path("").glob("*VNC*")))
     cli.run_commands(
