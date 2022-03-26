@@ -13,11 +13,13 @@ def setup():
     g = Github(os.environ["gittoken"])
     user = g.get_user()
     repos = list(user.get_repos())
-    progress = tqdm(repos, desc="Cloning repos")
-    Threads(check_repo, repos, user=user, progress=progress).join()
+    progress = cli.progress(repos, description="Cloning repos")
+    Threads(
+        check_repo, args=(repos,), kwargs={"user": user, "progress": progress}
+    ).start().join()
 
     local_repos = list(Path.scripts.rglob("setup.py"))
-    for setup in tqdm(local_repos, "Reinstalling editable repos"):
+    for setup in cli.progress(local_repos, description="Reinstalling editable repos"):
         cli.get("pip3 install --force-reinstall --no-deps -e", setup.parent)
     if Path.scripts.exists():
         (Path.scripts / "assets").symlink_to(Path.script_assets)
@@ -33,7 +35,7 @@ def check_repo(repo, user, progress):
             cli.get("git clone", url, path)
             if (path / "setup.py").exists():
                 cli.get("pip3 install -e", path)
-    progress.update()
+    next(progress)
 
 
 def add_password(url):
