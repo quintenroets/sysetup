@@ -33,7 +33,7 @@ def check_repo(repo, user, progress):
             path = Path.scripts / name
             cli.get("git clone", url, path)
             if (path / "setup.py").exists():
-                cli.get("pip3 install -e --force-reinstall --no-deps", path)
+                cli.get("pip3 install -e --force-reinstall", path)
 
     next(progress)
 
