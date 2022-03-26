@@ -57,14 +57,9 @@ def after_install(package_manager):
 
 def install_jumpapp():
     cli.install("pandoc")
-    cli.sh(
-        "git clone https://github.com/mkropat/jumpapp",
-        "cd jumpapp",
-        "make",
-        "sudo make install",
-        "cd ..",
-        "rm -rf jumpapp",
-    )
+    cli.run("git clone https://github.com/mkropat/jumpapp")
+    cli.run_commands("make", "sudo make install", cwd="jumpapp")
+    cli.run("rm -rf jumpapp")
 
 
 def install_vnc():
