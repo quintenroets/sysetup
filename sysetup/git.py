@@ -1,4 +1,5 @@
 import os
+from threading import Lock
 
 import cli
 from github import Github
@@ -6,6 +7,8 @@ from github import Github
 from libs.threading import Threads
 
 from .path import Path
+
+lock = Lock()
 
 
 def setup():
@@ -37,7 +40,8 @@ def check_repo(repo, user, progress):
             if (path / "setup.py").exists():
                 cli.get("pip3 install -e", path)
 
-    next(progress)
+    with lock:
+        next(progress)
 
 
 def add_password(url):
