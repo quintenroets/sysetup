@@ -18,8 +18,13 @@ def setup():
 
 
 def install():
-    cli.install(*Path.packages.load("packages"))
-    cli.install(*Path.packages.load("snap"), "snap install")
+    installations = {
+        "packages": None,
+        "snap": "snap install",
+    }
+    for name, command in installations.items():
+        path = (Path.packages / name).with_suffix(".yaml")
+        cli.install(*path.yaml, command)
 
 
 def update_package_manager(package_manager):
