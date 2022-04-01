@@ -24,7 +24,7 @@ def setup():
     for setup_file in cli.progress(
         local_repos, description="Reinstalling editable repos"
     ):
-        cli.run("pip3 install --force-reinstall --no-deps -e", setup_files.parent)
+        cli.run("pip3 install --force-reinstall --no-deps -e", setup_file.parent)
     if Path.scripts.exists():
         (Path.scripts / "assets").symlink_to(Path.script_assets)
 
