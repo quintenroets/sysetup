@@ -1,15 +1,18 @@
 import cli
 from backup.backup import Backup
 from backup.backupmanager import BackupManager
+from backup.path import Path as BackupPath
 
 from .path import Path
 
 
 def setup():
+    exports_path = BackupPath.exports.relative_to(Path.HOME)
     Backup().download(
         "- /.config/browser/*",
-        "+ /.config/scripts/backup/exports/.*",
-        "- /.config/scripts/backup/exports/*",
+        "+ /{exports_path}/.*",
+        "+ /{Path.script_assets}/**",
+        "- /{exports_path}/*",
         "/.**",
         quiet=False,
     )

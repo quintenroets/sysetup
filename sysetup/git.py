@@ -3,7 +3,6 @@ from threading import Lock
 
 import cli
 from github import Github
-
 from libs.threading import Threads
 
 from .path import Path
@@ -25,8 +24,6 @@ def setup():
         local_repos, description="Reinstalling editable repos"
     ):
         cli.run("pip3 install --force-reinstall --no-deps -e", setup_file.parent)
-    if Path.scripts.exists():
-        (Path.scripts / "assets").symlink_to(Path.script_assets)
 
 
 def check_repo(repo, user, progress):
