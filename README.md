@@ -37,9 +37,6 @@ sysetup;
       * Reapply window decorations
 5) Setup Chrome
       * Enable GPU acceleration in chrome://flags
-      * Change download folder to $HOME/Documents
-      * Allow extensions access to local file urls
-      * Load all extensions
       * PDF viewer: set page zoom to page fit
 6) Pycharm professional: login with $email/$pw
 7) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
