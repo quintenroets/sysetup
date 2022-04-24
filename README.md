@@ -32,7 +32,7 @@ sysetup;
 2) Execute setup command: password will need to be given once again for gpg decryption
 3) Change wallpaper
 4) Appearance
-      * Select Win10 cursors
+      * Select We10XOS cursors
       * Select sugar candy sddm
       * Reapply window decorations
 5) Setup Chrome
