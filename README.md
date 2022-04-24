@@ -39,4 +39,5 @@ sysetup;
       * Enable GPU acceleration in chrome://flags
       * PDF viewer: set page zoom to page fit
 6) Pycharm professional: login with $email/$pw
-7) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
+7) VNC Server: login with $email/$pw
+8) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)

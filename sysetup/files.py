@@ -44,7 +44,7 @@ def move_crontab():
 
 
 def trust_keyboard():
-    keyboard = cli.get("bluetoothctl list | grep Keyboard", shell=True)
+    keyboard = cli.get("bluetoothctl devices | grep Keyboard", shell=True)
     cli.run("bluetoothctl trust", keyboard, wait=False)  # blocks if not found
 
 
