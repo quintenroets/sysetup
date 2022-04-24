@@ -8,11 +8,10 @@ sysetup;
 
 ## Plasma version 5.22 required
 
-#### Ubuntu 21.04
-1) Install kubuntu desktop 21.04: sudo apt install tasksel; sudo tasksel install kubuntu-desktop
-2) sudo add-apt-repository ppa:kubuntu-ppa/backports; sudo apt update && sudo apt full-upgrade; reboot
+#### Ubuntu
+1) Install kubuntu desktop: sudo apt install -y kubuntu-desktop
 
-#### Kubuntu 21.04
+#### Newest Kubuntu
 1) sudo add-apt-repository -y ppa:kubuntu-ppa/backports; sudo apt -y update && sudo apt -y full-upgrade; reboot
 
 #### Raspberry Pi Manjaro 21.02
@@ -25,7 +24,7 @@ sysetup;
 1) Run sudo apt update; sudo apt upgrade; sudo apt install kubuntu-desktop
 2) Reboot and run startx in new tty to boot
 3) Change username: https://www.linuxuprising.com/2019/04/how-to-change-username-on-ubuntu-debian.html
-4) Kubuntu21.04 steps
+4) Newest kubuntu steps
 
 ## Manual steps
 1) Set display size (1920 x 1080)
@@ -41,3 +40,4 @@ sysetup;
 6) Pycharm professional: login with $email/$pw
 7) VNC Server: login with $email/$pw
 8) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
+9) Manually copy plasma-org.kde.plasma.desktop-appletsrc
