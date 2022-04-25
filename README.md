@@ -41,3 +41,4 @@ sysetup;
 7) VNC Server: login with $email/$pw
 8) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
 9) Manually copy plasma-org.kde.plasma.desktop-appletsrc
+10) Set user avatar from sysetup assets > icons > avatar.jpg
