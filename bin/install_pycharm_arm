@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# use for arm architecture
+
+cd $docs
+sudo apt install -y openjdk-11-jdk
+wget https://download.jetbrains.com/python/pycharm-professional-2022.1.tar.gz
+tar -xf pycharm-professional-2022.1.tar.gz
+mv pycharm-professional-2022.1.tar ~/snap/pycharm-professional
