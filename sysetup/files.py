@@ -11,9 +11,9 @@ def setup():
     script_assets = Path.script_assets.relative_to(Path.HOME)
     Backup().download(
         "- /.config/browser/*",
-        "+ /{exports_path}/.*",
-        "+ /{script_assets}/**",
-        "- /{exports_path}/*",
+        f"+ /{exports_path}/.*",
+        f"+ /{script_assets}/**",
+        f"- /{exports_path}/*",
         "/.**",
         quiet=False,
     )
