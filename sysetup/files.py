@@ -8,10 +8,11 @@ from .path import Path
 
 def setup():
     exports_path = BackupPath.exports.relative_to(Path.HOME)
+    script_assets = Path.script_assets.relative_to(Path.HOME)
     Backup().download(
         "- /.config/browser/*",
         "+ /{exports_path}/.*",
-        "+ /{Path.script_assets}/**",
+        "+ /{script_assets}/**",
         "- /{exports_path}/*",
         "/.**",
         quiet=False,
