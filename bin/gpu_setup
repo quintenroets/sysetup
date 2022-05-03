@@ -1,6 +1,24 @@
 #!/bin/bash
 
+
+# ======================
+# Approach for cuda11.4
+# ======================
+# 
 # tutorial: https://medium.com/@anarmammadli/how-to-install-cuda-11-4-on-ubuntu-18-04-or-20-04-63f3dee2099
+
+
+# ========================================
+# New approach for cuda11.5 (not working)
+# ========================================
+# 
+# 1) uninstall everything nvidia
+# 2) install latest nvidia drivers with sudo ubuntu-drivers autoinstall
+# 3) follow https://www.if-not-true-then-false.com/2021/install-nvidia-cuda-toolkit-on-ubuntu-debian-linux-mint/
+# 4) correctly set $PATH and $LD_LIBRARY_PATH (~/.bash_profile or /etc/environment)
+
+
+
 
 # setup driver
 sudo rm /etc/apt/sources.list.d/cuda*
