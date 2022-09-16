@@ -1,8 +1,0 @@
-#! /bin/bash
-
-if [ -z "$pw" ]
-then
-    source ~/.bash_profile
-fi
-
-echo $pw

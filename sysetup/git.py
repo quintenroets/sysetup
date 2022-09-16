@@ -10,8 +10,12 @@ from .path import Path
 lock = Lock()
 
 
+def gittoken():
+    return cli.get("pw gittoken")
+
+
 def setup():
-    g = Github(os.environ["gittoken"])
+    g = Github(gittoken())
     user = g.get_user()
     repos = list(user.get_repos())
     progress = cli.progress(repos, description="Cloning repos")
@@ -42,7 +46,7 @@ def check_repo(repo, user, progress):
 
 
 def add_password(url):
-    return url.replace("https://", f"https://{os.environ['gittoken']}@")
+    return url.replace("https://", f"https://{gittoken()}@")
 
 
 if __name__ == "__main__":
