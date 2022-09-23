@@ -1,0 +1,4 @@
+#! /bin/bash
+# separate script because input message needs to be ignored
+
+echo $(pw)
