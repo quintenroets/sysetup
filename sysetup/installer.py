@@ -14,7 +14,19 @@ def setup():
     if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
         install_vnc()
 
+    if not Path.liter_env.exists():
+        install_linter_env()
+
     after_install(package_manager)
+
+
+def install_linter_env():
+    command = (
+        "python -m venv linterenv;"
+        "source linterenv/bin/activate.sh;"
+        "pip install autoimport"
+    )
+    cli.run(command, cwd=Path.assets, shell=True)
 
 
 def install():
@@ -32,7 +44,8 @@ def update_package_manager(package_manager):
         cli.sh(
             "sudo apt update",
             # agree eula
-            "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections",
+            "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula"
+            "select true | sudo debconf-set-selections",
             "sudo systemctl enable --now snapd.socket",
             # snap currently doesnt work on arm
         )
@@ -48,7 +61,10 @@ def after_install(package_manager):
     after_install_command = (
         "sudo apt autoremove -y"
         if package_manager == "apt"
-        else "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm base-devel; pip install wheel"
+        else (
+            "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm"
+            " base-devel; pip install wheel"
+        )
     )
     cli.sh(after_install_command, "sudo tlp start")
 
@@ -80,10 +96,11 @@ def install_vnc():
 
     vnc_folder = next(iter(Path("").glob("*VNC*")))
     cli.run_commands(
-        f"sudo ./vncinstall",
+        "sudo ./vncinstall",
         "sudo systemctl enable vncserver-virtuald.service",
         "sudo systemctl start vncserver-virtuald.service",
-        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode" /etc/vnc/vncservice start vncserver-x11-serviced',
+        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode" /etc/vnc/vncservice'
+        " start vncserver-x11-serviced",
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
         cwd=vnc_folder,
@@ -102,7 +119,8 @@ def install_vnc():
 def install_vpn():
     cli.sh(
         "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
-        'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee /etc/apt/sources.list.d/windscribe-repo.list',
+        'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee'
+        " /etc/apt/sources.list.d/windscribe-repo.list",
         "install windscribe-cli",
     )
     # login: $email2
