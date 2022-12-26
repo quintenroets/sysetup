@@ -23,8 +23,8 @@ def setup():
 def install_linter_env():
     command = (
         "python -m venv linterenv;"
-        "source linterenv/bin/activate.sh;"
-        "pip install autoimport"
+        "source linterenv/bin/activate;"
+        "pip install autoimport git+https://github.com/quintenroets/tbhandler"
     )
     cli.run(command, cwd=Path.assets, shell=True)
 
