@@ -14,7 +14,7 @@ def setup():
     if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
         install_vnc()
 
-    if not Path.liter_env.exists():
+    if not Path.linter_env.exists():
         install_linter_env()
 
     after_install(package_manager)
