@@ -9,6 +9,8 @@ def setup():
     install()
     if not cli.get("which jumpapp", check=False):
         install_jumpapp()
+    if not cli.get("which chromium-browser", check=False):
+        install_chromium()
     install_notebook_extensions()
     # install_vpn()
     if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
@@ -18,6 +20,14 @@ def setup():
         install_linter_env()
 
     after_install(package_manager)
+
+
+def install_chromium():
+    command = (
+        "sudo add-apt-repository ppa:phd/chromium-browser; sudo apt install"
+        " chromium-browser"
+    )
+    cli.run(command, shell=True)
 
 
 def install_linter_env():
