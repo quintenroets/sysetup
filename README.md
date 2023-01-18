@@ -37,8 +37,9 @@ sysetup;
 5) Setup Chrome
       * Enable GPU acceleration in chrome://flags
       * PDF viewer: set page zoom to page fit
-6) Pycharm professional: login with $email/$pw
-7) VNC Server: login with $email/$pw
-8) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
-9) Manually copy plasma-org.kde.plasma.desktop-appletsrc
-10) Set user avatar from sysetup assets > icons > avatar.jpg
+6) Login to
+     * Pycharm professional
+     * VNC Server
+7) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
+8) Manually copy plasma-org.kde.plasma.desktop-appletsrc
+9) Set user avatar from sysetup assets > icons > avatar.jpg
