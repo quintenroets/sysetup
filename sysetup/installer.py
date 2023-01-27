@@ -23,11 +23,16 @@ def setup():
 
 
 def install_chromium():
-    command = (
-        "sudo add-apt-repository ppa:phd/chromium-browser; sudo apt install"
-        " chromium-browser"
+    commands = (
+        "sudo add-apt-repository ppa:phd/chromium-browser",
+        """echo '
+Package: *
+Pin: release o=LP-PPA-phd-chromium-browser
+Pin-Priority: 1001
+' | sudo tee /etc/apt/preferences.d/phd-chromium-browser""",
+        "sudo apt install chromium-browser",
     )
-    cli.run(command, shell=True)
+    cli.run_commands(*commands, shell=True)
 
 
 def install_linter_env():
@@ -109,8 +114,8 @@ def install_vnc():
         "sudo ./vncinstall",
         "sudo systemctl enable vncserver-virtuald.service",
         "sudo systemctl start vncserver-virtuald.service",
-        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode" /etc/vnc/vncservice'
-        " start vncserver-x11-serviced",
+        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode"'
+        " /etc/vnc/vncservice start vncserver-x11-serviced",
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
         cwd=vnc_folder,
