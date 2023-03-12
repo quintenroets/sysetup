@@ -11,6 +11,9 @@ def setup():
         install_jumpapp()
     if not cli.get("which chromium-browser", check=False):
         install_chromium()
+    if not Path.extensions.exists():
+        command = "git clone https://github.com/quintenroets/extensions"
+        cli.run(command, cwd=Path.extensions.parent)
     install_notebook_extensions()
     # install_vpn()
     if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
