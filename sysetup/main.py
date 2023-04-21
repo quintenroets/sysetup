@@ -2,14 +2,13 @@ import argparse
 
 import cli
 
-from . import env, files, git, installer
+from . import env, files, installer
 
 
 def setup():
     env.setup()
     files.setup()
     installer.setup()
-    git.setup()
     cli.run("reboot now", root=True)
 
 
@@ -18,7 +17,7 @@ def main():
     parser.add_argument(
         "action",
         nargs="?",
-        help="The setup action to do: [all(default), files, install, git, env]",
+        help="The setup action to do: [all(default), files, install, env]",
         default="all",
     )
 
@@ -27,7 +26,6 @@ def main():
         "all": setup,
         "files": files.setup,
         "install": installer.setup,
-        "git": git.setup,
         "env": env.setup,
     }
     action = action_mapper[args.action]
