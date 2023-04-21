@@ -1,5 +1,5 @@
-cli @ git+https://github.com/quintenroets/cli
-superpathlib @ git+https://github.com/quintenroets/superpathlib
 backup @ git+https://github.com/quintenroets/backup
-PyGithub
 dbus-python
+PyGithub
+quinten-cli
+superpathlib
