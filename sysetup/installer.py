@@ -27,7 +27,7 @@ def setup():
 
 def install_chromium():
     commands = (
-        "sudo add-apt-repository ppa:phd/chromium-browser",
+        "sudo add-apt-repository -y ppa:phd/chromium-browser",
         """echo '
 Package: *
 Pin: release o=LP-PPA-phd-chromium-browser
