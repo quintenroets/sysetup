@@ -54,7 +54,7 @@ def install():
     }
     for name, command in installations.items():
         path = (Path.packages / name).with_suffix(".yaml")
-        cli.install(*path.yaml, installer_command=command)
+        cli.install(**path.yaml, installer_command=command)
 
 
 def update_package_manager(package_manager):
@@ -62,8 +62,10 @@ def update_package_manager(package_manager):
         cli.sh(
             "sudo apt update",
             # agree eula
-            "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula"
-            "select true | sudo debconf-set-selections",
+            (
+                "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula"
+                "select true | sudo debconf-set-selections"
+            ),
             "sudo systemctl enable --now snapd.socket",
             # snap currently doesnt work on arm
         )
@@ -117,8 +119,10 @@ def install_vnc():
         "sudo ./vncinstall",
         "sudo systemctl enable vncserver-virtuald.service",
         "sudo systemctl start vncserver-virtuald.service",
-        'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode"'
-        " /etc/vnc/vncservice start vncserver-x11-serviced",
+        (
+            'sudo /etc/vnc/vncelevate "Enable VNC Server Service Mode"'
+            " /etc/vnc/vncservice start vncserver-x11-serviced"
+        ),
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
         cwd=vnc_folder,
@@ -137,8 +141,10 @@ def install_vnc():
 def install_vpn():
     cli.sh(
         "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
-        'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee'
-        " /etc/apt/sources.list.d/windscribe-repo.list",
+        (
+            'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee'
+            " /etc/apt/sources.list.d/windscribe-repo.list"
+        ),
         "install windscribe-cli",
     )
     # login: $email2
