@@ -19,7 +19,7 @@ def setup():
         cli.run(command, cwd=Path.extensions.parent)
     install_notebook_extensions()
     # install_vpn()
-    if not cli.get("/etc/vnc/vncelevate -v", check=False, shell=True):
+    if not cli.is_succes("which /etc/vnc/vncservice"):
         install_vnc()
 
     if not Path.linter_env.exists():
