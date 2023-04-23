@@ -54,7 +54,8 @@ def install():
     }
     for name, command in installations.items():
         path = (Path.packages / name).with_suffix(".yaml")
-        cli.install(**path.yaml, installer_command=command)
+        packages: list = path.yaml
+        cli.install(*packages, installer_command=command)
 
 
 def update_package_manager(package_manager):
