@@ -1,4 +1,7 @@
+import re
+
 import cli
+import requests
 
 from .path import Path
 
@@ -105,11 +108,12 @@ def install_jumpapp():
 
 
 def install_vnc():
-    version = "VNC-Server-6.7.4-Linux-x64-ANY.tar.gz"
+    download_url = get_vnc_download_url()
+    version = download_url.split("files/")[1]
 
     # download and extract vnc server
     cli.run_commands(
-        f"wget https://www.realvnc.com/download/file/vnc.files/{version}",
+        f"wget {download_url}",
         f"tar -xvzf {version}",
         capture_output=True,
     )
@@ -137,6 +141,13 @@ def install_vnc():
         f"sudo dpkg -i {version}",
     )
     version.unlink()
+
+
+def get_vnc_download_url():
+    download_page_url = "https://www.realvnc.com/en/connect/download/vnc/"
+    download_page = requests.get(download_page_url).text
+    download_url = re.search("https://.*Linux-x64.deb", download_page).group()
+    return download_url
 
 
 def install_vpn():
