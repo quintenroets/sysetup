@@ -113,15 +113,11 @@ def install_vnc():
 
     # download and extract vnc server
     cli.run_commands(
-        f"wget {download_url}",
-        f"tar -xvzf {version}",
-        capture_output=True,
+        f"wget {download_url}", f"sudo dpkg -i {version}", capture_output=True
     )
     Path(version).unlink()
 
-    vnc_folder = next(iter(Path("").glob("*VNC*")))
     cli.run_commands(
-        "sudo ./vncinstall",
         "sudo systemctl enable vncserver-virtuald.service",
         "sudo systemctl start vncserver-virtuald.service",
         (
@@ -130,9 +126,7 @@ def install_vnc():
         ),
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
-        cwd=vnc_folder,
     )
-    vnc_folder.rmtree()
 
     version = "VNC-Viewer-6.21.406-Linux-x86.deb"
     return  # todo: fix to 64 bit version
