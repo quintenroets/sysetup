@@ -47,3 +47,4 @@ sysetup
 7) connect bluetooth keyboard and run sysetup again to trust the device (auto connect on boot)
 8) Manually copy plasma-org.kde.plasma.desktop-appletsrc
 9) Set user avatar from sysetup assets > icons > avatar.jpg
+10) Set kate vim mappings
