@@ -4,8 +4,8 @@ env_name="qenv"
 folder="~/.local/share/envs"
 mkdir -p $folder
 cd $folder
-python -m venv qenv
-source qenv/bin/activate
+python -m venv $env_name
+source $env_name/bin/activate
 pip install git+https://github.com/quintenroets/sysetup
 sysetup
 ```
