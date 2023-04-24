@@ -1,9 +1,13 @@
 #### Setup commands
 ```shell
-sudo apt install -y git python3-pip;
-export PATH=$PATH:~/.local/bin;
-pip3 install git+https://github.com/quintenroets/sysetup;
-sysetup;
+env_name="qenv"
+folder="~/.local/share/envs"
+mkdir -p $folder
+cd $folder
+python -m venv qenv
+source qenv/bin/activate
+pip install git+https://github.com/quintenroets/sysetup
+sysetup
 ```
 
 ## Plasma version 5.22 required
