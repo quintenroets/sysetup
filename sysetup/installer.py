@@ -36,7 +36,7 @@ Package: *
 Pin: release o=LP-PPA-phd-chromium-browser
 Pin-Priority: 1001
 ' | sudo tee /etc/apt/preferences.d/phd-chromium-browser""",
-        "sudo apt install chromium-browser",
+        "sudo apt install chromium-browser chromium-chromedriver",
     )
     cli.run_commands(*commands, shell=True)
 
