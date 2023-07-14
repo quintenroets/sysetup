@@ -91,6 +91,7 @@ def after_install(package_manager):
         )
     )
     cli.sh(after_install_command, "sudo tlp start")
+    cli.run("systemctl enable ssh", root=True)  # start ssh server before log in
 
     delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
     cli.run_commands(
@@ -121,6 +122,8 @@ def install_vnc():
         "sudo systemctl enable vncserver-virtuald.service",
         "sudo systemctl start vncserver-virtuald.service",
         "/etc/vnc/vncservice start vncserver-x11-serviced",
+        # start server before login
+        "sudo systemctl enable vncserver-x11-serviced.service",
         # login with $email:($pw)vnc
         # now both realvnc and tigervnc (trough apt) are available
     )
