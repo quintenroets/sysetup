@@ -1,23 +1,13 @@
 import cli
-from backup.backup import Backup
-from backup.backupmanager import BackupManager
-from backup.path import Path as BackupPath
+from backup.backups import backup, remote
 
 from .path import Path
 
 
 def setup():
-    exports_path = BackupPath.exports.relative_to(Path.HOME)
     script_assets = Path.script_assets.relative_to(Path.HOME)
-    Backup().download(
-        "- /.config/browser/*",
-        f"+ /{exports_path}/.*",
-        f"+ /{script_assets}/**",
-        f"- /{exports_path}/*",
-        "/.**",
-        quiet=False,
-    )
-    BackupManager.after_pull()
+    remote.Backup(folder=script_assets, quiet=False).pull()
+    backup.Backup.after_pull()
 
     move_files(Path.assets / "root")
     move_files(Path.assets / "home", Path.HOME)

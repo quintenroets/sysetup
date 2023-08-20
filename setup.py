@@ -25,7 +25,7 @@ setup(
     author_email="quinten.roets@gmail.com",
     description="",
     name=NAME,
-    version="1.0",
+    version="1.0.0",
     packages=find_packages(),
     install_requires=read("requirements.txt"),
     scripts=shell_scripts,

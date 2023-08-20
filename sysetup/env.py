@@ -1,12 +1,15 @@
 import os
 
 import cli.env
-from backup.backup import Backup
+from backup.backups.remote import Backup
+
+from .path import Path
 
 
 def setup():
     if "pw" not in os.environ:
-        Backup().download("/.bash_profile", quiet=False)
+        paths = (Path(".bash_profile"),)
+        Backup(quiet=False, paths=paths).pull()
         cli.env.load()
 
 
