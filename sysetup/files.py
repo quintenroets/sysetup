@@ -1,15 +1,17 @@
 import cli
-from backup.backups import backup, remote
+from backup.backups import backup
 
 from .path import Path
 
 
 def setup():
-    script_assets = Path.script_assets.relative_to(Path.HOME)
-    remote.Backup(folder=script_assets, quiet=False).pull()
-    backup.Backup.after_pull()
+    kwargs_list = [
+        dict(folder=Path.script_assets),
+        dict(filter_rules=[f"- {Path.HOME}/**"]),  # need /etc/environment
+    ]
+    for kwargs in kwargs_list:
+        backup.Backup(quiet=False, confirm=False, **kwargs).pull()
 
-    move_files(Path.assets / "root")
     move_files(Path.assets / "home", Path.HOME)
     move_crontab()
     # trust_keyboard()

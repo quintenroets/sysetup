@@ -3,6 +3,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 NAME = "sysetup"
+version = "1.0.1"
 
 
 def read(filename):
@@ -25,7 +26,7 @@ setup(
     author_email="quinten.roets@gmail.com",
     description="",
     name=NAME,
-    version="1.0.0",
+    version=version,
     packages=find_packages(),
     install_requires=read("requirements.txt"),
     scripts=shell_scripts,
