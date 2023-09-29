@@ -42,12 +42,11 @@ Pin-Priority: 1001
 
 
 def install_linter_env():
-    command = (
-        "python -m venv linterenv;"
-        "source linterenv/bin/activate;"
-        "pip install autoimport git+https://github.com/quintenroets/tbhandler"
-    )
-    cli.run(command, cwd=Path.assets, shell=True)
+    linter_env_path = Path.HOME / ".local" / "share" / "envs" / "linterenv"
+    if not linter_env_path.exists():
+        cli.run("python -m venv", linter_env_path)
+        python_path = linter_env_path / "bin" / "python"
+        cli.run(f"{python_path} -m pip install autoimport tbhandler")
 
 
 def install():
