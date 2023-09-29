@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/sysetup.svg)](https://badge.fury.io/py/sysetup)
+
 #### Setup commands
 ```shell
 env_name="qenv"
@@ -6,7 +8,7 @@ mkdir -p $folder
 cd $folder
 python -m venv $env_name
 source $env_name/bin/activate
-pip install git+https://github.com/quintenroets/sysetup
+python -m pip install sysetup
 sysetup
 ```
 

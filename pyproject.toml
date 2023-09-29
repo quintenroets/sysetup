@@ -1,3 +1,42 @@
+
+[project]
+name = "sysetup"
+version = "1.0.1"
+description = ""
+authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "backupmaster",
+    "dbus-next",
+    "quinten-cli",
+    "superpathlib",
+]
+
+[project.urls]
+"Source Code" = "https://github.com/quintenroets/sysetup"
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit"
+]
+test = [
+    "hypothesis",
+    "pytest"
+]
+
+[project.scripts]
+sysetup = "sysetup:main"
+exportcrontab = "sysetup.files:move_crontab"
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+script-files = ["bin/pw", "bin/pw_askpass"]
+
 [tool.ruff]
 select = [
     "E",  # pycodestyle errors

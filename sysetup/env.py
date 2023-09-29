@@ -8,8 +8,8 @@ from .path import Path
 
 def setup():
     if "pw" not in os.environ:
-        paths = (Path(".bash_profile"),)
-        Backup(quiet=False, paths=paths).pull()
+        path = Path(".bash_profile")
+        Backup(quiet=False, path=path).pull()
         cli.env.load()
 
 

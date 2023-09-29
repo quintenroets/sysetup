@@ -1,3 +1,0 @@
-#!/bin/bash
-
-nohup $home/snap/pycharm-professional/pycharm-2022.1/bin/./pycharm.sh &> /dev/null &
