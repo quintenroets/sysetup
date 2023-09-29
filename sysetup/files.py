@@ -1,16 +1,21 @@
 import cli
-from backup.backups import backup
+from backup.backups import Backup
+from backup.utils import Path as BackupPath
 
 from .path import Path
 
 
 def setup():
-    kwargs_list = [
-        dict(folder=Path.script_assets),
-        dict(filter_rules=[f"- {Path.HOME}/**"]),  # need /etc/environment
-    ]
-    for kwargs in kwargs_list:
-        backup.Backup(quiet=False, confirm=False, **kwargs).pull()
+    sub_check_path = BackupPath.script_assets
+    kwargs_mapper = {
+        "Script assets": dict(sub_check_path=sub_check_path),
+        "environment": dict(
+            filter_rules=["+ /etc/environment", "- *"], sync_remote=False
+        ),
+    }
+    for name, kwargs in kwargs_mapper.items():
+        print(f"Downloading {name}..")
+        Backup(quiet=False, confirm=False, **kwargs).pull()
 
     move_crontab()
     # trust_keyboard()
