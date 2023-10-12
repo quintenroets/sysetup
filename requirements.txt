@@ -1,4 +1,5 @@
 backupmaster
 dbus-next
 quinten-cli
+requests
 superpathlib
