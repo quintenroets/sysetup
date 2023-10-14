@@ -11,4 +11,7 @@ fi
 source "$venv_path/bin/activate"
 python -m pip install --upgrade sysetup
 
+askpass=/usr/bin/ksshaskpass
+export SUDO_ASKPASS=$askpass
+export RCLONE_PASSWORD_COMMAND=$askpass
 sysetup
