@@ -10,7 +10,8 @@ def setup():
     kwargs_mapper = {
         "Script assets": dict(sub_check_path=BackupPath.script_assets),
         "environment": dict(
-            sub_check_path=Path("/") / "etc", filter_rules=["+ /environment", "- *"]
+            sub_check_path=BackupPath("/") / "etc",
+            filter_rules=["+ /environment", "- *"],
         ),
         "setup files": dict(
             sub_check_path=BackupPath.script_assets / "sysetup" / "files"
