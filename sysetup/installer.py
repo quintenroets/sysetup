@@ -14,6 +14,7 @@ def setup():
         install_jumpapp()
     if not cli.get("which chromium-browser", check=False):
         install_chromium()
+    install_language_support()
     if not Path.extensions.exists():
         command = "git clone https://github.com/quintenroets/extensions"
         cli.run(command, cwd=Path.extensions.parent)
@@ -26,6 +27,11 @@ def setup():
         install_linter_env()
 
     after_install(package_manager)
+
+
+def install_language_support():
+    packages = cli.get("check-language-support")
+    cli.install(packages)
 
 
 def install_chromium():
