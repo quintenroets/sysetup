@@ -8,7 +8,7 @@
 1) Set display size (1920 x 1080)
 2) Run
    ```shell
-   curl https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+   wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
    ```
    password will need to be given once again for gpg decryption
 3) Change wallpaper
