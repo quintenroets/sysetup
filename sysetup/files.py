@@ -7,11 +7,10 @@ from .path import Path
 
 
 def setup():
-    sub_check_path = BackupPath.script_assets
     kwargs_mapper = {
-        "Script assets": dict(sub_check_path=sub_check_path),
+        "Script assets": dict(sub_check_path=BackupPath.script_assets),
         "environment": dict(
-            filter_rules=["+ /etc/environment", "- *"], sync_remote=False
+            sub_check_path=Path("/") / "etc", filter_rules=["+ /environment", "- *"]
         ),
         "setup files": dict(
             sub_check_path=BackupPath.script_assets / "sysetup" / "files"
