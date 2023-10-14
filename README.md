@@ -8,6 +8,7 @@
 1) Set display size (1920 x 1080)
 2) Run
    ```shell
+   export RCLONE_CONFIG_PASS=FILL_IN
    wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
    ```
    password will need to be given once again for gpg decryption
