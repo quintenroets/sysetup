@@ -35,16 +35,14 @@ def install_language_support():
 
 
 def install_chromium():
+    release_name = cli.lines("lsb_release -sc")[-1]
+    repo_url = f"https://freeshell.de/phd/chromium/{release_name}"
     commands = (
-        "sudo add-apt-repository -y ppa:phd/chromium-browser",
-        """echo '
-Package: *
-Pin: release o=LP-PPA-phd-chromium-browser
-Pin-Priority: 1001
-' | sudo tee /etc/apt/preferences.d/phd-chromium-browser""",
-        "sudo apt install chromium-browser chromium-chromedriver",
+        f'echo "deb {repo_url} /" | sudo tee /etc/apt/sources.list.d/phd-chromium.list',
+        "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 869689FE09306074",
+        "apt-get update",
     )
-    cli.run_commands(*commands, shell=True)
+    cli.run_commands(*commands, shell=True, root=True)
 
 
 def install_linter_env():
