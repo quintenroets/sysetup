@@ -1,5 +1,4 @@
 import cli
-import dbus
 from backup.backups import Backup
 from backup.backups.cache import raw
 from backup.utils import Path as BackupPath
@@ -57,10 +56,10 @@ def set_background():
 
 
 def run_kde_script(script: str):
-    bus = dbus.SessionBus()
-    obj = bus.get_object("org.kde.plasmashell", "/PlasmaShell")
-    plasma_interface = dbus.Interface(obj, "org.kde.PlasmaShell")
-    plasma_interface.evaluateScript(script)
+    cli.run(
+        "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript",
+        script,
+    )
 
 
 def set_permissions():
