@@ -1,7 +1,7 @@
 
 [project]
 name = "sysetup"
-version = "1.0.13"
+version = "1.0.14"
 description = ""
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
@@ -39,7 +39,7 @@ build-backend = "setuptools.build_meta"
 script-files = ["bin/pw", "bin/pw_askpass"]
 
 [tool.setuptools.package-data]
-sysetup = ["bin/update_wallpaper.js"]
+sysetup = ["assets/scripts/update_wallpaper.js"]
 
 [tool.ruff]
 select = [
