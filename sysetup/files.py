@@ -26,6 +26,22 @@ def setup():
     move_setup_files()
     set_permissions()
     set_background()
+    remove_clutter()
+
+
+def remove_clutter():
+    names = (
+        "Desktop",
+        "Downloads",
+        "Music",
+        "Pictures",
+        "Public",
+        "Templates",
+        "Videos",
+    )
+    for name in names:
+        path = Path.HOME / name
+        path.unlink()
 
 
 def set_background():
