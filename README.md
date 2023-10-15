@@ -20,5 +20,4 @@
 5) Login to
    * Pycharm professional
    * VNC Server
-6) Set kate vim mappings
-7) For new device: set touchpad scroll direction and click on touch
+6) For new device: set touchpad scroll direction and click on touch
