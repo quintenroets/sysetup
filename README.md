@@ -21,6 +21,5 @@
 5) Login to
    * Pycharm professional
    * VNC Server
-6) Set user avatar from sysetup assets > icons > avatar.jpg
-7) Set kate vim mappings
-8) For new device: set touchpad scroll direction and click on touch
+6) Set kate vim mappings
+7) For new device: set touchpad scroll direction and click on touch
