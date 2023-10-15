@@ -5,12 +5,11 @@
 [Setup info](docs/setup-plasma.md)
 
 ## Setup steps
-1) Set display size (1920 x 1080)
-2) Run
+1) Run
    ```shell
    wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
    ```
-   password will need to be given once again for gpg decryption
+   give rclone password when prompted
 3) Appearance
    * Select We10XOS cursors
    * Reapply window decorations
