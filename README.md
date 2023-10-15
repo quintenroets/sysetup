@@ -13,7 +13,6 @@
    password will need to be given once again for gpg decryption
 3) Appearance
    * Select We10XOS cursors
-   * Select Sugar Candy SDDM
    * Reapply window decorations
 4) Setup Chrome
    * Enable GPU acceleration in chrome://flags
