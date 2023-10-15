@@ -1,5 +1,6 @@
 backupmaster
 dbus-next
+dbus-python
 quinten-cli
 requests
 superpathlib
