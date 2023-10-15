@@ -13,6 +13,8 @@
 2) Setup Chrome
    * Enable GPU acceleration in chrome://flags
    * PDF viewer: set page zoom to page fit
+   * Import certificate from Scripts/assets/sysetup/certificates/certificate.crt
+   * Add Google search engine with url: http://www.google.com/search?q=%s
 3) Login to
    * Pycharm professional
    * VNC Server
