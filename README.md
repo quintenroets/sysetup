@@ -11,17 +11,16 @@
    wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
    ```
    password will need to be given once again for gpg decryption
-3) Change wallpaper
-4) Appearance
+3) Appearance
    * Select We10XOS cursors
    * Select Sugar Candy SDDM
    * Reapply window decorations
-5) Setup Chrome
+4) Setup Chrome
    * Enable GPU acceleration in chrome://flags
    * PDF viewer: set page zoom to page fit
-6) Login to
+5) Login to
    * Pycharm professional
    * VNC Server
-9) Set user avatar from sysetup assets > icons > avatar.jpg
-10) Set kate vim mappings
-11) For new device: set touchpad scroll direction and click on touch
+6) Set user avatar from sysetup assets > icons > avatar.jpg
+7) Set kate vim mappings
+8) For new device: set touchpad scroll direction and click on touch

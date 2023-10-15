@@ -1,4 +1,5 @@
 import cli
+import dbus
 from backup.backups import Backup
 from backup.backups.cache import raw
 from backup.utils import Path as BackupPath
@@ -23,6 +24,32 @@ def setup():
 
     move_crontab()
     move_setup_files()
+    set_permissions()
+    set_background()
+
+
+def set_background():
+    wallpaper_path = (
+        Path.HOME / ".local" / "share" / "wallpapers" / "Qwallpapers" / "background.jpg"
+    )
+    wallpaper_uri = wallpaper_path.as_uri()
+    script = Path.update_wallpaper_script.text.replace(
+        "__wallpaper_uri__", wallpaper_uri
+    )
+    run_kde_script(script)
+
+
+def run_kde_script(script: str):
+    bus = dbus.SessionBus()
+    obj = bus.get_object("org.kde.plasmashell", "/PlasmaShell")
+    plasma_interface = dbus.Interface(obj, "org.kde.PlasmaShell")
+    plasma_interface.evaluateScript(script)
+
+
+def set_permissions():
+    git_hooks_folder = Path.HOME / ".config" / "git" / "hooks"
+    for path in git_hooks_folder:
+        cli.run("chmod +x", path)
 
 
 def move_crontab():
