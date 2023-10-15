@@ -42,6 +42,7 @@ def remove_clutter():
     for name in names:
         path = Path.HOME / name
         path.unlink()
+    (Path("/") / "etc" / "nginx" / "sites-enabled" / "default").unlink()
 
 
 def set_background():
