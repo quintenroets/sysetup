@@ -41,6 +41,7 @@ def install_chromium():
         f'echo "deb {repo_url} /" | sudo tee /etc/apt/sources.list.d/phd-chromium.list',
         "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 869689FE09306074",
         "apt-get update",
+        "apt-get install -y chromium",
     )
     cli.run_commands(*commands, shell=True, root=True)
 
