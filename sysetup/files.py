@@ -41,7 +41,10 @@ def remove_clutter():
     for name in names:
         path = Path.HOME / name
         path.rmtree()
-    (Path("/") / "etc" / "nginx" / "sites-enabled" / "default").unlink(missing_ok=True)
+
+    nginx_path = Path("/") / "etc" / "nginx" / "sites-enabled" / "default"
+    if nginx_path.exists():
+        cli.run("rm", nginx_path, root=True)
 
 
 def set_background():
