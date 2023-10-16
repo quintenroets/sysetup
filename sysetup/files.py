@@ -41,7 +41,7 @@ def remove_clutter():
     for name in names:
         path = Path.HOME / name
         path.rmtree()
-    (Path("/") / "etc" / "nginx" / "sites-enabled" / "default").unlink()
+    (Path("/") / "etc" / "nginx" / "sites-enabled" / "default").unlink(missing_ok=True)
 
 
 def set_background():
