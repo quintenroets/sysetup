@@ -64,7 +64,7 @@ def run_kde_script(script: str):
 
 def set_permissions():
     git_hooks_folder = Path.HOME / ".config" / "git" / "hooks"
-    for path in git_hooks_folder:
+    for path in git_hooks_folder.iterdir():
         cli.run("chmod +x", path)
 
 
