@@ -40,7 +40,7 @@ def remove_clutter():
     )
     for name in names:
         path = Path.HOME / name
-        path.unlink()
+        path.rmdir()
     (Path("/") / "etc" / "nginx" / "sites-enabled" / "default").unlink()
 
 
