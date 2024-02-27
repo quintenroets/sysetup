@@ -11,7 +11,7 @@ plasma_config_path = Path.HOME / ".config" / "plasma-org.kde.plasma.desktop-appl
 def restore(path: Path):
     def _restore(restored_path: Path):
         if restored_path.exists():
-            restored_path.copy_to(path)
+            restored_path.copy_to(path, include_properties=False)
         yield
         path.rename(restored_path, exist_ok=True)
 

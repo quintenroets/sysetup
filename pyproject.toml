@@ -1,7 +1,7 @@
 
 [project]
 name = "sysetup"
-version = "1.0.24"
+version = "1.0.25"
 description = ""
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
@@ -12,6 +12,7 @@ dependencies = [
     "dbus-next",
     "quinten-cli",
     "requests",
+    "simple-classproperty >=4.0.2, <5",
     "superpathlib",
 ]
 
@@ -42,6 +43,9 @@ script-files = ["bin/pw", "bin/pw_askpass"]
 sysetup = ["assets/scripts/update_wallpaper.js"]
 
 [tool.ruff]
+fix = true
+
+[tool.ruff.lint]
 select = [
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
@@ -49,7 +53,6 @@ select = [
     "I",  # isort
     "UP",  # pyupgrade
 ]
-fix = true
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
