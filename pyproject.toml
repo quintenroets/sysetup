@@ -1,7 +1,7 @@
 
 [project]
 name = "sysetup"
-version = "1.0.25"
+version = "1.0.26"
 description = ""
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
@@ -10,7 +10,7 @@ requires-python = ">=3.10"
 dependencies = [
     "backupmaster",
     "dbus-next",
-    "quinten-cli",
+    "powercli >=0.1.1, <1",
     "requests",
     "simple-classproperty >=4.0.2, <5",
     "superpathlib",

@@ -1,4 +1,4 @@
 backupmaster
-quinten-cli
+powercli
 requests
 superpathlib
