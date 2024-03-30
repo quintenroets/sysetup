@@ -59,10 +59,10 @@ def set_background():
 
 
 def run_kde_script(script: str):
-    cli.run(
-        "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript",
-        script,
+    command = (
+        "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
+    cli.run(command, script)
 
 
 def set_permissions():
@@ -91,7 +91,7 @@ def move_setup_files():
     for path in archived_setup_files:
         dest = (backup.source / path.relative_to(setup_files_root)).parent
         with cli.status(f"Unpacking {path.relative_to(setup_files_root)}"):
-            cli.get("unzip -o", path, "-d", dest, root=dest.is_root)
+            cli.capture_output("unzip -o", path, "-d", dest, root=dest.is_root)
 
 
 if __name__ == "__main__":

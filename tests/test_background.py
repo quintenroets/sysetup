@@ -21,9 +21,9 @@ def restore(path: Path):
 @pytest.fixture
 def restore_and_check(path: Path, restore):
     def _restore_and_check(restored_path: Path):
-        content_hash = cli.get("rclone hashsum MD5", restored_path)
+        content_hash = cli.capture_output("rclone hashsum MD5", restored_path)
         yield from restore(restored_path)
-        assert cli.get("rclone hashsum MD5", restored_path) == content_hash
+        assert cli.capture_output("rclone hashsum MD5", restored_path) == content_hash
 
     return _restore_and_check
 

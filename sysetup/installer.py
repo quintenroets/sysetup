@@ -2,17 +2,18 @@ import re
 
 import cli
 import requests
+from cli.commands.install import extract_package_manager_command
 
 from .path import Path
 
 
 def setup():
-    package_manager = "apt" if "apt" in cli.get_install_command() else "pacman"
+    package_manager = "apt" if "apt" in extract_package_manager_command() else "pacman"
     update_package_manager(package_manager)
     install()
-    if not cli.get("which jumpapp", check=False):
+    if not cli.capture_output("which jumpapp", check=False):
         install_jumpapp()
-    if not cli.get("which chromium-browser", check=False):
+    if not cli.capture_output("which chromium-browser", check=False):
         install_chromium()
     install_language_support()
     if not Path.extensions.exists():
@@ -20,7 +21,7 @@ def setup():
         cli.run(command, cwd=Path.extensions.parent)
     install_notebook_extensions()
     # install_vpn()
-    if not cli.is_success("which /etc/vnc/vncservice"):
+    if not cli.completes_successfully("which /etc/vnc/vncservice"):
         install_vnc()
 
     if not Path.linter_env.exists():
@@ -30,12 +31,12 @@ def setup():
 
 
 def install_language_support():
-    packages = cli.get("check-language-support")
+    packages = cli.capture_output("check-language-support")
     cli.install(packages)
 
 
 def install_chromium():
-    release_name = cli.lines("lsb_release -sc")[-1]
+    release_name = cli.capture_output_lines("lsb_release -sc")[-1]
     repo_url = f"https://freeshell.de/phd/chromium/{release_name}"
     commands = (
         f'echo "deb {repo_url} /" | sudo tee /etc/apt/sources.list.d/phd-chromium.list',
@@ -62,12 +63,12 @@ def install():
     for name, command in installations.items():
         path = (Path.packages / name).with_suffix(".yaml")
         packages: list = path.yaml
-        cli.install(*packages, installer_command=command)
+        cli.install(*packages, install_command=command)
 
 
 def update_package_manager(package_manager):
     if package_manager == "apt":
-        cli.sh(
+        cli.run_commands_in_shell(
             "sudo apt update",
             # agree eula
             (
@@ -94,7 +95,7 @@ def after_install(package_manager):
             " base-devel; pip install wheel"
         )
     )
-    cli.sh(after_install_command, "sudo tlp start")
+    cli.run_commands_in_shell(after_install_command, "sudo tlp start")
     cli.run("systemctl enable ssh", root=True)  # start ssh server before log in
 
     delete = "apt purge -y" if package_manager == "apt" else "pacman -R --noconfirm"
@@ -149,7 +150,7 @@ def get_vnc_download_url():
 
 
 def install_vpn():
-    cli.sh(
+    cli.run_commands_in_shell(
         "sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7",
         (
             'echo "deb https://repo.windscribe.com/ubuntu bionic main" | sudo tee'
@@ -161,10 +162,10 @@ def install_vpn():
 
 
 def install_notebook_extensions():
-    if not cli.get("which jupyter", check=False):
+    if not cli.capture_output("which jupyter", check=False):
         cli.run("pip3 install jupyterlab")
 
-    folder = Path(cli.get("jupyter --data-dir")) / "vim_binding"
+    folder = Path(cli.capture_output("jupyter --data-dir")) / "vim_binding"
     if not folder.exists():
         folder.parent.mkdir(parents=True, exist_ok=True)
         cli.run(
