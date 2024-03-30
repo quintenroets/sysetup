@@ -10,7 +10,7 @@ requires-python = ">=3.10"
 dependencies = [
     "backupmaster",
     "dbus-next",
-    "powercli >=0.1.1, <1",
+    "powercli >=0.2.0, <1",
     "requests",
     "simple-classproperty >=4.0.2, <5",
     "superpathlib",
