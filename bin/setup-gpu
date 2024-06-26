@@ -1,24 +1,19 @@
 #!/bin/bash
 
-
 # ======================
 # Approach for cuda11.4
 # ======================
-# 
+#
 # tutorial: https://medium.com/@anarmammadli/how-to-install-cuda-11-4-on-ubuntu-18-04-or-20-04-63f3dee2099
-
 
 # ========================================
 # New approach for cuda11.5 (not working)
 # ========================================
-# 
+#
 # 1) uninstall everything nvidia
 # 2) install latest nvidia drivers with sudo ubuntu-drivers autoinstall
 # 3) follow https://www.if-not-true-then-false.com/2021/install-nvidia-cuda-toolkit-on-ubuntu-debian-linux-mint/
 # 4) correctly set $PATH and $LD_LIBRARY_PATH (~/.bash_profile or /etc/environment)
-
-
-
 
 # setup driver
 sudo rm /etc/apt/sources.list.d/cuda*
@@ -53,7 +48,7 @@ rm $(ls | grep cuda-repo)
 # fi
 # source ~/.bashrc
 
-# tutorial: https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d?gi=133dc8daf50 
+# tutorial: https://towardsdatascience.com/installing-tensorflow-gpu-in-ubuntu-20-04-4ee3ca4cb75d?gi=133dc8daf50
 
 # setup driver
 #sudo apt remove -y --purge '^nvidia-.*'

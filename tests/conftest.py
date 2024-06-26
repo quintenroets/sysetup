@@ -1,14 +1,15 @@
+from collections.abc import Iterator
+
 import pytest
+from sysetup.models import Path
 
-from sysetup.path import Path
 
-
-def provision_path():
+def provision_path() -> Iterator[Path]:
     with Path.tempfile() as path:
         yield path
     assert not path.exists()
 
 
 @pytest.fixture()
-def path():
+def path() -> Iterator[Path]:
     yield from provision_path()

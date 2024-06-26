@@ -1,17 +1,14 @@
+from unittest.mock import PropertyMock, patch
+
 import cli
-
-from sysetup.installer import get_vnc_download_url, install_linter_env
-from sysetup.path import Path
-
-
-def test_vnc_url():
-    url = get_vnc_download_url()
-    assert "VNC" in url
+from sysetup.main.installer import install_linter_env
+from sysetup.models import Path
 
 
-def test_linter_env():
-    linter_env_path = Path.HOME / ".local" / "share" / "envs" / "linterenv"
-    linter_env_path.rmtree()
-    install_linter_env()
-    python_path = linter_env_path / "bin" / "python"
-    cli.run(f"{python_path} -m pip show autoimport")
+def test_linter_env() -> None:
+    with Path.tempfile(create=False) as path:
+        mocked_path = PropertyMock(return_value=path)
+        with patch.object(Path, "linter_env", new_callable=mocked_path):
+            install_linter_env()
+            python_path = Path.linter_env / "bin" / "python"
+            cli.run(f"{python_path} -m pip show autoimport")

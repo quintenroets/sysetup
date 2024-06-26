@@ -1,5 +1,4 @@
-import typing
-from typing import TypeVar
+from typing import TypeVar, cast
 
 import superpathlib
 from simple_classproperty import classproperty
@@ -17,34 +16,34 @@ class Path(superpathlib.Path):
     @classproperty
     def assets(cls: type[T]) -> T:
         path = cls.script_assets / cls.source_root.name
-        return typing.cast(T, path)
+        return cast(T, path)
 
     @classmethod
     @classproperty
     def config(cls: type[T]) -> T:
         path = cls.assets / "config" / "config.yaml"
-        return typing.cast(T, path)
+        return cast(T, path)
 
     @classmethod
     @classproperty
     def packages(cls: type[T]) -> T:
         path = cls.assets / "packages"
-        return typing.cast(T, path)
+        return cast(T, path)
 
     @classmethod
     @classproperty
     def linter_env(cls: type[T]) -> T:
-        path = cls.assets / "linterenv"
-        return typing.cast(T, path)
+        path = Path.HOME / ".local" / "share" / "envs" / "linterenv"
+        return cast(T, path)
 
     @classmethod
     @classproperty
     def extensions(cls: type[T]) -> T:
         path = cls.HOME / ".local" / "share" / "extensions"
-        return typing.cast(T, path)
+        return cast(T, path)
 
     @classmethod
     @classproperty
     def update_wallpaper_script(cls: type[T]) -> T:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
-        return typing.cast(T, path)
+        return cast(T, path)
