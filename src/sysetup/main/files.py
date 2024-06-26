@@ -1,12 +1,12 @@
 import cli
 from backup.backups import Backup
-from backup.backups.cache import raw
-from backup.utils import Path as BackupPath
+from backup.backups.cache import cache
+from backup.models import Path as BackupPath
 
-from .path import Path
+from ..models import Path
 
 
-def setup():
+def setup() -> None:
     kwargs_mapper = {
         "Script assets": dict(sub_check_path=BackupPath.script_assets),
         "environment": dict(
@@ -19,7 +19,7 @@ def setup():
     }
     for name, kwargs in kwargs_mapper.items():
         print(f"Downloading {name}..")
-        Backup(quiet=False, confirm=False, **kwargs).pull()
+        Backup(confirm=False, **kwargs).pull()
 
     move_crontab()
     move_setup_files()
@@ -28,7 +28,7 @@ def setup():
     remove_clutter()
 
 
-def remove_clutter():
+def remove_clutter() -> None:
     names = (
         "Desktop",
         "Downloads",
@@ -47,7 +47,7 @@ def remove_clutter():
         cli.run("rm", nginx_path, root=True)
 
 
-def set_background():
+def set_background() -> None:
     wallpaper_path = (
         Path.HOME / ".local" / "share" / "wallpapers" / "Qwallpapers" / "background.jpg"
     )
@@ -58,41 +58,39 @@ def set_background():
     run_kde_script(script)
 
 
-def run_kde_script(script: str):
+def run_kde_script(script: str) -> None:
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
     cli.run(command, script)
 
 
-def set_permissions():
+def set_permissions() -> None:
     git_hooks_folder = Path.HOME / ".config" / "git" / "hooks"
     for path in git_hooks_folder.iterdir():
         cli.run("chmod +x", path)
 
 
-def move_crontab():
+def move_crontab() -> None:
     src = Path.assets / "crontab" / "crontab"
     cli.run("crontab -", input=src.text)
 
 
-def move_setup_files():
+def move_setup_files() -> None:
     setup_files_root = BackupPath.script_assets / "sysetup" / "files"
     setup_files = []
     archived_setup_files = []
     for path in setup_files_root.rglob("*"):
         if path.is_file():
-            files = setup_files if path.archive_format is None else archived_setup_files
-            files.append(path)
+            if path.archive_format is None:
+                setup_files.append(path)
+            else:
+                archived_setup_files.append(path)
 
-    backup = raw.Backup(paths=setup_files)
+    backup = cache.Backup(paths=setup_files)
     backup.pull()
 
     for path in archived_setup_files:
         dest = (backup.source / path.relative_to(setup_files_root)).parent
         with cli.status(f"Unpacking {path.relative_to(setup_files_root)}"):
             cli.capture_output("unzip -o", path, "-d", dest, root=dest.is_root)
-
-
-if __name__ == "__main__":
-    setup()

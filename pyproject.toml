@@ -1,46 +1,53 @@
-
 [project]
 name = "sysetup"
-version = "1.0.26"
-description = ""
+version = "1.1.0"
+description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "backupmaster",
-    "dbus-next",
-    "powercli >=0.2.0, <1",
-    "requests",
-    "simple-classproperty >=4.0.2, <5",
-    "superpathlib",
+    "backupmaster >=1.2.2, <2",
+    "dbus-next >=0.2.3, <1",
+    "package-utils[context] >=0.6.1, <1",
+    "powercli >=0.3.1, <1",
+    "requests >=2.32.3, <3",
+    "superpathlib >=2.0.4, <3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "hypothesis >=6.104.0, <7",
+    "package-dev-tools >=0.5.11, <1",
+    "package-dev-utils >=0.1.6, <1",
 ]
 
 [project.urls]
 "Source Code" = "https://github.com/quintenroets/sysetup"
 
-[project.optional-dependencies]
-dev = [
-    "pre-commit"
-]
-test = [
-    "hypothesis",
-    "pytest"
-]
-
 [project.scripts]
-sysetup = "sysetup:main"
-exportcrontab = "sysetup.files:move_crontab"
+sysetup = "sysetup.cli:entry_point"
+exportcrontab = "sysetup.main.files:move_crontab"
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-script-files = ["bin/pw", "bin/pw_askpass"]
+[tool.coverage.run]
+command_line = "-m pytest tests"
 
-[tool.setuptools.package-data]
-sysetup = ["assets/scripts/update_wallpaper.js"]
+[tool.coverage.report]
+precision = 4
+fail_under = 60
+
+[tool.mypy]
+strict = true
+no_implicit_reexport = false
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "src", ".",
+]
 
 [tool.ruff]
 fix = true
@@ -54,5 +61,14 @@ select = [
     "UP",  # pyupgrade
 ]
 
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
+
+[tool.setuptools]
+script-files = ["bin/pw", "bin/pw-askpass"]
+
+[tool.setuptools.package-data]
+sysetup = ["assets/scripts/update_wallpaper.js", "py.typed"]
