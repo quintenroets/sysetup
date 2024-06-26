@@ -1,6 +1,6 @@
 from package_utils.context.entry_point import create_entry_point
 
-from sysetup import main
+from sysetup.main.main import main
 
 from ..context import context
 
