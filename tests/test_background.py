@@ -33,16 +33,14 @@ def restore_and_check(
     env.pop("RCLONE_PASSWORD_COMMAND", None)
 
     def _restore_and_check(restored_path: Path) -> Iterator[None]:
-        content_hash = cli.capture_output(
-            "rclone hashsum MD5", restored_path, env=env, check=False
-        )
-        yield from restore(restored_path)
-        assert (
-            cli.capture_output(
+        def extract_content_hash() -> str:
+            return cli.capture_output(
                 "rclone hashsum MD5", restored_path, env=env, check=False
             )
-            == content_hash
-        )
+
+        content_hash = extract_content_hash()
+        yield from restore(restored_path)
+        assert extract_content_hash() == content_hash
 
     return _restore_and_check
 
