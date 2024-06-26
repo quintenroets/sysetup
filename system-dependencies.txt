@@ -1,1 +1,1 @@
-shfmt
+shfmt qdbus-qt5

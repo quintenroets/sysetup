@@ -52,6 +52,9 @@ def restore_config_path(
     yield from restore_and_check(plasma_config_path)
 
 
+@pytest.mark.skipif(
+    "GITHUB_ACTIONSa" in os.environ, reason="qdbug missing in GITHUB_ACTIONS"
+)
 def test_wallpaper(restore_config_path: Callable[[Path], Iterator[None]]) -> None:
     set_background()
     assert "Qwallpapers" in plasma_config_path.text
