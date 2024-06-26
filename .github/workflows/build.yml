@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Check pre-commit hooks
         uses: quintenroets/actions/validate/pre-commit@main
+        env:
+          RCLONE: ${{ secrets.RCLONE }}
 
   verify-packaging:
     name: Verify packaging

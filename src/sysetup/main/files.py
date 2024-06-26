@@ -47,7 +47,7 @@ def remove_clutter() -> None:
         cli.run("rm", nginx_path, root=True)
 
 
-def set_background() -> None:
+def set_background() -> None:  # pragma: nocover
     wallpaper_path = (
         Path.HOME / ".local" / "share" / "wallpapers" / "Qwallpapers" / "background.jpg"
     )
@@ -58,7 +58,7 @@ def set_background() -> None:
     run_kde_script(script)
 
 
-def run_kde_script(script: str) -> None:
+def run_kde_script(script: str) -> None:  # pragma: nocover
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )

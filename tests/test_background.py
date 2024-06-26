@@ -53,7 +53,8 @@ def restore_config_path(
 
 
 @pytest.mark.skipif(
-    "GITHUB_ACTIONSa" in os.environ, reason="qdbug missing in GITHUB_ACTIONS"
+    "GITHUB_ACTIONS" in os.environ,
+    reason="org.kde.PlasmaShell.evaluateScript missing in GITHUB_ACTIONS",
 )
 def test_wallpaper(restore_config_path: Callable[[Path], Iterator[None]]) -> None:
     set_background()
