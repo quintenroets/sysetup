@@ -14,10 +14,12 @@ plasma_config_path = Path.HOME / ".config" / "plasma-org.kde.plasma.desktop-appl
 @pytest.fixture
 def restore(path: Path) -> Callable[[Path], Iterator[None]]:
     def _restore(restored_path: Path) -> Iterator[None]:
-        if restored_path.exists():
+        exists = restored_path.exists()
+        if exists:
             restored_path.copy_to(path, include_properties=False)
         yield
-        path.rename(restored_path, exist_ok=True)
+        if exists:
+            path.rename(restored_path, exist_ok=True)
 
     return _restore
 
