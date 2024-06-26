@@ -2,6 +2,7 @@ from collections.abc import Callable, Iterator
 
 import cli
 import pytest
+from backup.utils import setup
 from sysetup.main.files import set_background
 from sysetup.models import Path
 
@@ -24,6 +25,7 @@ def restore_and_check(
     path: Path, restore: Callable[[Path], Iterator[None]]
 ) -> Callable[[Path], Iterator[None]]:
     def _restore_and_check(restored_path: Path) -> Iterator[None]:
+        setup.check_setup()
         content_hash = cli.capture_output("rclone hashsum MD5", restored_path)
         yield from restore(restored_path)
         assert cli.capture_output("rclone hashsum MD5", restored_path) == content_hash
