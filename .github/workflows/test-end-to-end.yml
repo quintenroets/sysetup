@@ -12,3 +12,4 @@ jobs:
         run: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
         env:
           RCLONE: ${{ secrets.RCLONE }}
+          USERNAME: quinten
