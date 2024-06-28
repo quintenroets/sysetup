@@ -21,11 +21,11 @@
     * Enable GPU acceleration in chrome://flags
     * PDF viewer: set page zoom to page fit
     * Import certificate from Scripts/assets/sysetup/certificates/certificate.crt
+    * Click experimental: enable tab groups save and sync
 5) Login to
     * Pycharm professional
     * VNC Server
 6) For new device: set touchpad scroll direction and click on touch
-## Usage
 
 ## Installation
 ```shell
