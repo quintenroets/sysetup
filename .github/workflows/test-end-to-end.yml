@@ -14,4 +14,6 @@ jobs:
           RCLONE: ${{ secrets.RCLONE }}
           USERNAME: quinten
         with:
-          args: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+          args: |
+            sudo apt-get install wget \
+            wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
