@@ -9,7 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test end-to-end
-        run: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+        uses: docker://ubuntu:latest
         env:
           RCLONE: ${{ secrets.RCLONE }}
           USERNAME: quinten
+        with:
+          args: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
