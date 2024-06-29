@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y wget sudo
 
 RUN useradd $USERNAME
 
-RUN echo '$USERNAME ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 RUN mkdir -p /home/$USERNAME
 

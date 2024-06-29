@@ -7,6 +7,7 @@ from ..models import Path
 
 
 def setup() -> None:
+    raise Exception
     kwargs_mapper = {
         "Script assets": dict(sub_check_path=BackupPath.script_assets),
         "environment": dict(
