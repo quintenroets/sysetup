@@ -19,7 +19,7 @@ def setup() -> None:
     }
     for name, kwargs in kwargs_mapper.items():
         print(f"Downloading {name}..")
-        Backup(confirm=False, **kwargs).pull()
+        Backup(confirm=False, **kwargs).capture_pull()
 
     move_crontab()
     move_setup_files()
