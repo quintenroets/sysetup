@@ -20,6 +20,7 @@ def main() -> None:
 
 
 def setup() -> None:
+    raise Exception
     environment.setup()
     files.setup()
     installer.setup()

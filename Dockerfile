@@ -2,6 +2,8 @@ FROM python:3.11
 
 ARG USERNAME=quinten
 
+ENV oer=ar
+
 RUN apt-get update && apt-get install -y wget sudo
 
 RUN useradd $USERNAME
@@ -14,9 +16,11 @@ RUN chown -R $USERNAME:$USERNAME /home/$USERNAME
 
 USER $USERNAME
 
-COPY setup.sh .
+RUN sudo apt install -y python3.11-venv
 
-RUN bash setup.sh
+RUN python3 -m venv "$HOME/.local/share/envs/qenv"
+
+RUN "$HOME/.local/share/envs/qenv/bin/python" -m pip install --upgrade git+https://github.com/quintenroets/sysetup@fix-setup
 
 # RUN pip install git+https://github.com/quintenroets/backup.git@debug
 
