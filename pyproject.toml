@@ -1,19 +1,14 @@
 [project]
 name = "sysetup"
-version = "1.1.0"
-description = "Personal system setup"
+version = "0.1.0"
+description = "Template for Python package published on PyPI"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "backupmaster >=1.2.2, <2",
-    "dbus-next >=0.2.3, <1",
     "package-utils[context] >=0.6.1, <1",
-    "powercli >=0.3.1, <1",
-    "python-dotenv >=1.0.1, <2",
-    "requests >=2.32.3, <3",
-    "superpathlib >=2.0.4, <3",
+    "powercli >=0.3.2, <1",
 ]
 
 [project.optional-dependencies]
@@ -27,7 +22,6 @@ dev = [
 
 [project.scripts]
 sysetup = "sysetup.cli:entry_point"
-exportcrontab = "sysetup.main.files:move_crontab"
 
 [build-system]
 requires = ["setuptools"]
@@ -38,7 +32,7 @@ command_line = "-m pytest tests"
 
 [tool.coverage.report]
 precision = 4
-fail_under = 60
+fail_under = 100
 
 [tool.mypy]
 strict = true
@@ -53,12 +47,13 @@ pythonpath = [
 fix = true
 
 [tool.ruff.lint]
-select = [
-    "E",  # pycodestyle errors
-    "W",  # pycodestyle warnings
-    "F",  # pyflakes
-    "I",  # isort
-    "UP",  # pyupgrade
+select = ["ALL"]
+ignore = [
+    "ANN101",  # annotate self
+    "ANN102",  # annotate cls
+    "ANN401",  # annotated with Any
+    "D", # docstrings
+    "S101", # assert used
 ]
 
 [tool.ruff.lint.isort]
@@ -67,8 +62,5 @@ known-first-party = ["src"]
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 
-[tool.setuptools]
-script-files = ["bin/pw", "bin/pw-askpass"]
-
 [tool.setuptools.package-data]
-sysetup = ["assets/scripts/update_wallpaper.js", "py.typed"]
+sysetup = ["py.typed"]

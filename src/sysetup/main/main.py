@@ -1,26 +1,13 @@
 import cli
 
-from ..context import context
-from ..models import Action
-from . import environment, files, installer
+from sysetup.context import context
 
 
 def main() -> None:
     """
-    Personal system setup.
+    Python package template.
     """
-    action_mapper = {
-        Action.all.value: setup,
-        Action.files.value: files.setup,
-        Action.install.value: installer.setup,
-        Action.env.value: environment.setup,
-    }
-    action = action_mapper[context.options.action.value]
-    action()
-
-
-def setup() -> None:
-    environment.setup()
-    files.setup()
-    installer.setup()
-    cli.run("reboot now", root=True)
+    message = "main functionality"
+    if context.options.debug:
+        cli.console.print(message)
+    cli.console.print(context.secrets)
