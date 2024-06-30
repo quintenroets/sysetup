@@ -1,8 +1,9 @@
 import cli
 
-from ..context import context
-from ..models import Action
-from . import environment, files, installer
+from sysetup.context import context
+from sysetup.models import Action
+
+from . import environment, files, installations, packages
 
 
 def main() -> None:
@@ -11,17 +12,19 @@ def main() -> None:
     """
     action_mapper = {
         Action.all.value: setup,
-        Action.files.value: files.setup,
-        Action.install.value: installer.setup,
         Action.env.value: environment.setup,
+        Action.files.value: files.setup,
+        Action.install.value: installations.setup,
+        Action.packages.value: packages.setup,
     }
     action = action_mapper[context.options.action.value]
     action()
 
 
 def setup() -> None:
-    raise Exception
     environment.setup()
+    packages.setup()
     files.setup()
-    installer.setup()
-    cli.run("reboot now", root=True)
+    installations.setup()
+    if not context.options.run_testing:
+        cli.run("reboot now", root=True)

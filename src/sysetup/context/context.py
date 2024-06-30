@@ -1,5 +1,26 @@
-from package_utils.context import Context
+from collections.abc import Iterator
+from functools import cached_property
 
-from ..models import Config, Options, Secrets
+import cli
+from package_utils.context import Context as Context_
 
-context = Context(Options, Config, Secrets)
+from sysetup.models import Options
+
+
+class Context(Context_[Options, None, None]):
+    @cached_property
+    def package_manager(self) -> str:
+        def generate_package_manager() -> Iterator[str]:
+            package_managers = "apt-get", "pacman"
+            for package_manager in package_managers:
+                if cli.completes_successfully("which", package_manager):
+                    yield package_manager
+
+        return next(generate_package_manager())
+
+    @cached_property
+    def apt_is_installed(self) -> bool:
+        return self.package_manager == "apt-get"
+
+
+context = Context(Options)

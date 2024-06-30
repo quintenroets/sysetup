@@ -4,7 +4,7 @@ env_name="qenv"
 venv_path="$HOME/.local/share/envs/$env_name"
 
 if [ ! -d "$venv_path" ]; then
-    sudo apt install -y python3.11-venv
+    sudo apt install -y python3-venv
     python3 -m venv "$venv_path"
 fi
 

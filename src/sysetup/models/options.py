@@ -9,3 +9,4 @@ from .action import Action
 @dataclass
 class Options:
     action: Annotated[Action, typer.Argument(help="The part to setup")] = Action.all
+    run_testing: bool = True
