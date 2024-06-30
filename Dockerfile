@@ -17,3 +17,8 @@ RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
 ENV HOME=/home/$USERNAME
 WORKDIR /home/$USERNAME
 USER $USERNAME
+
+RUN wget -O setup.sh https://raw.githubusercontent.com/quintenroets/sysetup/fix-setup/bin/setup
+RUN chmod +x setup.sh
+
+ENTRYPOINT ["./setup.sh"]
