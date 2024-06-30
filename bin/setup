@@ -4,15 +4,14 @@
 env_name="qenv"
 venv_path="$HOME/.local/share/envs/$env_name"
 if [ ! -d "$venv_path" ]; then
-    sudo apt install -y python3-venv
+    sudo apt-get install -y python3-venv
     python3 -m venv "$venv_path"
 fi
 source "$venv_path/bin/activate"
 
 # Install sysetup
-echo $DISPLAY
-if [ -n "$DISPLAY" ]; then
-    package="git+https://github.com/sysetup@fix-setup"
+if [ -z "$DISPLAY" ]; then
+    package="git+https://github.com/quintenroets/sysetup@fix-setup"
 else
     package="sysetup"
 fi
