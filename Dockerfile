@@ -18,6 +18,7 @@ ENV HOME=/home/$USERNAME
 WORKDIR /home/$USERNAME
 USER $USERNAME
 
+ENV OER=ar
 RUN wget -O setup.sh https://raw.githubusercontent.com/quintenroets/sysetup/fix-setup/bin/setup
 RUN chmod +x setup.sh
 
