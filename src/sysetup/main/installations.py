@@ -8,7 +8,8 @@ from sysetup.models import Path
 
 def setup() -> None:
     install_chromium()
-    install_jumpapp()
+    install_repository("jumpapp", "mkropat/jumpapp")
+    install_keyd()
     install_language_support()
     install_linter_env()
     install_personal_git_repositories()
@@ -60,8 +61,19 @@ def install_linter_env() -> None:
         cli.run(f"{python_path} -m pip install autoimport powertrace-hooks")
 
 
-def install_jumpapp() -> None:
-    if not cli.capture_output("which jumpapp", check=False):
+def install_keyd() -> None:
+    install_repository("keyd", "rvaiya/keyd")
+    if not context.is_running_in_test:
+        cli.run_commands(
+            "systemctl enable keyd",
+            "sudo systemctl start keyd",
+            root=True,
+        )
+
+
+def install_repository(name: str, repository: str) -> None:
+    if not cli.capture_output("which", name, check=False):
+        url = f"https://github.com/{repository}"
         with Path.tempdir() as directory:
-            cli.run("git clone https://github.com/mkropat/jumpapp", directory)
+            cli.run("git clone", url, directory)
             cli.run_commands("make", "sudo make install", cwd=directory)
