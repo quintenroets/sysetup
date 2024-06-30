@@ -10,7 +10,7 @@ class Path(superpathlib.Path):
     @classmethod
     @classproperty
     def source_root(cls: type[T]) -> T:
-        return cls(__file__).parent
+        return cls(__file__).parent.parent
 
     @classmethod
     @classproperty

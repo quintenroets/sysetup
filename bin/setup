@@ -1,17 +1,25 @@
 #! /bin/bash
 
+# Setup environment
 env_name="qenv"
 venv_path="$HOME/.local/share/envs/$env_name"
-
 if [ ! -d "$venv_path" ]; then
-    sudo apt install -y python3.11-venv
+    sudo apt-get install -y python3-venv
     python3 -m venv "$venv_path"
 fi
-
 source "$venv_path/bin/activate"
-python -m pip install --upgrade sysetup
 
+# Install sysetup
+if [ -z "$DISPLAY" ]; then
+    package="."
+else
+    package="sysetup"
+fi
+python -m pip install --upgrade "$package"
+
+# Configure credentials
 askpass=/usr/bin/ksshaskpass
 export SUDO_ASKPASS=$askpass
 export RCLONE_PASSWORD_COMMAND=$askpass
+
 sysetup

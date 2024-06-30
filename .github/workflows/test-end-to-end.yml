@@ -8,7 +8,25 @@ jobs:
     name: Test end-to-end
     runs-on: ubuntu-latest
     steps:
-      - name: Test end-to-end
-        run: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          clean: false
+          show-progress: false
+
+      - name: Set up docker build
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build container
+        uses: docker/build-push-action@v6
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          tags: image
+          load: true
+
+      - name: Run setup
+        run: docker run -t -e RCLONE=$RCLONE -e GITHUB=$GITHUB image
         env:
           RCLONE: ${{ secrets.RCLONE }}
+          GITHUB: ${{ secrets.GITHUB }}
