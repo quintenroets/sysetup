@@ -26,10 +26,7 @@ jobs:
           load: true
 
       - name: Run setup
-        run: docker run -t image ls
-
-      # - name: Test end-to-end
-      # run: wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
-      #  env:
-      #    RCLONE: ${{ secrets.RCLONE }}
-      #    GITHUB: ${{ secrets.GITHUB }}
+        run: docker run -t -e RCLONE=$RCLONE -e GITHUB=$GITHUB image
+        env:
+          RCLONE: ${{ secrets.RCLONE }}
+          GITHUB: ${{ secrets.GITHUB }}
