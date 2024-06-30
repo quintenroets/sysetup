@@ -18,7 +18,8 @@ ENV HOME=/home/$USERNAME
 WORKDIR /home/$USERNAME
 USER $USERNAME
 
-COPY bin/setup setup
-RUN sudo chmod +x .
+COPY . .
+RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
+RUN sudo chmod +x bin/setup
 
-ENTRYPOINT ["./setup"]
+ENTRYPOINT ["./bin/setup"]

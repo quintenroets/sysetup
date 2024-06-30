@@ -11,7 +11,7 @@ source "$venv_path/bin/activate"
 
 # Install sysetup
 if [ -z "$DISPLAY" ]; then
-    package="git+https://github.com/quintenroets/sysetup@fix-setup"
+    package="."
 else
     package="sysetup"
 fi
