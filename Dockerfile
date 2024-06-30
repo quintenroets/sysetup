@@ -1,5 +1,5 @@
 # Base image can be invent-registry.kde.org/neon/docker-images/plasma:latest as well
-ARG BASE_IMAGE=python3.12
+ARG BASE_IMAGE=python3.12:latest
 FROM $BASE_IMAGE
 
 # install the dependencies that are assumed to be present in a fresh OS install
