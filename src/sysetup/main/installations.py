@@ -26,8 +26,9 @@ def install_personal_git_repositories() -> None:
 
 
 def install_language_support() -> None:
-    packages = cli.capture_output("check-language-support")
-    cli.install(packages)
+    packages = cli.capture_output("check-language-support", check=False)
+    if packages:
+        cli.install(packages)
 
 
 def install_chromium() -> None:
