@@ -23,6 +23,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           tags: image
+          load: true
 
       - name: Run setup
         run: docker run -t image ls

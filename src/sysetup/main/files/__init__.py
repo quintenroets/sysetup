@@ -1,1 +1,1 @@
-from sysetup.main.files.setup import setup
+from .setup import setup

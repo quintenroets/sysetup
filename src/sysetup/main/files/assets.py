@@ -6,7 +6,6 @@ from sysetup.utils import download_directory
 
 
 def setup() -> None:
-    cli.console.print("Downloading setup files..")
     download_directory(Path.assets)
     move_crontab()
     move_setup_files()
