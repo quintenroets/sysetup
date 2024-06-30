@@ -1,6 +1,6 @@
 [project]
 name = "sysetup"
-version = "1.1.0"
+version = "1.2.0"
 description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
@@ -27,7 +27,7 @@ dev = [
 
 [project.scripts]
 sysetup = "sysetup.cli:entry_point"
-exportcrontab = "sysetup.main.files:move_crontab"
+exportcrontab = "sysetup.main.files.assets:move_crontab"
 
 [build-system]
 requires = ["setuptools"]
