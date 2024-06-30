@@ -11,7 +11,7 @@ from sysetup.models import Path
 plasma_config_path = Path.HOME / ".config" / "plasma-org.kde.plasma.desktop-appletsrc"
 
 
-@pytest.fixture
+@pytest.fixture()
 def restore(path: Path) -> Callable[[Path], Iterator[None]]:
     def _restore(restored_path: Path) -> Iterator[None]:
         exists = restored_path.exists()
@@ -24,9 +24,10 @@ def restore(path: Path) -> Callable[[Path], Iterator[None]]:
     return _restore
 
 
-@pytest.fixture
+@pytest.fixture()
 def restore_and_check(
-    path: Path, restore: Callable[[Path], Iterator[None]]
+    path: Path,
+    restore: Callable[[Path], Iterator[None]],
 ) -> Callable[[Path], Iterator[None]]:
     setup.check_setup()
     env = os.environ | {"RCLONE_CONFIG_PASS": context.secrets.rclone}
@@ -35,7 +36,10 @@ def restore_and_check(
     def _restore_and_check(restored_path: Path) -> Iterator[None]:
         def extract_content_hash() -> str:
             return cli.capture_output(
-                "rclone hashsum MD5", restored_path, env=env, check=False
+                "rclone hashsum MD5",
+                restored_path,
+                env=env,
+                check=False,
             )
 
         content_hash = extract_content_hash()
@@ -45,7 +49,7 @@ def restore_and_check(
     return _restore_and_check
 
 
-@pytest.fixture
+@pytest.fixture()
 def restore_config_path(
     restore_and_check: Callable[[Path], Iterator[None]],
 ) -> Iterator[None]:

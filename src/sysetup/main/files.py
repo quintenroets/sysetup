@@ -14,7 +14,7 @@ def setup() -> None:
             filter_rules=["+ /environment", "- *"],
         ),
         "setup files": dict(
-            sub_check_path=BackupPath.script_assets / "sysetup" / "files"
+            sub_check_path=BackupPath.script_assets / "sysetup" / "files",
         ),
     }
     for name, kwargs in kwargs_mapper.items():
@@ -53,7 +53,8 @@ def set_background() -> None:  # pragma: nocover
     )
     wallpaper_uri = wallpaper_path.as_uri()
     script = Path.update_wallpaper_script.text.replace(
-        "__wallpaper_uri__", wallpaper_uri
+        "__wallpaper_uri__",
+        wallpaper_uri,
     )
     run_kde_script(script)
 
