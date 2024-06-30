@@ -5,9 +5,6 @@ FROM $BASE_IMAGE
 # install the dependencies that are assumed to be present in a fresh OS install
 RUN apt-get update && apt-get install -y wget sudo
 
-RUN apt-get update && apt-get install -y curl
-RUN curl https://rclone.org/install.sh | sudo bash # temp speedup
-
 # Setup new user
 ARG USERNAME=quinten
 RUN sudo useradd $USERNAME
