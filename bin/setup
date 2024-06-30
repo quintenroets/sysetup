@@ -10,8 +10,9 @@ fi
 source "$venv_path/bin/activate"
 
 # Install sysetup
+echo $DISPLAY
 if [ -n "$DISPLAY" ]; then
-    package="git+https://github.com/sysetup"
+    package="git+https://github.com/sysetup@fix-setup"
 else
     package="sysetup"
 fi
