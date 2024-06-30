@@ -63,7 +63,7 @@ def install_linter_env() -> None:
 
 def install_keyd() -> None:
     install_repository("keyd", "rvaiya/keyd")
-    commands = ("systemctl enable keyd", "sudo systemctl start keyd")
+    commands = ("systemctl enable keyd", "systemctl start keyd")
     if not context.is_running_in_test:
         cli.run_commands(*commands, root=True)
 
