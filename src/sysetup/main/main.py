@@ -26,5 +26,5 @@ def setup() -> None:
     packages.setup()
     files.setup()
     installations.setup()
-    if not context.options.run_testing:
+    if not context.is_running_in_test:
         cli.run("reboot now", root=True)

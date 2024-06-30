@@ -44,7 +44,7 @@ def _install_chromium() -> None:
         "apt-get update",
         "apt-get install -y chromium",
     )
-    check = not context.options.run_testing
+    check = not context.is_running_in_test
     cli.run_commands(*commands, shell=True, root=True, check=check)  # noqa: S604
 
 

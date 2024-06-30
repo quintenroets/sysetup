@@ -41,5 +41,5 @@ def run_kde_script(script: str) -> None:  # pragma: nocover
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
-    if not context.options.run_testing:
+    if not context.is_running_in_test:
         cli.run(command, script)

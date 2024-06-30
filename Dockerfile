@@ -17,13 +17,3 @@ RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
 ENV HOME=/home/$USERNAME
 WORKDIR /home/$USERNAME
 USER $USERNAME
-
-# install sysetup
-RUN sudo apt install -y python3-venv
-RUN python3 -m venv "$HOME/.local/share/envs/qenv"
-ENV PATH="/home/quinten/.local/share/envs/qenv/bin:$PATH"
-RUN python -m pip install sysetup
-
-COPY . sysetup
-RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
-RUN python -m pip install --no-deps -e sysetup
