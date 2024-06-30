@@ -33,9 +33,6 @@ def update_apt() -> None:
         "select true | sudo debconf-set-selections"
     )
     commands = ["sudo apt-get update", agree_eula_command]
-    if not context.is_running_in_test:
-        # snap currently doesn't work on arm
-        commands.append("sudo systemctl enable --now snapd.socket")
     cli.run_commands_in_shell(*commands)
     if not Path("/snap").exists():
         cli.run("ln -s /var/lib/snapd/snap /snap", root=True)

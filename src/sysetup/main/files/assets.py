@@ -9,6 +9,7 @@ def setup() -> None:
     download_directory(Path.assets)
     move_crontab()
     move_setup_files()
+    download_directory(Path.assets.parent / "backup")
 
 
 def move_crontab() -> None:
