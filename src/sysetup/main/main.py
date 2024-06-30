@@ -27,5 +27,4 @@ def setup() -> None:
     files.setup()
     installations.setup()
     if not context.is_running_in_test:
-        cli.run("backup pull")
-        cli.run("reboot now", root=True)
+        cli.run("backup pull --include-browser --no-confirm-push")
