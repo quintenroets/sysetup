@@ -13,11 +13,6 @@ repos:
     rev: 24.4.2
     hooks:
       - id: black
-  - repo: https://github.com/pecigonzalo/pre-commit-shfmt
-    rev: v2.2.0
-    hooks:
-      - id: shell-fmt
-        args: [ -w, -i, "4" ]
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
@@ -46,6 +41,7 @@ repos:
   - repo: https://github.com/quintenroets/package-dev-tools
     rev: v0.6.1
     hooks:
+      - id: check-coverage
       - id: check-shields
       - id: check-version
 
@@ -53,4 +49,4 @@ ci:
     autofix_commit_msg: auto fixes from pre-commit hooks
     autoupdate_commit_msg: 'pre-commit auto updates'
     autoupdate_schedule: monthly
-    skip: [mypy, shell-fmt, run-tests]
+    skip: [mypy, run-tests, check-coverage]
