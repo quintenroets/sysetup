@@ -1,6 +1,7 @@
 from unittest.mock import PropertyMock, patch
 
 import cli
+
 from sysetup.main.installations import install_linter_env
 from sysetup.models import Path
 
