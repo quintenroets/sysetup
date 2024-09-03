@@ -5,13 +5,14 @@ import cli
 import pytest
 from backup.context import context
 from backup.utils import setup
+
 from sysetup.main.files.settings import set_background
 from sysetup.models import Path
 
 plasma_config_path = Path.HOME / ".config" / "plasma-org.kde.plasma.desktop-appletsrc"
 
 
-@pytest.fixture()
+@pytest.fixture
 def restore(path: Path) -> Callable[[Path], Iterator[None]]:
     def _restore(restored_path: Path) -> Iterator[None]:
         exists = restored_path.exists()
@@ -24,7 +25,7 @@ def restore(path: Path) -> Callable[[Path], Iterator[None]]:
     return _restore
 
 
-@pytest.fixture()
+@pytest.fixture
 def restore_and_check(
     restore: Callable[[Path], Iterator[None]],
 ) -> Callable[[Path], Iterator[None]]:
@@ -48,7 +49,7 @@ def restore_and_check(
     return _restore_and_check
 
 
-@pytest.fixture()
+@pytest.fixture
 def restore_config_path(
     restore_and_check: Callable[[Path], Iterator[None]],
 ) -> Iterator[None]:

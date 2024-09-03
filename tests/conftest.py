@@ -1,6 +1,7 @@
 from collections.abc import Iterator
 
 import pytest
+
 from sysetup.models import Path
 
 
@@ -10,6 +11,6 @@ def provision_path() -> Iterator[Path]:
     assert not path.exists()
 
 
-@pytest.fixture()
+@pytest.fixture
 def path() -> Iterator[Path]:
     yield from provision_path()
