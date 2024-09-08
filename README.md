@@ -1,5 +1,6 @@
 # Sysetup
 [![PyPI version](https://badge.fury.io/py/sysetup.svg)](https://badge.fury.io/py/sysetup)
+![PyPI downloads](https://img.shields.io/pypi/dm/sysetup)
 ![Python version](https://img.shields.io/badge/python-3.10+-brightgreen)
 ![Operating system](https://img.shields.io/badge/os-linux-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-66%25-brightgreen)
