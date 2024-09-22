@@ -8,7 +8,6 @@ from sysetup.models import Path
 
 def setup() -> None:
     install_chromium()
-    install_repository("jumpapp", "mkropat/jumpapp")
     install_keyd()
     install_language_support()
     install_linter_env()
