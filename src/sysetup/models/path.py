@@ -33,7 +33,7 @@ class Path(superpathlib.Path):
     @classmethod
     @classproperty
     def linter_env(cls: type[T]) -> T:
-        path = Path.HOME / ".local" / "share" / "envs" / "linterenv"
+        path = cls.HOME / ".local" / "share" / "envs" / "linterenv"
         return cast(T, path)
 
     @classmethod
@@ -46,4 +46,10 @@ class Path(superpathlib.Path):
     @classproperty
     def update_wallpaper_script(cls: type[T]) -> T:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
+        return cast(T, path)
+
+    @classmethod
+    @classproperty
+    def profile(cls: type[T]) -> T:
+        path = cls.HOME / ".bash_profile"
         return cast(T, path)

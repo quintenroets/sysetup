@@ -20,10 +20,6 @@ Latest version
    ```
 2) Set display size (1920 x 1080)
 3) General steps
-4) Change TigerVNC autostart to:
-   ```shell
-   x0vncserver -passwordfile ~/.vnc/passwd -SecurityTypes=TLSVnc -localhost -display :0
-   ```
 
 #### Raspberry Pi Ubuntu21.04 Server
 1) Run
