@@ -62,8 +62,7 @@ def install_linter_env() -> None:
 
 
 def install_keyd() -> None:
-    repository = "quintenroets/keyd.git/tree/support-scroll-mapping"
-    install_repository("keyd", repository)
+    install_repository("keyd", "quintenroets/keyd", branch="support-scroll-mapping")
     enable_service("keyd")
 
 
@@ -73,9 +72,12 @@ def enable_service(name: str) -> None:
         cli.run(command, root=True)
 
 
-def install_repository(name: str, repository: str) -> None:
+def install_repository(name: str, repository: str, branch: str | None = None) -> None:
     if not cli.capture_output("which", name, check=False):
         url = f"https://github.com/{repository}"
+        command: tuple[str, ...] = "git clone", url
+        if branch is not None:
+            command = (*command, "-b", branch)
         with Path.tempdir() as directory:
-            cli.run("git clone", url, directory)
+            cli.run(*command, directory)
             cli.run_commands("make", "sudo make install", cwd=directory)
