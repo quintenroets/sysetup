@@ -9,6 +9,7 @@ from sysetup.models import Path
 def setup() -> None:
     install_chromium()
     install_keyd()
+    enable_service("ydotoold")
     install_language_support()
     install_linter_env()
     install_personal_git_repositories()
@@ -61,10 +62,15 @@ def install_linter_env() -> None:
 
 
 def install_keyd() -> None:
-    install_repository("keyd", "quintenroets/keyd")
-    commands = ("systemctl enable keyd", "systemctl start keyd")
+    repository = "quintenroets/keyd.git/tree/support-scroll-mapping"
+    install_repository("keyd", repository)
+    enable_service("keyd")
+
+
+def enable_service(name: str) -> None:
     if not context.is_running_in_test:
-        cli.run_commands(*commands, root=True)
+        command = f"systemctl enable --now {name}"
+        cli.run(command, root=True)
 
 
 def install_repository(name: str, repository: str) -> None:
