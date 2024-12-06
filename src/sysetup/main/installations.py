@@ -10,6 +10,7 @@ def setup() -> None:
     install_chromium()
     install_keyd()
     enable_service("ydotoold")
+    enable_service("ssh")
     install_language_support()
     install_linter_env()
     install_personal_git_repositories()
