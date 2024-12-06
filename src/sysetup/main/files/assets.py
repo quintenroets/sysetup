@@ -6,11 +6,15 @@ from sysetup.utils import download_directory
 
 
 def setup() -> None:
-    download_directory(Path.assets)
-    download_directory(Path.HOME / ".local" / "share" / "kwalletd")
+    directories = (
+        Path.assets,
+        Path.HOME / ".local" / "share" / "kwalletd",
+        Path.assets.parent / "backup",
+    )
+    for directory in directories:
+        download_directory(directory)
     move_crontab()
     move_setup_files()
-    download_directory(Path.assets.parent / "backup")
 
 
 def move_crontab() -> None:

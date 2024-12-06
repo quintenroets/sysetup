@@ -52,7 +52,7 @@ def cleanup_after_install() -> None:
     if cli.completes_successfully("which qdbus"):
         commands = (
             "rm /usr/bin/qdbus",
-            "ls -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus",
+            "ln -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus",
         )
         cli.run_commands(*commands, root=True)
     delete = "apt purge -y" if context.apt_is_installed else "pacman -R --noconfirm"

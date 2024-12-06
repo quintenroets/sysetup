@@ -4,11 +4,13 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
+from sysetup.utils import download_file
 
 
 def setup() -> None:
     install_chromium()
     install_keyd()
+    download_file(Path("/") / "etc" / "systemd" / "system" / "ydotoold.service")
     enable_service("ydotoold")
     enable_service("ssh")
     install_language_support()
@@ -21,10 +23,10 @@ def install_personal_git_repositories() -> None:
     token = os.getenv("GITHUB", None)
     if token is not None:
         base_url = base_url.replace("github.com", f"{token}@github.com")
-        if not Path.extensions.exists():
-            command = f"git clone {base_url}/extensions.git"
-            cli.run(command, Path.extensions)
-        cli.run(f"pip install git+{base_url}/system.git")
+    if not Path.extensions.exists():
+        command = f"git clone {base_url}/extensions.git"
+        cli.run(command, Path.extensions)
+    cli.run(f"pip install git+{base_url}/system.git")
 
 
 def install_language_support() -> None:
