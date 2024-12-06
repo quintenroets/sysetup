@@ -48,12 +48,13 @@ def update_apt() -> None:
 def cleanup_after_install() -> None:
     if context.apt_is_installed:
         cli.run("sudo apt-get autoremove -y")
-    root_commands = (
-        "tlp start",
-        "rm /usr/bin/qdbus",
-        "ls -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus",
-    )
-    cli.run_commands(*root_commands, root=True)
+    cli.run("tlp start", root=True)
+    if cli.completes_successfully("which qdbus"):
+        commands = (
+            "rm /usr/bin/qdbus",
+            "ls -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus",
+        )
+        cli.run_commands(*commands, root=True)
     delete = "apt purge -y" if context.apt_is_installed else "pacman -R --noconfirm"
     commands = (
         "auto-cpufreq --install",  # Fails on VM
