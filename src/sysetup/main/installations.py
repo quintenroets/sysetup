@@ -4,11 +4,13 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
+from sysetup.utils import download_file
 
 
 def setup() -> None:
     install_chromium()
     install_keyd()
+    download_file(Path("/") / "etc" / "systemd" / "system" / "ydotoold.service")
     enable_service("ydotoold")
     enable_service("ssh")
     install_language_support()
