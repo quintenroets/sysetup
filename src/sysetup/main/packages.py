@@ -19,6 +19,13 @@ def install_packages() -> None:
         packages: list[str] = path.yaml
         cli.install(*packages, install_command=command)
 
+    if not context.apt_is_installed:
+        commands = (
+            "sudo pacman -S --noconfirm python-pip base-devel",
+            "pip install wheel",
+        )
+        cli.run_commands(*commands)
+
 
 def update_package_manager() -> None:
     if context.apt_is_installed:
@@ -28,10 +35,10 @@ def update_package_manager() -> None:
 
 
 def update_apt() -> None:
-    agree_eula_command = (
-        "echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula"
-        "select true | sudo debconf-set-selections"
+    value = (
+        "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true"
     )
+    agree_eula_command = f'echo "{value}" | sudo debconf-set-selections'
     commands = ["sudo apt-get update", agree_eula_command]
     cli.run_commands_in_shell(*commands)
     if not Path("/snap").exists():
@@ -39,16 +46,15 @@ def update_apt() -> None:
 
 
 def cleanup_after_install() -> None:
-    after_install_command = (
-        "sudo apt-get autoremove -y"
-        if context.apt_is_installed
-        else (
-            "sudo pacman -S --noconfirm python-pip; sudo pacman -S --noconfirm"
-            " base-devel; pip install wheel"
+    if context.apt_is_installed:
+        cli.run("sudo apt-get autoremove -y")
+    cli.run("tlp start", root=True)
+    if cli.completes_successfully("which qdbus"):
+        commands = (
+            "rm /usr/bin/qdbus",
+            "ls -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus",
         )
-    )
-    cli.run_commands_in_shell(after_install_command, "sudo tlp start")
-    cli.run("systemctl enable ssh", root=True)  # start ssh server before log in
+        cli.run_commands(*commands, root=True)
     delete = "apt purge -y" if context.apt_is_installed else "pacman -R --noconfirm"
     commands = (
         "auto-cpufreq --install",  # Fails on VM

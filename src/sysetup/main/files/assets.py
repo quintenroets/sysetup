@@ -7,6 +7,7 @@ from sysetup.utils import download_directory
 
 def setup() -> None:
     download_directory(Path.assets)
+    download_directory(Path.HOME / ".local" / "share" / "kwalletd")
     move_crontab()
     move_setup_files()
     download_directory(Path.assets.parent / "backup")

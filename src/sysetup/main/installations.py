@@ -9,6 +9,8 @@ from sysetup.models import Path
 def setup() -> None:
     install_chromium()
     install_keyd()
+    enable_service("ydotoold")
+    enable_service("ssh")
     install_language_support()
     install_linter_env()
     install_personal_git_repositories()
@@ -19,10 +21,10 @@ def install_personal_git_repositories() -> None:
     token = os.getenv("GITHUB", None)
     if token is not None:
         base_url = base_url.replace("github.com", f"{token}@github.com")
-    if not Path.extensions.exists():
-        command = f"git clone {base_url}/extensions.git"
-        cli.run(command, Path.extensions)
-    cli.run(f"pip install git+{base_url}/system.git")
+        if not Path.extensions.exists():
+            command = f"git clone {base_url}/extensions.git"
+            cli.run(command, Path.extensions)
+        cli.run(f"pip install git+{base_url}/system.git")
 
 
 def install_language_support() -> None:
@@ -61,15 +63,22 @@ def install_linter_env() -> None:
 
 
 def install_keyd() -> None:
-    install_repository("keyd", "quintenroets/keyd")
-    commands = ("systemctl enable keyd", "systemctl start keyd")
+    install_repository("keyd", "quintenroets/keyd", branch="support-scroll-mapping")
+    enable_service("keyd")
+
+
+def enable_service(name: str) -> None:
     if not context.is_running_in_test:
-        cli.run_commands(*commands, root=True)
+        command = f"systemctl enable --now {name}"
+        cli.run(command, root=True)
 
 
-def install_repository(name: str, repository: str) -> None:
+def install_repository(name: str, repository: str, branch: str | None = None) -> None:
     if not cli.capture_output("which", name, check=False):
         url = f"https://github.com/{repository}"
+        command: tuple[str, ...] = "git clone", url
+        if branch is not None:
+            command = (*command, "-b", branch)
         with Path.tempdir() as directory:
-            cli.run("git clone", url, directory)
+            cli.run(*command, directory)
             cli.run_commands("make", "sudo make install", cwd=directory)

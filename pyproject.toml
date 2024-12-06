@@ -1,13 +1,13 @@
 [project]
 name = "sysetup"
-version = "1.3.3"
+version = "1.3.4"
 description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "backupmaster >=1.2.6, <2",
+    "backupmaster >=1.2.21, <2",
     "dbus-next >=0.2.3, <1",
     "package-utils[context] >=0.6.1, <1",
     "powercli >=0.3.1, <1",
