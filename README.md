@@ -4,14 +4,14 @@
 ![Python version](https://img.shields.io/badge/python-3.10+-brightgreen)
 ![Operating system](https://img.shields.io/badge/os-linux-brightgreen)
 ![Coverage](https://img.shields.io/badge/coverage-66%25-brightgreen)
-## [Plasma](https://kde.org/plasma-desktop/) 5.22 required
+## [Plasma](https://kde.org/plasma-desktop/) 6 required
 
 [Setup info](docs/setup-plasma.md)
 
 ## Setup steps
 1) Run
    ```shell
-   wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+   wget -O - sysetup.quintenroets.com | bash
    ```
    give rclone password when prompted
 2) Appearance
