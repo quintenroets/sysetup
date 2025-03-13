@@ -4,8 +4,8 @@
 env_name="qenv"
 venv_path="$HOME/.local/share/envs/$env_name"
 if [ ! -d "$venv_path" ]; then
-    sudo apt-get install -y python3-venv
-    python3 -m venv "$venv_path"
+    wget -qO- https://astral.sh/uv/install.sh | sh
+    uv venv "$venv_path"
 fi
 source "$venv_path/bin/activate"
 
@@ -15,7 +15,7 @@ if [ -z "$DISPLAY" ]; then
 else
     package="sysetup"
 fi
-python -m pip install --upgrade "$package"
+uv pip install --upgrade "$package"
 
 # Configure credentials
 askpass=/usr/bin/ksshaskpass
