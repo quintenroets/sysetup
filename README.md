@@ -11,7 +11,7 @@
 ## Setup steps
 1) Run
    ```shell
-   wget -O - https://raw.githubusercontent.com/quintenroets/sysetup/main/bin/setup | bash
+   wget -O - sysetup.quintenroets.com | bash
    ```
    give rclone password when prompted
 2) Appearance
