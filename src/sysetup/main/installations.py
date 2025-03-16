@@ -4,7 +4,7 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import download_file
+from sysetup.utils import download_file, is_installed
 
 
 def setup() -> None:
@@ -14,7 +14,6 @@ def setup() -> None:
     enable_service("ydotoold")
     enable_service("ssh")
     install_language_support()
-    install_linter_env()
     install_personal_git_repositories()
 
 
@@ -26,7 +25,7 @@ def install_personal_git_repositories() -> None:
     if not Path.extensions.exists():
         command = f"git clone {base_url}/extensions.git"
         cli.run(command, Path.extensions)
-    cli.run(f"pip install git+{base_url}/system.git")
+    cli.run(f"uv pip install git+{base_url}/system.git")
 
 
 def install_language_support() -> None:
@@ -40,7 +39,7 @@ def install_language_support() -> None:
 
 
 def install_chromium() -> None:
-    if not cli.capture_output("which chromium-browser", check=False):
+    if not is_installed("chromium-browser"):
         _install_chromium()
 
 
@@ -57,13 +56,6 @@ def _install_chromium() -> None:
     cli.run_commands(*commands, shell=True, root=True, check=check)  # noqa: S604
 
 
-def install_linter_env() -> None:
-    if not Path.linter_env.exists():
-        cli.run("python -m venv", Path.linter_env.name, cwd=Path.linter_env.parent)
-        python_path = Path.linter_env / "bin" / "python"
-        cli.run(f"{python_path} -m pip install autoimport powertrace-hooks")
-
-
 def install_keyd() -> None:
     install_repository("keyd", "rvaiya/keyd")
     enable_service("keyd")
@@ -76,7 +68,7 @@ def enable_service(name: str) -> None:
 
 
 def install_repository(name: str, repository: str) -> None:
-    if not cli.capture_output("which", name, check=False):
+    if not is_installed(name):
         url = f"https://github.com/{repository}"
         with Path.tempdir() as directory:
             cli.run("git clone", url, directory)

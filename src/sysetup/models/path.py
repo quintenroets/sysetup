@@ -32,12 +32,6 @@ class Path(superpathlib.Path):
 
     @classmethod
     @classproperty
-    def linter_env(cls: type[T]) -> T:
-        path = cls.HOME / ".local" / "share" / "envs" / "linterenv"
-        return cast(T, path)
-
-    @classmethod
-    @classproperty
     def extensions(cls: type[T]) -> T:
         path = cls.HOME / ".local" / "share" / "extensions"
         return cast(T, path)

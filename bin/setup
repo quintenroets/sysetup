@@ -1,20 +1,20 @@
 #! /bin/bash
 
 # Setup environment
-env_name="qenv"
-venv_path="$HOME/.local/share/envs/$env_name"
-if [ ! -d "$venv_path" ]; then
-    wget -qO- https://astral.sh/uv/install.sh | sh
-    uv venv "$venv_path"
-fi
-source "$venv_path/bin/activate"
 
-# Install sysetup
-if [ -z "$DISPLAY" ]; then
-    package="."
-else
-    package="sysetup"
+venv_path="$HOME/.local/share/envs/qenv"
+export PATH="$venv_path/"bin":$PATH:$HOME/.local/bin"
+
+if [ ! command -v "uv" ]; then
+    wget -qO- https://astral.sh/uv/install.sh | sh
 fi
+
+package="sysetup"
+if [ -d "src/$package" ]; then
+    package="." # Install from local source when running inside repository
+fi
+
+uv venv "$venv_path"
 uv pip install --upgrade "$package"
 
 # Configure credentials
