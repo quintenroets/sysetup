@@ -25,7 +25,6 @@
     * Click experimental: enable tab groups save and sync
 5) Login to
     * Pycharm professional
-    * VNC Server
 6) For new device: set touchpad scroll direction and click on touch
 
 ## Installation
