@@ -1,9 +1,10 @@
 import json
 import os
+from typing import cast
 
 import cli
 
-from sysetup.context import context
+from sysetup.context.context import context
 
 
 def fetch_secret(name: str) -> str:
@@ -12,4 +13,5 @@ def fetch_secret(name: str) -> str:
         output = cli.capture_output(f"bw login {email} {context.options.password}")
         os.environ["BW_SESSION"] = output.split("--session ")[-1]
     response = cli.capture_output(f"bw list items --search {name}")
-    return json.loads(response)[0]["notes"]
+    secret = json.loads(response)[0]["notes"]
+    return cast(str, secret)
