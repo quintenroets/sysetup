@@ -3,7 +3,7 @@
 # Setup environment
 
 venv_path="$HOME/.local/share/envs/qenv"
-export PATH="$venv_path/"bin":$PATH:$HOME/.local/bin"
+export PATH="$venv_path/bin:$PATH:$HOME/.local/bin"
 
 if ! command -v uv >/dev/null 2>&1; then
     wget -qO- https://astral.sh/uv/install.sh | sh
