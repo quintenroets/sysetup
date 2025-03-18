@@ -1,11 +1,15 @@
 #! /bin/bash
 
+# Extract password
+
+if [[ -n "$PASSWORD" ]]; then
+    password="$PASSWORD"
+else
+    read -rsp "Login and bitwarden password: " password
+fi
+echo "$password" | sudo -S ls # check password
+
 # Setup environment
-
-read -s -p "Login and bitwarden password: " password
-
-echo $password | sudo -S ls # activate sudo
-
 venv_path="$HOME/.local/share/envs/qenv"
 export PATH="$venv_path/bin:$PATH:$HOME/.local/bin"
 
@@ -21,4 +25,4 @@ fi
 uv venv "$venv_path"
 uv pip install --upgrade "$package"
 
-sysetup --password $password
+sysetup --password "$password"
