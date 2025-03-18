@@ -10,8 +10,8 @@ from sysetup.utils import download_file, is_installed
 def setup() -> None:
     install_chromium()
     install_keyd()
+    install_ydotool()
     download_file(Path("/") / "etc" / "systemd" / "system" / "ydotoold.service")
-    enable_service("ydotoold")
     enable_service("ssh")
     install_language_support()
     install_personal_git_repositories()
@@ -72,4 +72,14 @@ def install_repository(name: str, repository: str) -> None:
         url = f"https://github.com/{repository}"
         with Path.tempdir() as directory:
             cli.run("git clone", url, directory)
+            if (directory / "CMakeLists.txt").exists():
+                cli.run("apt-get install cmake", root=True)
+                cli.run("cmake .")
             cli.run_commands("make", "sudo make install", cwd=directory)
+
+
+def install_ydotool() -> None:
+    if not is_installed("ydotool"):
+        cli.run("apt-get install scdoc")
+        install_repository("ydotool", "ReimuNotMoe/ydotool")
+        enable_service("ydotoold")
