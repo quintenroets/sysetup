@@ -2,6 +2,10 @@
 
 # Setup environment
 
+read -s -p "Login and bitwarden password: " password
+
+echo $password | sudo -S ls # activate sudo
+
 venv_path="$HOME/.local/share/envs/qenv"
 export PATH="$venv_path/bin:$PATH:$HOME/.local/bin"
 
@@ -17,9 +21,4 @@ fi
 uv venv "$venv_path"
 uv pip install --upgrade "$package"
 
-# Configure credentials
-askpass=/usr/bin/ksshaskpass
-export SUDO_ASKPASS=$askpass
-export RCLONE_PASSWORD_COMMAND=$askpass
-
-sysetup
+sysetup --password $password
