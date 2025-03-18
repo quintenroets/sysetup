@@ -80,6 +80,6 @@ def install_repository(name: str, repository: str) -> None:
 
 def install_ydotool() -> None:
     if not is_installed("ydotool"):
-        cli.run("scdoc")
+        cli.run("apt-get install scdoc")
         install_repository("ydotool", "ReimuNotMoe/ydotool")
         enable_service("ydotoold")
