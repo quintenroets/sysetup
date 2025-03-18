@@ -9,7 +9,6 @@ from sysetup.context import context
 from sysetup.models import Path
 from sysetup.utils import download_file, is_installed
 
-from .installations import enable_service
 from .packages import update_package_manager
 
 
