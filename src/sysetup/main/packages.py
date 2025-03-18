@@ -6,6 +6,7 @@ from sysetup.utils import download_directory, is_installed
 
 
 def setup() -> None:
+    update_package_manager()
     install_packages()
     cleanup_after_install()
 
