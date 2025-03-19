@@ -6,4 +6,3 @@ class Action(str, Enum):
     files = "files"
     packages = "packages"
     install = "install"
-    env = "env"

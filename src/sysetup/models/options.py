@@ -8,5 +8,6 @@ from .action import Action
 
 @dataclass
 class Options:
-    password: Annotated[str, typer.Option(help="The login and bitwarden password")] = ""
+    bitwarden_password: Annotated[str, typer.Option()] = ""
+    bitwarden_email: Annotated[str, typer.Option()] = "quinten.roets@gmail.com"
     action: Annotated[Action, typer.Argument(help="The part to setup")] = Action.all

@@ -2,7 +2,7 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import download_directory
+from sysetup.utils import download_directory, is_installed
 
 
 def remove_clutter() -> None:
@@ -41,5 +41,5 @@ def run_kde_script(script: str) -> None:  # pragma: nocover
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
-    if not context.is_running_in_test and cli.completes_successfully("which qdbus"):
+    if not context.is_running_in_test and is_installed("qdbus"):
         cli.run(command, script)

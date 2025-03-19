@@ -20,3 +20,4 @@ RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
 RUN sudo chmod +x bin/setup
 
 ENTRYPOINT ["./bin/setup"]
+CMD []

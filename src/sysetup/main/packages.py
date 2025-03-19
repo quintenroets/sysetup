@@ -6,9 +6,15 @@ from sysetup.utils import download_directory, is_installed
 
 
 def setup() -> None:
+    enable_sudo()
     update_package_manager()
     install_packages()
     cleanup_after_install()
+
+
+def enable_sudo() -> None:
+    password = context.bitwarden.fetch_secret("Laptop")
+    cli.run("sudo -S true", input=password)  # activate sudo without askpass
 
 
 def install_packages() -> None:
