@@ -13,7 +13,7 @@
    ```shell
    wget -O - sysetup.quintenroets.com | bash
    ```
-   give rclone password when prompted
+   give Bitwarden password when prompted
 2) Appearance
     * Set wallpaper
     * Select We10OSX Cursors

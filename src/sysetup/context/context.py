@@ -4,7 +4,8 @@ from functools import cached_property
 from package_utils.context import Context as Context_
 
 from sysetup.models import Options
-from sysetup.utils import is_installed
+
+from .installations import is_installed
 
 
 class Context(Context_[Options, None, None]):

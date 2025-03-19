@@ -1,6 +1,6 @@
 [project]
 name = "sysetup"
-version = "1.3.7"
+version = "1.4.0"
 description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = {text = "MIT"}
@@ -11,13 +11,13 @@ dependencies = [
     "dbus-next >=0.2.3, <1",
     "package-utils[context] >=0.6.1, <1",
     "powercli >=0.3.1, <1",
-    "python-dotenv >=1.0.1, <2",
     "requests >=2.32.3, <3",
     "superpathlib >=2.0.4, <3",
 ]
 
 [project.optional-dependencies]
 dev = [
+    "types-requests >=2.32.0.20250306, <3",
     "package-dev-tools >=0.5.11, <1",
     "package-dev-utils >=0.1.6, <1",
 ]

@@ -41,9 +41,3 @@ class Path(superpathlib.Path):
     def update_wallpaper_script(cls: type[T]) -> T:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
         return cast(T, path)
-
-    @classmethod
-    @classproperty
-    def profile(cls: type[T]) -> T:
-        path = cls.HOME / ".bash_profile"
-        return cast(T, path)

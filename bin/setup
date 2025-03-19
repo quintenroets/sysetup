@@ -1,7 +1,6 @@
 #! /bin/bash
 
 # Setup environment
-
 venv_path="$HOME/.local/share/envs/qenv"
 export PATH="$venv_path/bin:$PATH:$HOME/.local/bin"
 
@@ -17,9 +16,4 @@ fi
 uv venv "$venv_path"
 uv pip install --upgrade "$package"
 
-# Configure credentials
-askpass=/usr/bin/ksshaskpass
-export SUDO_ASKPASS=$askpass
-export RCLONE_PASSWORD_COMMAND=$askpass
-
-sysetup
+sysetup --bitwarden-password "$1"

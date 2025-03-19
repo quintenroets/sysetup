@@ -2,7 +2,7 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import download_directory
+from sysetup.utils import download_directory, is_installed
 
 
 def remove_clutter() -> None:
@@ -29,11 +29,8 @@ def set_background() -> None:  # pragma: nocover
         Path.HOME / ".local" / "share" / "wallpapers" / "Qwallpapers" / "background.jpg"
     )
     download_directory(wallpaper_path.parent)
-    wallpaper_uri = wallpaper_path.as_uri()
-    script = Path.update_wallpaper_script.text.replace(
-        "__wallpaper_uri__",
-        wallpaper_uri,
-    )
+    script = Path.update_wallpaper_script.text
+    script = script.replace("__wallpaper_uri__", wallpaper_path.as_uri())
     run_kde_script(script)
 
 
@@ -41,5 +38,5 @@ def run_kde_script(script: str) -> None:  # pragma: nocover
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
-    if not context.is_running_in_test and cli.completes_successfully("which qdbus"):
+    if not context.is_running_in_test and is_installed("qdbus"):
         cli.run(command, script)

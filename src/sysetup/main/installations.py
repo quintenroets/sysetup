@@ -1,27 +1,22 @@
-import os
-
 import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import download_file, is_installed
+from sysetup.utils import bitwarden, is_installed
 
 
 def setup() -> None:
     install_chromium()
     install_keyd()
     install_ydotool()
-    download_file(Path("/") / "etc" / "systemd" / "system" / "ydotoold.service")
     enable_service("ssh")
     install_language_support()
     install_personal_git_repositories()
 
 
 def install_personal_git_repositories() -> None:
-    base_url = "https://github.com/quintenroets"
-    token = os.getenv("GITHUB", None)
-    if token is not None:
-        base_url = base_url.replace("github.com", f"{token}@github.com")
+    github_token = bitwarden.client.fetch_secret("GitHub")
+    base_url = f"https://{github_token}@github.com/quintenroets"
     if not Path.extensions.exists():
         command = f"git clone {base_url}/extensions.git"
         cli.run(command, Path.extensions)
@@ -73,13 +68,13 @@ def install_repository(name: str, repository: str) -> None:
         with Path.tempdir() as directory:
             cli.run("git clone", url, directory)
             if (directory / "CMakeLists.txt").exists():
-                cli.run("apt-get install cmake", root=True)
-                cli.run("cmake .")
+                cli.run("apt-get install -y cmake", root=True)
+                cli.run("cmake .", cwd=directory)
             cli.run_commands("make", "sudo make install", cwd=directory)
 
 
 def install_ydotool() -> None:
     if not is_installed("ydotool"):
-        cli.run("apt-get install scdoc")
+        cli.run("apt-get install scdoc", root=True)
         install_repository("ydotool", "ReimuNotMoe/ydotool")
         enable_service("ydotoold")

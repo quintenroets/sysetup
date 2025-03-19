@@ -3,7 +3,6 @@ from collections.abc import Callable, Iterator
 
 import cli
 import pytest
-from backup.context import context
 from backup.utils import setup
 
 from sysetup.main.files.settings import set_background
@@ -30,17 +29,10 @@ def restore_and_check(
     restore: Callable[[Path], Iterator[None]],
 ) -> Callable[[Path], Iterator[None]]:
     setup.check_setup()
-    env = os.environ | {"RCLONE_CONFIG_PASS": context.secrets.rclone}
-    env.pop("RCLONE_PASSWORD_COMMAND", None)
 
     def _restore_and_check(restored_path: Path) -> Iterator[None]:
         def extract_content_hash() -> str:
-            return cli.capture_output(
-                "rclone hashsum MD5",
-                restored_path,
-                env=env,
-                check=False,
-            )
+            return cli.capture_output("rclone hashsum MD5", restored_path, check=False)
 
         content_hash = extract_content_hash()
         yield from restore(restored_path)
