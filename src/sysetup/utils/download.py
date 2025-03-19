@@ -11,10 +11,12 @@ from .bitwarden import bitwarden
 
 
 def download_directory(path: Path) -> None:
+    check_authenticated()
     Backup(sub_check_path=BackupPath(path), confirm=False).pull()
 
 
 def download_file(path: Path) -> None:
+    check_authenticated()
     Backup(path=BackupPath(path), confirm=False).pull()
 
 
