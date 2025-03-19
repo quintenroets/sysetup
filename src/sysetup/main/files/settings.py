@@ -29,11 +29,8 @@ def set_background() -> None:  # pragma: nocover
         Path.HOME / ".local" / "share" / "wallpapers" / "Qwallpapers" / "background.jpg"
     )
     download_directory(wallpaper_path.parent)
-    wallpaper_uri = wallpaper_path.as_uri()
-    script = Path.update_wallpaper_script.text.replace(
-        "__wallpaper_uri__",
-        wallpaper_uri,
-    )
+    script = Path.update_wallpaper_script.text
+    script = script.replace("__wallpaper_uri__", wallpaper_path.as_uri())
     run_kde_script(script)
 
 
