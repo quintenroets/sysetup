@@ -16,8 +16,8 @@ from sysetup.models import Path
 @dataclass
 class Client:
     password: str
+    email: str
     download_url: str = "https://bitwarden.com/download/?app=cli&platform=linux"
-    email: str = "quinten.roets@gmail.com"
 
     def fetch_secret(self, name: str) -> str:
         command = "./bw list items --session", self.session_token, "--search", name
