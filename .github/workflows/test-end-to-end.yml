@@ -26,4 +26,4 @@ jobs:
           load: true
 
       - name: Run setup
-        run: docker run -t -e image ${{ secrets.BITWARDEN}}
+        run: docker run -t image ${{ secrets.BITWARDEN}}
