@@ -2,7 +2,7 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import is_installed
+from sysetup.utils import bitwarden, is_installed
 
 
 def setup() -> None:
@@ -15,7 +15,7 @@ def setup() -> None:
 
 
 def install_personal_git_repositories() -> None:
-    github_token = context.bitwarden.fetch_secret("GitHub")
+    github_token = bitwarden.client.fetch_secret("GitHub")
     base_url = f"https://{github_token}@github.com/quintenroets"
     if not Path.extensions.exists():
         command = f"git clone {base_url}/extensions.git"

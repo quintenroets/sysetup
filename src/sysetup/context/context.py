@@ -2,11 +2,9 @@ import os
 from functools import cached_property
 
 from package_utils.context import Context as Context_
-from rich.prompt import Prompt
 
 from sysetup.models import Options
-from sysetup.utils import is_installed
-from sysetup.utils.bitwarden import Bitwarden
+from sysetup.utils.installations import is_installed
 
 
 class Context(Context_[Options, None, None]):
@@ -22,14 +20,6 @@ class Context(Context_[Options, None, None]):
     @cached_property
     def is_running_in_test(self) -> bool:
         return "DISPLAY" not in os.environ
-
-    @cached_property
-    def bitwarden(self) -> Bitwarden:
-        password = self.options.bitwarden_password or Prompt.ask(
-            "Bitwarden password",
-            password=True,
-        )
-        return Bitwarden(password=password, email=self.options.bitwarden_email)
 
 
 context = Context(Options)

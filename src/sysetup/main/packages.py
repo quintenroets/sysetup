@@ -2,7 +2,7 @@ import cli
 
 from sysetup.context import context
 from sysetup.models import Path
-from sysetup.utils import download_directory, is_installed
+from sysetup.utils import bitwarden, download_directory, is_installed
 
 
 def setup() -> None:
@@ -13,7 +13,7 @@ def setup() -> None:
 
 
 def enable_sudo() -> None:
-    password = context.bitwarden.fetch_secret("Laptop")
+    password = bitwarden.client.fetch_secret("Laptop")
     cli.run("sudo -S true", input=password)  # activate sudo without askpass
 
 

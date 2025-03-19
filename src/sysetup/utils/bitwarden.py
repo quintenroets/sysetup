@@ -7,12 +7,14 @@ from typing import cast
 
 import cli
 import requests
+from rich.prompt import Prompt
 
+from sysetup.context import context
 from sysetup.models import Path
 
 
 @dataclass
-class Bitwarden:
+class Client:
     password: str
     download_url: str = "https://bitwarden.com/download/?app=cli&platform=linux"
     email: str = "quinten.roets@gmail.com"
@@ -36,3 +38,15 @@ class Bitwarden:
         with zipfile.ZipFile(zip_bytes, "r") as zip_file:
             zip_file.extractall()
         Path("bw").chmod(0o755)
+
+
+@dataclass
+class Bitwarden:
+    @cached_property
+    def client(self) -> Client:
+        password = context.options.bitwarden_password
+        password = password or Prompt.ask("Bitwarden password", password=True)
+        return Client(password=password, email=context.options.bitwarden_email)
+
+
+bitwarden = Bitwarden()
