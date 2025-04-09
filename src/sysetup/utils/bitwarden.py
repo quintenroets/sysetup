@@ -23,7 +23,7 @@ class Client:
         command = "./bw list items --session", self.session_token, "--search", name
         response = cli.capture_output(*command)
         secret = json.loads(response)[0]["notes"]
-        return cast(str, secret)
+        return cast("str", secret)
 
     @cached_property
     def session_token(self) -> str:
