@@ -5,14 +5,15 @@ repos:
       - id: docformatter
         args: [--in-place, --make-summary-multi-line, --close-quotes-on-newline, --wrap-summaries, "88"]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.6
+    rev: v0.11.4
     hooks:
       - id: ruff
       - id: ruff-format
   - repo: https://github.com/psf/black
-    rev: 24.10.0
+    rev: 25.1.0
     hooks:
       - id: black
+<<<<<<< HEAD
   - repo: https://github.com/pecigonzalo/pre-commit-shfmt
     rev: v2.2.0
     hooks:
@@ -23,6 +24,8 @@ repos:
     hooks:
       - id: end-of-file-fixer
       - id: trailing-whitespace
+=======
+>>>>>>> template
   - repo: https://github.com/quintenroets/package-dev-tools
     rev: v0.6.9
     hooks:
