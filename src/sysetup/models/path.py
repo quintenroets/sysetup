@@ -2,6 +2,7 @@ from typing import TypeVar, cast
 
 import superpathlib
 from simple_classproperty import classproperty
+from typing_extensions import Self
 
 T = TypeVar("T", bound="Path")
 
@@ -9,35 +10,35 @@ T = TypeVar("T", bound="Path")
 class Path(superpathlib.Path):
     @classmethod
     @classproperty
-    def source_root(cls: type[T]) -> T:
+    def source_root(cls) -> Self:
         return cls(__file__).parent.parent
 
     @classmethod
     @classproperty
-    def assets(cls: type[T]) -> T:
+    def assets(cls) -> Self:
         path = cls.script_assets / cls.source_root.name
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def config(cls: type[T]) -> T:
+    def config(cls) -> Self:
         path = cls.assets / "config" / "config.yaml"
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def packages(cls: type[T]) -> T:
+    def packages(cls) -> Self:
         path = cls.assets / "packages"
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def extensions(cls: type[T]) -> T:
+    def extensions(cls) -> Self:
         path = cls.HOME / ".local" / "share" / "extensions"
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def update_wallpaper_script(cls: type[T]) -> T:
+    def update_wallpaper_script(cls) -> Self:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
-        return cast(T, path)
+        return cast("Self", path)
