@@ -13,19 +13,11 @@ repos:
     rev: 25.1.0
     hooks:
       - id: black
-<<<<<<< HEAD
   - repo: https://github.com/pecigonzalo/pre-commit-shfmt
     rev: v2.2.0
     hooks:
       - id: shell-fmt
         args: [ -w, -i, "4" ]
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
-=======
->>>>>>> template
   - repo: https://github.com/quintenroets/package-dev-tools
     rev: v0.6.9
     hooks:
