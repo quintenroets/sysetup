@@ -23,8 +23,7 @@ class Path(superpathlib.Path):
     @classproperty
     def config(cls) -> Self:
         path = cls.assets / "config" / "config.yaml"
-<<<<<<< HEAD
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
@@ -43,6 +42,3 @@ class Path(superpathlib.Path):
     def update_wallpaper_script(cls: type[T]) -> T:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
         return cast(T, path)
-=======
-        return cast("Self", path)
->>>>>>> template
