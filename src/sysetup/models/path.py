@@ -27,18 +27,18 @@ class Path(superpathlib.Path):
 
     @classmethod
     @classproperty
-    def packages(cls: type[T]) -> T:
+    def packages(cls) -> Self:
         path = cls.assets / "packages"
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def extensions(cls: type[T]) -> T:
+    def extensions(cls) -> Self:
         path = cls.HOME / ".local" / "share" / "extensions"
-        return cast(T, path)
+        return cast("Self", path)
 
     @classmethod
     @classproperty
-    def update_wallpaper_script(cls: type[T]) -> T:
+    def update_wallpaper_script(cls) -> Self:
         path = cls.source_root / "assets" / "scripts" / "update_wallpaper.js"
-        return cast(T, path)
+        return cast("Self", path)
