@@ -3,7 +3,7 @@ name = "sysetup"
 version = "1.4.0"
 description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
-license = {text = "MIT"}
+license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
