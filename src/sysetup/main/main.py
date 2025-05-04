@@ -1,7 +1,6 @@
 import cli
 
-from sysetup.context import context
-from sysetup.models import Action
+from sysetup.context import Action, context
 
 from . import files, installations, packages
 

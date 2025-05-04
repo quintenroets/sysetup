@@ -17,12 +17,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-<<<<<<< HEAD
     "types-requests >=2.32.0.20250306, <3",
-    "package-dev-tools >=0.5.11, <1",
-=======
-    "package-dev-tools >=0.7.0, <1",
->>>>>>> template
+    "package-dev-tools >=0.7.1, <1",
     "package-dev-utils >=0.1.6, <1",
 ]
 

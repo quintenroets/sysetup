@@ -1,17 +1,10 @@
 import os
 from functools import cached_property
 
-<<<<<<< HEAD
 from package_utils.context import Context as Context_
-=======
-from .config import Config
-from .options import Options
-from .secrets_ import Secrets
->>>>>>> template
-
-from sysetup.models import Options
 
 from .installations import is_installed
+from .options import Options
 
 
 class Context(Context_[Options, None, None]):
