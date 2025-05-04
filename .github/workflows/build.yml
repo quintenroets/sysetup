@@ -37,7 +37,7 @@ jobs:
         uses: quintenroets/actions/validate/tests@main
         with:
           python-version: ${{ matrix.python-version }}
-        env:	
+        env:
           RCLONE: ${{ secrets.RCLONE }}
 
   publish:
