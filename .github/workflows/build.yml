@@ -11,6 +11,8 @@ jobs:
       - name: Validate
         id: validate
         uses: quintenroets/actions/validate/@main
+        env:	
+          RCLONE: ${{ secrets.RCLONE }}
 
   extract-python-versions:
     name: Extract Python versions
@@ -35,6 +37,8 @@ jobs:
         uses: quintenroets/actions/validate/tests@main
         with:
           python-version: ${{ matrix.python-version }}
+        env:	
+          RCLONE: ${{ secrets.RCLONE }}
 
   publish:
     name: Publish package
