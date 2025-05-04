@@ -3,9 +3,8 @@ from functools import cached_property
 
 from package_utils.context import Context as Context_
 
-from sysetup.models import Options
-
 from .installations import is_installed
+from .options import Options
 
 
 class Context(Context_[Options, None, None]):
