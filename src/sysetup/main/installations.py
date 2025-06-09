@@ -4,6 +4,8 @@ from sysetup.context import context
 from sysetup.models import Path
 from sysetup.utils import bitwarden, is_installed
 
+from .packages import install
+
 
 def setup() -> None:
     install_chromium()
@@ -30,7 +32,7 @@ def install_language_support() -> None:
         pass
     else:
         if packages:
-            cli.install(packages)
+            install(packages)
 
 
 def install_chromium() -> None:

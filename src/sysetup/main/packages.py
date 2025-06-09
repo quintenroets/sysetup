@@ -24,10 +24,7 @@ def enable_sudo() -> None:
 
 def install_packages() -> None:
     download_directory(Path.packages)
-    packages_install_command = (
-        "apt-get install -y" if context.apt_is_installed else "pacman -S --noconfirm"
-    )
-    installations = {"packages": packages_install_command, "snap": "snap install"}
+    installations = {"packages": None, "snap": "snap install"}
     for name, command in installations.items():
         path = (Path.packages / name).with_suffix(".yaml")
         packages: list[str] = path.yaml
@@ -71,7 +68,14 @@ def update_apt() -> None:
         cli.run("ln -s /var/lib/snapd/snap /snap", root=True)
 
 
-def install(packages: Iterable[str], install_command: str) -> None:
+def install(packages: Iterable[str], install_command: str | None = None) -> None:
+    if install_command is None:
+        install_command = (
+            "apt-get install -y"
+            if context.apt_is_installed
+            else "pacman -S --noconfirm"
+        )
+
     is_linux = platform.system() == "Linux"
     if not is_linux:
         message = "Required packages can only be installed on Linux"
