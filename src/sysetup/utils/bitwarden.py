@@ -20,9 +20,6 @@ class Client:
     download_url: str = "https://bitwarden.com/download/?app=cli&platform=linux"
 
     def fetch_secret(self, name: str) -> str:
-        print("almost")
-        print(self.session_token)
-        print("YES")
         command = "./bw list items --session", self.session_token, "--search", name
         response = cli.capture_output(*command)
         secret = json.loads(response)[0]["notes"]
