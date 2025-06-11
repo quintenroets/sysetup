@@ -29,6 +29,7 @@ class Client:
     def session_token(self) -> str:
         if not Path("bw").exists():
             self.download_cli()
+        command: tuple[str, ...]
         if context.secrets.bw_clientid:
             cli.run("./bw login --apikey")
             command = "./bw unlock --raw", self.password
