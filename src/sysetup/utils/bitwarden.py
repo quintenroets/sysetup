@@ -20,6 +20,9 @@ class Client:
     download_url: str = "https://bitwarden.com/download/?app=cli&platform=linux"
 
     def fetch_secret(self, name: str) -> str:
+        print("almost")
+        print(self.session_token)
+        print("YES")
         command = "./bw list items --session", self.session_token, "--search", name
         response = cli.capture_output(*command)
         secret = json.loads(response)[0]["notes"]
@@ -31,7 +34,7 @@ class Client:
             self.download_cli()
         if context.secrets.bw_clientid:
             cli.run(f"./bw login --apikey")
-            command = "./bw unlock --raw"
+            command = "./bw unlock --raw", self.password
         else:
             command = "./bw login --raw", self.email, self.password
         return cli.capture_output(command)
