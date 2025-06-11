@@ -29,6 +29,10 @@ class Client:
     def session_token(self) -> str:
         if not Path("bw").exists():
             self.download_cli()
+        import cli
+
+        cli.run("env")
+        cli.run(f"./bw login --api-key")
         if not context.secrets.bw_clientid:
             output = cli.capture_output(f"./bw login {self.email} {self.password}")
         else:
