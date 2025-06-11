@@ -32,11 +32,12 @@ class Client:
         import cli
 
         cli.run("env")
-        cli.run(f"./bw login --api-key")
+        print(context.secrets.bw_clientid)
+        cli.run(f"./bw login --apikey")
         if not context.secrets.bw_clientid:
             output = cli.capture_output(f"./bw login {self.email} {self.password}")
         else:
-            output = cli.capture_output(f"./bw login --api-key")
+            output = cli.capture_output(f"./bw login --apikey")
         return output.split("--session ")[-1]
 
     def download_cli(self) -> None:
