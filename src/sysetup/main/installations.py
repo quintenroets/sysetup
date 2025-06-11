@@ -62,7 +62,8 @@ def install_custom_certificate() -> None:
         f"certutil -d sql:{certificate_directory} "
         f'-A -t "C,," -n "QCA" -i {certificate_file}'
     )
-    cli.run(command)
+    if not context.is_running_in_test:
+        cli.run(command)
 
 
 def install_keyd() -> None:
