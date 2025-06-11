@@ -37,7 +37,7 @@ class Client:
             command = "./bw unlock --raw", self.password
         else:
             command = "./bw login --raw", self.email, self.password
-        return cli.capture_output(command)
+        return cli.capture_output(*command)
 
     def download_cli(self) -> None:
         response = requests.get(self.download_url, timeout=10).content
