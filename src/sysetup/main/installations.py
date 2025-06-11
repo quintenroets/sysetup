@@ -51,6 +51,19 @@ def _install_chromium() -> None:
     )
     check = not context.is_running_in_test
     cli.run_commands(*commands, shell=True, root=True, check=check)  # noqa: S604
+    install_custom_certificate()
+
+
+def install_custom_certificate() -> None:
+    install(["libnss3-tools"])
+    certificate_directory = Path.HOME / ".pki" / "nssdb"
+    certificate_file = Path.assets / "certificates" / "certificate.crt"
+    command = (
+        f"certutil -d sql:{certificate_directory} "
+        f'-A -t "C,," -n "QCA" -i {certificate_file}'
+    )
+    if not context.is_running_in_test:
+        cli.run(command)
 
 
 def install_keyd() -> None:

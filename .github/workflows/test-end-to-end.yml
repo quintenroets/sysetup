@@ -26,4 +26,8 @@ jobs:
           load: true
 
       - name: Run setup
-        run: docker run -t image ${{ secrets.BITWARDEN}}
+        run: |
+          docker run -t \
+          -e BW_CLIENTID=${{ secrets.BW_CLIENTID }} \
+          -e BW_CLIENTSECRET=${{ secrets.BW_CLIENTSECRET }} \
+          image ${{ secrets.BITWARDEN}}
