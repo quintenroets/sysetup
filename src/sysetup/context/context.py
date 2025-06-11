@@ -5,9 +5,10 @@ from package_utils.context import Context as Context_
 
 from .installations import is_installed
 from .options import Options
+from .secrets_ import Secrets
 
 
-class Context(Context_[Options, None, None]):
+class Context(Context_[Options, None, Secrets]):
     @cached_property
     def package_manager(self) -> str:
         options = "apt-get", "pacman"
@@ -22,4 +23,4 @@ class Context(Context_[Options, None, None]):
         return "DISPLAY" not in os.environ
 
 
-context = Context(Options)
+context = Context(Options, Secrets=Secrets)
