@@ -30,7 +30,7 @@ class Client:
         if not Path("bw").exists():
             self.download_cli()
         if context.secrets.bw_clientid:
-            cli.run(f"./bw login --apikey")
+            cli.run("./bw login --apikey")
             command = "./bw unlock --raw", self.password
         else:
             command = "./bw login --raw", self.email, self.password
