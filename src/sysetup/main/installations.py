@@ -55,7 +55,7 @@ def _install_chromium() -> None:
 
 
 def install_custom_certificate() -> None:
-    install("libnss3-tools")
+    install(["libnss3-tools"])
     certificate_directory = Path.HOME / ".pki" / "nssdb"
     certificate_file = Path.assets / "certificates" / "certificate.crt"
     command = (
