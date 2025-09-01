@@ -43,9 +43,11 @@ def install_chromium() -> None:
 def _install_chromium() -> None:
     release_name = cli.capture_output_lines("lsb_release -sc")[-1]
     repo_url = f"https://freeshell.de/phd/chromium/{release_name}"
+    key = "869689FE09306074"
     commands = (
-        f'echo "deb {repo_url} /" | sudo tee /etc/apt/sources.list.d/phd-chromium.list',
-        "apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 869689FE09306074",
+        f"gpg --keyserver keyserver.ubuntu.com --recv-keys {key}",
+        f"gpg --export {key} | sudo gpg --dearmor -o /usr/share/keyrings/phd-chromium.gpg",
+        f'echo "deb [signed-by=/usr/share/keyrings/phd-chromium.gpg] {repo_url} /" | sudo tee /etc/apt/sources.list.d/phd-chromium.list',
         "apt-get update",
         "apt-get install -y chromium",
     )
