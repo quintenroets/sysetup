@@ -1,5 +1,6 @@
 import cli
-from backup.backups.cache import cache
+from backup.syncer import Syncer
+from backup.syncer.sync_configs import SyncConfigs
 
 from sysetup.models import Path
 from sysetup.utils import download_directory
@@ -33,12 +34,11 @@ def move_setup_files() -> None:
             else:
                 archived_setup_files.append(path)
 
+    config = SyncConfigs.cache.with_paths(setup_files)
     if setup_files:
-        cache.Backup(paths=setup_files).pull()
-
-    source = cache.Backup().source
+        Syncer(config).capture_pull()
     for path in archived_setup_files:
-        dest = (source / path.relative_to(setup_files_root)).parent
+        dest = (config.source / path.relative_to(setup_files_root)).parent
         if dest.is_root and not dest.exists():
             cli.run("mkdir -p", dest, root=True)
         else:
