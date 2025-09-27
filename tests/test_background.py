@@ -1,7 +1,6 @@
 import os
 from collections.abc import Callable, Iterator
 
-import cli
 import pytest
 from backup.utils import setup
 
@@ -31,12 +30,9 @@ def restore_and_check(
     setup.check_setup()
 
     def _restore_and_check(restored_path: Path) -> Iterator[None]:
-        def extract_content_hash() -> str:
-            return cli.capture_output("rclone hashsum MD5", restored_path, check=False)
-
-        content_hash = extract_content_hash()
+        content_hash = restored_path.content_hash
         yield from restore(restored_path)
-        assert extract_content_hash() == content_hash
+        assert restored_path.content_hash == content_hash
 
     return _restore_and_check
 
