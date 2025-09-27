@@ -29,12 +29,14 @@ class Client:
     def session_token(self) -> str:
         if not Path("bw").exists():
             self.download_cli()
-        command: tuple[str, ...]
-        if context.secrets.bw_clientid:
-            cli.run("./bw login --apikey")
-            command = "./bw unlock --raw", self.password
-        else:
-            command = "./bw login --raw", self.email, self.password
+
+        logged_in = "userEmail" in cli.capture_output("./bw status")
+        command: tuple[str, ...] = "./bw unlock --raw", self.password
+        if not logged_in:
+            if context.secrets.bw_clientid:
+                cli.run("./bw login --apikey")
+            else:
+                command = "./bw login --raw", self.email, self.password
         return cli.capture_output(*command)
 
     def download_cli(self) -> None:

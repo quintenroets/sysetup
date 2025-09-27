@@ -13,7 +13,7 @@ if [ -d "src/$package" ]; then
     package="." # Install from local source when running inside repository
 fi
 
-uv venv "$venv_path"
+uv venv --clear "$venv_path"
 uv pip install --upgrade "$package"
 
 sysetup --bitwarden-password "$1"
