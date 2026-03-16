@@ -7,10 +7,13 @@
 - id: ruff-format
   entry: ruff
   args: [format, .]
+<<<<<<< HEAD
 - entry: shfmt
   args: [ -w, -i, "4" ]
   pass_filenames: true
   files: '\.sh'
+=======
+>>>>>>> template
 - id: infer-missing-annotations
   entry: python
   args: [-m, libcst.tool, codemod, autotyping.AutotypeCommand, --aggressive]
@@ -23,6 +26,10 @@
 - id: run-tests
   entry: coverage run
   fail_fast: true
+<<<<<<< HEAD
+=======
+- entry: check-coverage
+>>>>>>> template
 - entry: check-shields
 - entry: check-version
 - entry: check-import
