@@ -4,7 +4,8 @@ from collections.abc import Callable, Iterator
 import pytest
 from backup.utils import setup
 
-from sysetup.main.files.settings import set_background
+from sysetup.context.system import is_linux
+from sysetup.main.files import set_background
 from sysetup.models import Path
 
 plasma_config_path = Path.HOME / ".config" / "plasma-org.kde.plasma.desktop-appletsrc"
@@ -44,6 +45,7 @@ def restore_config_path(
     yield from restore_and_check(plasma_config_path)
 
 
+@pytest.mark.skipif(not is_linux(), reason="Linux only")
 def test_wallpaper(
     restore_config_path: Callable[[Path], Iterator[None]],  # noqa: ARG001
 ) -> None:

@@ -1,11 +1,11 @@
 import os
 from functools import cached_property
 
-from package_utils.context import Context as Context_
+from package_utils.context.context import Context as Context_
 
-from .installations import is_installed
 from .options import Options
 from .secrets_ import Secrets
+from .system import is_installed
 
 
 class Context(Context_[Options, None, Secrets]):
@@ -20,7 +20,7 @@ class Context(Context_[Options, None, Secrets]):
 
     @cached_property
     def is_running_in_test(self) -> bool:
-        return "DISPLAY" not in os.environ
+        return "PYTEST_CURRENT_TEST" in os.environ
 
 
 context = Context(Options, Secrets=Secrets)

@@ -2,7 +2,7 @@ import io
 import json
 import zipfile
 from dataclasses import dataclass
-from functools import cached_property
+from functools import cache, cached_property
 from typing import cast
 
 import cli
@@ -47,13 +47,8 @@ class Client:
         Path("bw").chmod(0o755)
 
 
-@dataclass
-class Bitwarden:
-    @cached_property
-    def client(self) -> Client:
-        password = context.options.bitwarden_password
-        password = password or Prompt.ask("Bitwarden password", password=True)
-        return Client(password=password, email=context.options.bitwarden_email)
-
-
-bitwarden = Bitwarden()
+@cache
+def bitwarden_client() -> Client:
+    password = context.options.bitwarden_password
+    password = password or Prompt.ask("Bitwarden password", password=True)
+    return Client(password=password, email=context.options.bitwarden_email)

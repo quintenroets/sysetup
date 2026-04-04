@@ -1,8 +1,8 @@
 import cli
 
 from sysetup.context import context
+from sysetup.context.system import is_installed
 from sysetup.models import Path
-from sysetup.utils import bitwarden, is_installed
 
 from .packages import install
 
@@ -13,16 +13,6 @@ def setup() -> None:
     install_ydotool()
     enable_service("ssh")
     install_language_support()
-    install_personal_git_repositories()
-
-
-def install_personal_git_repositories() -> None:
-    github_token = bitwarden.client.fetch_secret("GitHub")
-    base_url = f"https://{github_token}@github.com/quintenroets"
-    if not Path.extensions.exists():
-        command = f"git clone {base_url}/extensions.git"
-        cli.run(command, Path.extensions)
-    cli.run(f"uv pip install git+{base_url}/system.git")
 
 
 def install_language_support() -> None:
@@ -37,10 +27,10 @@ def install_language_support() -> None:
 
 def install_chromium() -> None:
     if not is_installed("chromium-browser"):
-        _install_chromium()
+        install_chromium_()
 
 
-def _install_chromium() -> None:
+def install_chromium_() -> None:
     release_name = cli.capture_output_lines("lsb_release -sc")[-1]
     repo_url = f"https://freeshell.de/phd/chromium/{release_name}"
     key = "869689FE09306074"

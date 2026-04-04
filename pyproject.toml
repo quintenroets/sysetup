@@ -1,25 +1,24 @@
 [project]
 name = "sysetup"
-version = "1.4.3"
+version = "1.4.4"
 description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
-    "backupmaster >=2.0.2, <3",
-    "dbus-next >=0.2.3, <1",
-    "package-utils[context] >=0.6.1, <1",
-    "powercli >=0.3.1, <1",
+    "backupmaster >=2.0.5, <3",
+    "package-utils[context] >=0.8.2, <1",
+    "powercli >=0.3.7, <1",
     "requests >=2.32.3, <3",
-    "superpathlib >=2.0.4, <3",
+    "superpathlib >=2.0.11, <3",
 ]
 
 [project.optional-dependencies]
 dev = [
     "dirhash >=0.5.0, <1",
     "types-requests >=2.32.0.20250306, <3",
-    "package-dev-tools >=0.7.1, <1",
+    "package-dev-tools >=0.8.0, <1",
     "package-dev-utils >=0.1.6, <1",
 ]
 
@@ -60,13 +59,16 @@ ignore = [
     "D",       # docstrings
     "G004",    # logging f-string
     "S101",    # assert used
+    "D1",       # missing docstrings
+    "D200",     # one-line docstring
+    "D203",     # conflicts with D211
+    "D205",     # blank line between summary and description
+    "D212",     # conflicts with D213
+    "D401",     # imperative first line
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
-
-[tool.setuptools]
-script-files = ["bin/pw", "bin/pw-askpass"]
 
 [tool.setuptools.package-data]
 sysetup = ["assets/scripts/update_wallpaper.js", "py.typed"]

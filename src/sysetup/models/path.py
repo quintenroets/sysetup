@@ -1,10 +1,8 @@
-from typing import TypeVar, cast
+from typing import cast
 
 import superpathlib
 from simple_classproperty import classproperty
 from typing_extensions import Self
-
-T = TypeVar("T", bound="Path")
 
 
 class Path(superpathlib.Path):

@@ -1,4 +1,3 @@
-import platform
 import shlex
 import warnings
 from collections.abc import Iterable
@@ -6,8 +5,9 @@ from collections.abc import Iterable
 import cli
 
 from sysetup.context import context
+from sysetup.context.system import is_installed, is_linux
 from sysetup.models import Path
-from sysetup.utils import bitwarden, download_directory, is_installed
+from sysetup.utils import bitwarden_client, download_directory
 
 
 def setup() -> None:
@@ -18,7 +18,7 @@ def setup() -> None:
 
 
 def enable_sudo() -> None:
-    password = bitwarden.client.fetch_secret("Laptop")
+    password = bitwarden_client().fetch_secret("Laptop")
     cli.run("sudo -S true", input=password)  # activate sudo without askpass
 
 
@@ -75,13 +75,10 @@ def install(packages: Iterable[str], install_command: str | None = None) -> None
             if context.apt_is_installed
             else "pacman -S --noconfirm"
         )
-
-    is_linux = platform.system() == "Linux"
-    if not is_linux:
+    if not is_linux():
         message = "Required packages can only be installed on Linux"
         warnings.warn(message, stacklevel=2)
-        return
-
-    for package in packages:
-        args = shlex.split(package)
-        cli.run(install_command, *args, root=True, check=False)
+    else:
+        for package in packages:
+            args = shlex.split(package)
+            cli.run(install_command, *args, root=True, check=False)
