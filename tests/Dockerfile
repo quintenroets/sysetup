@@ -16,7 +16,7 @@ WORKDIR /home/$USERNAME
 USER $USERNAME
 
 COPY --chown=$USERNAME bin/ bin/
-COPY --chown=$USERNAME pyproject.toml uv.lock ./
+COPY --chown=$USERNAME pyproject.toml ./
 COPY --chown=$USERNAME src/ src/
 RUN sudo chmod +x bin/setup
 
