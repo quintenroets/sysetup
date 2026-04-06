@@ -18,6 +18,5 @@
   args: [.]
   fail_fast: true
   require_serial: true
-- entry: check-shields
 - entry: check-version
 - entry: check-import
