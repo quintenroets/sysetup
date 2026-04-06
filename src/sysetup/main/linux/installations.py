@@ -37,5 +37,5 @@ def install_repository(name: str, repository: str) -> None:
 
 
 def enable_service(name: str) -> None:
-    if is_installed("systemctl"):
+    if Path("/run/systemd/system").exists():
         cli.run(f"systemctl enable --now {name}", root=True)
