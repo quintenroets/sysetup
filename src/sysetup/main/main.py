@@ -18,7 +18,7 @@ def main() -> None:
     elif is_mac():
         packages.install_packages()
     install_personal_git_repositories()
-    if not context.is_running_in_test:
+    if not context.is_running_in_container:
         flags = ("--include-browser",) if is_linux() else ()
         cli.run("backup pull --no-confirm-push", *flags)
 

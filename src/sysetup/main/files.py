@@ -85,5 +85,5 @@ def install_custom_certificate() -> None:
             f"certutil -d sql:{certificate_directory} "
             f'-A -t "C,," -n "QCA" -i {certificate_file}'
         )
-    if not context.is_running_in_test:
+    if not context.is_running_in_container:
         cli.run(command, root=is_mac())

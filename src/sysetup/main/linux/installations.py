@@ -1,6 +1,5 @@
 import cli
 
-from sysetup.context import context
 from sysetup.context.system import is_installed
 from sysetup.main.packages import install
 from sysetup.models import Path
@@ -38,6 +37,5 @@ def install_repository(name: str, repository: str) -> None:
 
 
 def enable_service(name: str) -> None:
-    if not context.is_running_in_test:
-        command = f"systemctl enable --now {name}"
-        cli.run(command, root=True)
+    if is_installed("systemctl"):
+        cli.run(f"systemctl enable --now {name}", root=True)

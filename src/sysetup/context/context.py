@@ -1,5 +1,5 @@
-import os
 from functools import cached_property
+from pathlib import Path
 
 from package_utils.context.context import Context as Context_
 
@@ -19,8 +19,8 @@ class Context(Context_[Options, None, Secrets]):
         return self.package_manager == "apt-get"
 
     @cached_property
-    def is_running_in_test(self) -> bool:
-        return "PYTEST_CURRENT_TEST" in os.environ
+    def is_running_in_container(self) -> bool:
+        return Path("/.dockerenv").exists()
 
 
 context = Context(Options, Secrets=Secrets)

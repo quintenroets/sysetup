@@ -25,7 +25,7 @@ def set_background() -> None:  # pragma: nocover
     command = (
         "qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript"
     )
-    if not context.is_running_in_test and is_installed("qdbus"):
+    if not context.is_running_in_container and is_installed("qdbus"):
         cli.run(command, script)
 
 
