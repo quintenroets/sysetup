@@ -1,4 +1,2 @@
-from sysetup.context.installations import is_installed
-
-from .bitwarden import bitwarden
-from .download import download_directory, download_file
+from .bitwarden import bitwarden_client
+from .download import download_directory, ensure_downloaded

@@ -15,8 +15,9 @@ ENV HOME=/home/$USERNAME
 WORKDIR /home/$USERNAME
 USER $USERNAME
 
-COPY . .
-RUN sudo chown -R $USERNAME:$USERNAME /home/$USERNAME
+COPY --chown=$USERNAME bin/ bin/
+COPY --chown=$USERNAME pyproject.toml ./
+COPY --chown=$USERNAME src/ src/
 RUN sudo chmod +x bin/setup
 
 ENTRYPOINT ["./bin/setup"]

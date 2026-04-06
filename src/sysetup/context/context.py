@@ -1,11 +1,11 @@
-import os
 from functools import cached_property
+from pathlib import Path
 
-from package_utils.context import Context as Context_
+from package_utils.context.context import Context as Context_
 
-from .installations import is_installed
 from .options import Options
 from .secrets_ import Secrets
+from .system import is_installed
 
 
 class Context(Context_[Options, None, Secrets]):
@@ -19,8 +19,8 @@ class Context(Context_[Options, None, Secrets]):
         return self.package_manager == "apt-get"
 
     @cached_property
-    def is_running_in_test(self) -> bool:
-        return "DISPLAY" not in os.environ
+    def is_running_in_container(self) -> bool:
+        return Path("/.dockerenv").exists()
 
 
 context = Context(Options, Secrets=Secrets)
