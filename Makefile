@@ -3,3 +3,6 @@ config/template-Makefile:
 	curl https://raw.githubusercontent.com/quintenroets/package-dev-tools/refs/heads/main/config/template-Makefile -o config/template-Makefile
 
 include config/template-Makefile
+
+integration-test:
+	tests/integration-test.sh

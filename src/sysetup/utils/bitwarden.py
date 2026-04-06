@@ -1,5 +1,6 @@
 import io
 import json
+import sys
 import zipfile
 from dataclasses import dataclass
 from functools import cache, cached_property
@@ -17,12 +18,12 @@ from sysetup.models import Path
 class Client:
     password: str
     email: str
-    download_url: str = "https://bitwarden.com/download/?app=cli&platform=linux"
 
     def fetch_secret(self, name: str) -> str:
         command = "./bw list items --session", self.session_token, "--search", name
         response = cli.capture_output(*command)
-        secret = json.loads(response)[0]["notes"]
+        item = json.loads(response)[0]
+        secret = item.get("notes") or item["login"]["password"]
         return cast("str", secret)
 
     @cached_property
@@ -40,7 +41,9 @@ class Client:
         return cli.capture_output(*command)
 
     def download_cli(self) -> None:
-        response = requests.get(self.download_url, timeout=10).content
+        platform = "macos" if sys.platform == "darwin" else "linux"
+        download_url = f"https://bitwarden.com/download/?app=cli&platform={platform}"
+        response = requests.get(download_url, timeout=10).content
         zip_bytes = io.BytesIO(response)
         with zipfile.ZipFile(zip_bytes, "r") as zip_file:
             zip_file.extractall()

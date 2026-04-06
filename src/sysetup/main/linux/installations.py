@@ -2,15 +2,15 @@ import cli
 
 from sysetup.context import context
 from sysetup.context.system import is_installed
+from sysetup.main.packages import install
 from sysetup.models import Path
-
-from .packages import install
 
 
 def setup() -> None:
-    install_chromium()
-    install_keyd()
-    install_ydotool()
+    if not is_installed("chromium-browser"):
+        install_chromium()
+    install_repository("keyd", "rvaiya/keyd")
+    install_repository("ydotool", "ReimuNotMoe/ydotool")
     enable_service("ssh")
     install_language_support()
 
@@ -26,11 +26,6 @@ def install_language_support() -> None:
 
 
 def install_chromium() -> None:
-    if not is_installed("chromium-browser"):
-        install_chromium_()
-
-
-def install_chromium_() -> None:
     release_name = cli.capture_output_lines("lsb_release -sc")[-1]
     repo_url = f"https://freeshell.de/phd/chromium/{release_name}"
     key = "869689FE09306074"
@@ -45,34 +40,12 @@ def install_chromium_() -> None:
     )
     check = not context.is_running_in_test
     cli.run_commands(*commands, shell=True, root=True, check=check)  # noqa: S604
-    install_custom_certificate()
-
-
-def install_custom_certificate() -> None:
-    install(["libnss3-tools"])
-    certificate_directory = Path.HOME / ".pki" / "nssdb"
-    certificate_file = Path.assets / "certificates" / "certificate.crt"
-    command = (
-        f"certutil -d sql:{certificate_directory} "
-        f'-A -t "C,," -n "QCA" -i {certificate_file}'
-    )
-    if not context.is_running_in_test:
-        cli.run(command)
-
-
-def install_keyd() -> None:
-    install_repository("keyd", "rvaiya/keyd")
-    enable_service("keyd")
-
-
-def enable_service(name: str) -> None:
-    if not context.is_running_in_test:
-        command = f"systemctl enable --now {name}"
-        cli.run(command, root=True)
 
 
 def install_repository(name: str, repository: str) -> None:
     if not is_installed(name):
+        if name == "ydotool":
+            cli.run("apt-get install scdoc", root=True)
         url = f"https://github.com/{repository}"
         with Path.tempdir() as directory:
             cli.run("git clone", url, directory)
@@ -80,10 +53,10 @@ def install_repository(name: str, repository: str) -> None:
                 cli.run("apt-get install -y cmake", root=True)
                 cli.run("cmake .", cwd=directory)
             cli.run_commands("make", "sudo make install", cwd=directory)
+        enable_service(name)
 
 
-def install_ydotool() -> None:
-    if not is_installed("ydotool"):
-        cli.run("apt-get install scdoc", root=True)
-        install_repository("ydotool", "ReimuNotMoe/ydotool")
-        enable_service("ydotoold")
+def enable_service(name: str) -> None:
+    if not context.is_running_in_test:
+        command = f"systemctl enable --now {name}"
+        cli.run(command, root=True)

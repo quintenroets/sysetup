@@ -24,10 +24,11 @@ jobs:
           cache-to: type=gha,mode=max
           tags: image
           load: true
+          file: tests/Dockerfile
 
       - name: Run setup
         run: |
           docker run -t \
           -e BW_CLIENTID=${{ secrets.BW_CLIENTID }} \
           -e BW_CLIENTSECRET=${{ secrets.BW_CLIENTSECRET }} \
-          image ${{ secrets.BITWARDEN}}
+          image ${{ secrets.BITWARDEN }}
