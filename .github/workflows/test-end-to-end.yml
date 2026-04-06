@@ -27,8 +27,9 @@ jobs:
           file: tests/Dockerfile
 
       - name: Run setup
-        run: |
-          docker run -t \
-          -e BW_CLIENTID=${{ secrets.BW_CLIENTID }} \
-          -e BW_CLIENTSECRET=${{ secrets.BW_CLIENTSECRET }} \
-          image ${{ secrets.BITWARDEN }}
+        run: bash tests/integration-test.sh
+        env:
+          BW_CLIENTID: ${{ secrets.BW_CLIENTID }}
+          BW_CLIENTSECRET: ${{ secrets.BW_CLIENTSECRET }}
+          BITWARDEN: ${{ secrets.BITWARDEN }}
+          IMAGE_TAG: image
