@@ -5,10 +5,13 @@
   args: [format, .]
 - entry: expand-docstrings
   files: '\.py'
+<<<<<<< HEAD
 - entry: shfmt
   args: [ -w, -i, "4" ]
   pass_filenames: true
   files: '\.sh'
+=======
+>>>>>>> template
 - id: infer-missing-annotations
   entry: python
   args: [-m, libcst.tool, codemod, autotyping.AutotypeCommand, --aggressive]
