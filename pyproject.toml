@@ -9,16 +9,25 @@ requires-python = ">=3.10"
 dependencies = [
     "backupmaster >=2.0.5, <3",
     "package-utils[context] >=0.8.3, <1",
+<<<<<<< HEAD
     "powercli >=0.3.7, <1",
     "requests >=2.32.3, <3",
     "superpathlib >=2.0.11, <3",
+=======
+    "powercli >=0.4.0, <1",
+>>>>>>> template
 ]
 
 [project.optional-dependencies]
 dev = [
+<<<<<<< HEAD
     "dirhash >=0.5.0, <1",
     "types-requests >=2.32.0.20250306, <3",
     "package-dev-tools >=0.8.0, <1",
+=======
+    "package-dev-tools >=0.8.1, <1",
+    "package-dev-utils >=0.1.6, <1",
+>>>>>>> template
 ]
 
 [project.urls]
