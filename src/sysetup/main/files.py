@@ -2,19 +2,15 @@ import stat
 
 import cli
 
-from sysetup.context import context
-from sysetup.context.system import is_linux, is_mac
+from sysetup.context.system import is_linux
 from sysetup.models import Path
-from sysetup.utils import download_directory, ensure_downloaded
-
-from .packages import install
+from sysetup.utils import download_directory
 
 
 def setup() -> None:
     configure_git()
     configure_ssh()
     remove_clutter()
-    install_custom_certificate()
 
 
 def configure_git() -> None:
@@ -64,26 +60,3 @@ def remove_clutter() -> None:
     nginx_path = root / "etc" / "nginx" / "sites-enabled" / "default"
     if nginx_path.exists():
         cli.run("rm", nginx_path, root=True)
-
-
-def install_custom_certificate() -> None:
-    certificate_file = Path.assets / "certificates" / "certificate.crt"
-    ensure_downloaded(certificate_file)
-    if is_mac():
-        keychain = "/Library/Keychains/System.keychain"
-        command = (
-            f"security add-trusted-cert -d -r trustRoot "
-            f"-k {keychain} {certificate_file}"
-        )
-    else:
-        install(["libnss3-tools"])
-        certificate_directory = Path.HOME / ".pki" / "nssdb"
-        if not certificate_directory.exists():
-            certificate_directory.mkdir(parents=True)
-            cli.run(f"certutil -d sql:{certificate_directory} -N --empty-password")
-        command = (
-            f"certutil -d sql:{certificate_directory} "
-            f'-A -t "C,," -n "QCA" -i {certificate_file}'
-        )
-    if not context.is_running_in_container:
-        cli.run(command, root=is_mac())
