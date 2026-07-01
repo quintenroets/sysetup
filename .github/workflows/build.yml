@@ -11,8 +11,6 @@ jobs:
       - name: Validate
         id: validate
         uses: quintenroets/actions/validate/@main
-        env:	
-          RCLONE: ${{ secrets.RCLONE }}
 
   publish:
     name: Publish package

@@ -8,23 +8,21 @@ from typing import cast
 
 import cli
 import requests
-from rich.prompt import Prompt
+from superpathlib import Path
 
 from sysetup.context import context
-from sysetup.models import Path
 
 
 @dataclass
 class Client:
-    password: str
     email: str
+    password: str
 
     def fetch_secret(self, name: str) -> str:
-        command = "./bw list items --session", self.session_token, "--search", name
-        response = cli.capture_output(*command)
-        item = json.loads(response)[0]
-        secret = item.get("notes") or item["login"]["password"]
-        return cast("str", secret)
+        command = "./bw list items --search", name, "--session", self.session_token
+        items = json.loads(cli.capture_output(*command))
+        item = next(item for item in items if item["name"] == name)
+        return cast("str", item["notes"])
 
     @cached_property
     def session_token(self) -> str:
@@ -52,6 +50,7 @@ class Client:
 
 @cache
 def bitwarden_client() -> Client:
-    password = context.options.bitwarden_password
-    password = password or Prompt.ask("Bitwarden password", password=True)
-    return Client(password=password, email=context.options.bitwarden_email)
+    return Client(
+        email=context.options.bitwarden_email,
+        password=context.secrets.bitwarden,
+    )

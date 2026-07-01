@@ -1,10 +1,9 @@
 import cli
+from superpathlib import Path
 
-from sysetup.context import context
-from sysetup.context.system import is_installed
-from sysetup.main.packages import install_packages
-from sysetup.models import Path
-from sysetup.utils import bitwarden_client
+from sysetup.bitwarden import bitwarden_client
+from sysetup.context import context, is_installed
+from sysetup.packages import install_packages
 
 
 def setup() -> None:
@@ -40,7 +39,8 @@ def update_apt() -> None:
 def cleanup_after_install() -> None:
     if context.apt_is_installed:
         cli.run("sudo apt-get autoremove -y")
-    cli.run("tlp start", root=True)
+    if not context.is_running_in_container:
+        cli.run("tlp start", root=True)
     if is_installed("qdbus"):
         commands = "rm /usr/bin/qdbus", "ln -s /usr/lib/qt6/bin/qdbus /usr/bin/qdbus"
         cli.run_commands(*commands, root=True)

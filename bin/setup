@@ -16,4 +16,4 @@ fi
 uv venv --clear "$venv_path"
 uv pip install --upgrade "$package"
 
-sysetup --bitwarden-password "$1"
+sysetup
