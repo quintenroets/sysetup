@@ -2,6 +2,7 @@ import os
 import platform
 from dataclasses import dataclass, field
 from functools import cached_property
+from pathlib import Path
 
 import cli
 from package_utils.context.context import Context as Context_
@@ -27,6 +28,10 @@ class Context(Context_[Options, None, Secrets]):
     @cached_property
     def apt_is_installed(self) -> bool:
         return self.package_manager == "apt-get"
+
+    @cached_property
+    def is_running_in_container(self) -> bool:
+        return Path("/.dockerenv").exists()
 
     @cached_property
     def package_install_command(self) -> str:

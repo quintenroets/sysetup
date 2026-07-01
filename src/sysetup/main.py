@@ -40,6 +40,6 @@ def remove_clutter() -> None:
 
 
 def install_personal_git_repositories() -> None:
-    github_token = bitwarden_client().fetch_secret("GitHub Token")
+    github_token = bitwarden_client().fetch_secret("github token")
     url = f"git+https://{github_token}@github.com/quintenroets/system.git"
     cli.run("uv pip install", url)
