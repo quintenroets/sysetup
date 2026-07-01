@@ -1,10 +1,9 @@
 import cli
+from superpathlib import Path
 
-from sysetup.context import context
-from sysetup.context.system import is_installed
-from sysetup.main.packages import install_packages
-from sysetup.models import Path
-from sysetup.utils import bitwarden_client
+from sysetup.bitwarden import bitwarden_client
+from sysetup.context import context, is_installed
+from sysetup.packages import install_packages
 
 
 def setup() -> None:

@@ -1,8 +1,8 @@
 import cli
+from superpathlib import Path
 
-from sysetup.context.system import is_installed
-from sysetup.main.packages import install
-from sysetup.models import Path
+from sysetup.context import is_installed
+from sysetup.packages import install
 
 
 def setup() -> None:
