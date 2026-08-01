@@ -5,7 +5,7 @@ description = "Personal system setup"
 authors = [{name = "Quinten Roets", email = "qdr2104@columbia.edu"}]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "backupmaster >=3.0.0, <4",
     "package-utils[context] >=0.8.3, <1",
