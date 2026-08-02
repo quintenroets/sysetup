@@ -1,17 +1,8 @@
 # Sysetup
 [![PyPI version](https://badge.fury.io/py/sysetup.svg)](https://badge.fury.io/py/sysetup)
 ![PyPI downloads](https://img.shields.io/pypi/dm/sysetup)
-<<<<<<< HEAD
-![Python version](https://img.shields.io/badge/python-3.10+-brightgreen)
-![Operating system](https://img.shields.io/badge/os-linux%20%7c%20macOS-brightgreen)
-## [Plasma](https://kde.org/plasma-desktop/) 6 required
-=======
 ![Python version](https://img.shields.io/badge/python-3.11+-brightgreen)
-![Operating system](https://img.shields.io/badge/os-linux%20%7c%20macOS%20%7c%20windows-brightgreen)
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
->>>>>>> template
-
-[Setup info](docs/setup-plasma.md)
+![Operating system](https://img.shields.io/badge/os-linux%20%7c%20macOS-brightgreen)
 
 ## Setup steps
 1) Run

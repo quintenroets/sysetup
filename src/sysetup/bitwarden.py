@@ -1,6 +1,5 @@
 import io
 import json
-import sys
 import zipfile
 from dataclasses import dataclass
 from functools import cache, cached_property
@@ -10,7 +9,7 @@ import cli
 import requests
 from superpathlib import Path
 
-from sysetup.context import context
+from sysetup.context import context, is_mac
 
 
 @dataclass
@@ -39,7 +38,7 @@ class Client:
         return cli.capture_output(*command)
 
     def download_cli(self) -> None:
-        platform = "macos" if sys.platform == "darwin" else "linux"
+        platform = "macos" if is_mac() else "linux"
         download_url = f"https://bitwarden.com/download/?app=cli&platform={platform}"
         response = requests.get(download_url, timeout=10).content
         zip_bytes = io.BytesIO(response)
