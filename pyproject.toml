@@ -30,6 +30,17 @@ sysetup = "sysetup:entry_point"
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+<<<<<<< HEAD
+=======
+[tool.coverage.run]
+command_line = "-m pytest tests"
+relative_files = true
+
+[tool.coverage.report]
+precision = 4
+fail_under = 100
+
+>>>>>>> template
 [tool.mypy]
 strict = true
 no_implicit_reexport = false
