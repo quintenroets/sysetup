@@ -30,17 +30,6 @@ sysetup = "sysetup:entry_point"
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
-<<<<<<< HEAD
-=======
-[tool.coverage.run]
-command_line = "-m pytest tests"
-relative_files = true
-
-[tool.coverage.report]
-precision = 4
-fail_under = 100
-
->>>>>>> template
 [tool.mypy]
 strict = true
 no_implicit_reexport = false
@@ -51,19 +40,8 @@ fix = true
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-<<<<<<< HEAD
-    "ANN401",  # annotated with Any
-    "D",       # docstrings
-    "G004",    # logging f-string
-    "S101",    # assert used
-=======
     "ANN401",   # annotated with Any
     "CPY001",   # missing copyright notice
-<<<<<<< HEAD
-    "G004",     # logging f-string
->>>>>>> template
-=======
->>>>>>> template
     "D1",       # missing docstrings
     "D200",     # one-line docstring
     "D203",     # conflicts with D211
@@ -71,6 +49,7 @@ ignore = [
     "D212",     # conflicts with D213
     "D401",     # imperative first line
     "G004",     # logging f-string
+    "S101",     # assert used
 ]
 
 [tool.ruff.lint.per-file-ignores]
