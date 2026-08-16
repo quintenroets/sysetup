@@ -59,7 +59,10 @@ ignore = [
 =======
     "ANN401",   # annotated with Any
     "CPY001",   # missing copyright notice
+<<<<<<< HEAD
     "G004",     # logging f-string
+>>>>>>> template
+=======
 >>>>>>> template
     "D1",       # missing docstrings
     "D200",     # one-line docstring
@@ -67,6 +70,7 @@ ignore = [
     "D205",     # blank line between summary and description
     "D212",     # conflicts with D213
     "D401",     # imperative first line
+    "G004",     # logging f-string
 ]
 
 [tool.ruff.lint.per-file-ignores]
