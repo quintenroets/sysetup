@@ -15,7 +15,7 @@ def setup() -> None:
 
 def enable_sudo() -> None:
     password = bitwarden_client().fetch_secret("Laptop")
-    cli.run("sudo -S true", input=password)
+    cli.run("sudo -S -v", input=password)
 
 
 def update_package_manager() -> None:

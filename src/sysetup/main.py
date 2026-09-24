@@ -11,11 +11,11 @@ def main() -> None:
     """
     Personal system setup.
     """
-    remove_clutter()
     if is_linux():
         linux.setup()
     elif is_mac():
         packages.install_packages()
+    remove_clutter()
     install_personal_git_repositories()
 
 
