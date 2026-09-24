@@ -1,5 +1,5 @@
 import os
-import platform
+import sys
 from dataclasses import dataclass, field
 from functools import cached_property
 from pathlib import Path
@@ -44,11 +44,11 @@ context = Context(Options, Secrets=Secrets)
 
 
 def is_mac() -> bool:
-    return platform.system() == "Darwin"
+    return sys.platform == "darwin"
 
 
 def is_linux() -> bool:
-    return platform.system() == "Linux"
+    return sys.platform == "linux"
 
 
 def is_installed(package: str) -> bool:
